@@ -123,7 +123,7 @@ export default async function Home({
                   </div>
                   <div className="grid min-w-0 gap-1">
                     <span className="chip w-fit">{t.eventType[e.type]}</span>
-                    <p className="truncate font-bold">{e.title}</p>
+                    <Link href={`/${locale}/events/e/${e.id}`} className="truncate font-bold hover:text-brand hover:underline">{e.title}</Link>
                     <p className="truncate text-xs text-muted">{e.venue} · {t.area[e.area]}</p>
                   </div>
                 </li>

@@ -132,3 +132,12 @@ export async function listActivities(opts: { category?: ActivityCategory; group?
   }
   return opts.limit ? list.slice(0, opts.limit) : list;
 }
+
+export async function getEvent(id: string): Promise<KEvent | undefined> {
+  return (await allEvents()).find((e) => e.id === id);
+}
+
+/** All published events (no date filter), for static params and the sitemap. */
+export async function listAllEvents(): Promise<KEvent[]> {
+  return allEvents();
+}

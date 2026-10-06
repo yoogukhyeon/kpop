@@ -91,6 +91,7 @@ export default async function LocaleLayout({
             </Link>
             <nav className="hidden items-center gap-5 text-[15px] font-semibold text-muted md:flex">
               <Link href={`/${locale}/groups`} className="hover:text-text">{t.nav.groups}</Link>
+              <Link href={`/${locale}/birthdays`} className="hover:text-text">{t.birthdays.nav}</Link>
               <Link href={`/${locale}/activities`} className="hover:text-text">{t.activities.nav}</Link>
               <Link href={`/${locale}/events`} className="hover:text-text">{t.nav.events}</Link>
               <Link href={`/${locale}/guides`} className="hover:text-text">{t.nav.guides}</Link>
@@ -107,6 +108,7 @@ export default async function LocaleLayout({
           </div>
           <nav className="flex gap-5 overflow-x-auto px-4 pb-2.5 text-sm font-semibold text-muted md:hidden">
             <Link href={`/${locale}/groups`} className="shrink-0">{t.nav.groups}</Link>
+            <Link href={`/${locale}/birthdays`} className="shrink-0">{t.birthdays.nav}</Link>
             <Link href={`/${locale}/activities`} className="shrink-0">{t.activities.nav}</Link>
             <Link href={`/${locale}/events`} className="shrink-0">{t.nav.events}</Link>
             <Link href={`/${locale}/guides`} className="shrink-0">{t.nav.guides}</Link>
@@ -129,6 +131,7 @@ export default async function LocaleLayout({
             </div>
             <nav className="flex flex-wrap gap-x-5 gap-y-2 font-semibold">
               <Link href={`/${locale}/groups`} className="hover:text-text">{t.nav.groups}</Link>
+              <Link href={`/${locale}/birthdays`} className="hover:text-text">{t.birthdays.nav}</Link>
               <Link href={`/${locale}/activities`} className="hover:text-text">{t.activities.nav}</Link>
               <Link href={`/${locale}/events`} className="hover:text-text">{t.nav.events}</Link>
               <Link href={`/${locale}/guides`} className="hover:text-text">{t.nav.guides}</Link>

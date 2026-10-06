@@ -12,6 +12,7 @@ import { PlanBox } from "@/components/PlanBox";
 import { getGroup, listActivities, listEvents, listGroups, listPlacesForGroup } from "@/lib/data";
 import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
 import { mapsUrl, seoulToday, site, seoTitle } from "@/lib/site";
+import { AlertSignup } from "@/components/AlertSignup";
 import type { Area, Place } from "@/lib/types";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
@@ -262,6 +263,13 @@ export default async function GroupPage({ params }: Props) {
               </ul>
             </section>
           )}
+
+          <AlertSignup
+            locale={locale}
+            group={g.slug}
+            failedLabel={t.submit.failed}
+            labels={{ ...t.alerts, title: t.alerts.title(g.name), desc: t.alerts.desc(g.name), thanks: t.alerts.thanks(g.name) }}
+          />
 
           <section id="tips" className="grid gap-4">
             <h2 className="section-title">💡 {d.tabs.tips}</h2>

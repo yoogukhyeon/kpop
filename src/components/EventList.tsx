@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { getGroup } from "@/lib/data";
 import { formatDate, getDictionary, type Locale } from "@/lib/i18n";
@@ -38,7 +39,7 @@ export async function EventList({ events, locale }: { events: KEvent[]; locale: 
           <li key={e.id} className="card grid gap-1 text-sm">
             <p>
               <span className="mr-2 rounded-md bg-brand-soft px-1.5 py-0.5 text-xs font-semibold text-brand">{t.eventType[e.type]}</span>
-              <b>{e.title}</b>
+              <Link href={`/${locale}/events/e/${e.id}`} className="font-bold hover:text-brand hover:underline">{e.title}</Link>
             </p>
             <p className="text-muted">
               {formatDate(e.startDate, locale)}–{formatDate(e.endDate, locale)} · {e.venue} · {t.area[e.area]} · {e.groups.map((g) => groupNames.get(g)).join(", ")}

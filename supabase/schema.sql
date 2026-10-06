@@ -123,5 +123,22 @@ create policy "public read published activities" on activities for select to ano
 grant select on activities to anon, authenticated;
 grant all on activities to service_role;
 
+-- Bias alert sign-ups (email). Insert-only for the public; read by the server only.
+create table if not exists subscriptions (
+  id          uuid primary key default gen_random_uuid(),
+  email       text not null check (email ~* '^[^@\s]+@[^@\s]+\.[^@\s]+$' and char_length(email) <= 254),
+  group_slug  text not null references groups (slug) on delete cascade,
+  member_slug text,
+  locale      text not null,
+  created_at  timestamptz not null default now(),
+  unsubscribed_at timestamptz,
+  unique (email, group_slug)
+);
+alter table subscriptions enable row level security;
+drop policy if exists "public subscribe" on subscriptions;
+create policy "public subscribe" on subscriptions for insert to anon, authenticated with check (unsubscribed_at is null);
+grant insert on subscriptions to anon, authenticated;
+grant all on subscriptions to service_role;
+
 -- Make the API pick up the new tables immediately.
 notify pgrst, 'reload schema';

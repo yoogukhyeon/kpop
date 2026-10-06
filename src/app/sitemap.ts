@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { listEvents, listGroups } from "@/lib/data";
+import { listAllEvents, listEvents, listGroups } from "@/lib/data";
 import { guideLocales, listGuides } from "@/lib/guides";
 import { defaultLocale, locales, type Locale } from "@/lib/i18n";
 import { PAGE_SLUGS, getPage, pageLocales } from "@/lib/pages";
@@ -27,6 +27,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...localized("", locales, { changeFrequency: "weekly", priority: 1 }),
     ...localized("/groups", locales, { changeFrequency: "weekly" }),
+    // Event pages: verified listings only (unverified ones are noindex).
+    ...(await listAllEvents()).filter((e) => e.verifiedAt).flatMap((e) => localized(`/events/e/${e.id}`, locales, { changeFrequency: "weekly", priority: 0.6 })),
+    ...localized("/birthdays", locales, { changeFrequency: "daily", priority: 0.8 }),
+    ...["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"].flatMap((mm) => localized(`/birthdays/${mm}`, locales, { changeFrequency: "weekly", priority: 0.7 })),
     ...localized("/events", locales, { changeFrequency: "daily" }),
     ...months.flatMap((m) => localized(`/events/${m}`, locales, { changeFrequency: "daily" })),
     // Guide index only where the locale has its own guides (others are noindex).

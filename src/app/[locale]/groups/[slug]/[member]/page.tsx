@@ -5,6 +5,7 @@ import { getGroup, listGroups } from "@/lib/data";
 import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
 import { JsonLd } from "@/components/JsonLd";
 import { isMemberIndexable, NOINDEX } from "@/lib/indexing";
+import { AlertSignup } from "@/components/AlertSignup";
 import { seoulToday, site, seoTitle } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string; slug: string; member: string }> };
@@ -76,7 +77,17 @@ export default async function MemberPage({ params }: Props) {
         <p><span className="text-muted">{t.member.nextBirthday}: </span><b>{formatDate(next, locale, { weekday: "long", month: "long", day: "numeric", year: "numeric" })}</b></p>
         <p className="text-sm text-muted">{t.member.cafes}</p>
       </div>
-      <Link href={planHref} className="btn w-fit">{t.member.planCta}</Link>
+      <div className="flex flex-wrap gap-2">
+        <Link href={planHref} className="btn w-fit">{t.member.planCta}</Link>
+        <Link href={`/${locale}/birthdays/${m.birthday.slice(5, 7)}`} className="btn-ghost h-12 w-fit">🎂 {t.birthdays.title(formatDate(m.birthday, locale, { month: "long" }))}</Link>
+      </div>
+      <AlertSignup
+        locale={locale}
+        group={g.slug}
+        member={m.slug}
+        failedLabel={t.submit.failed}
+        labels={{ ...t.alerts, title: t.alerts.title(m.stageName), desc: t.alerts.desc(m.stageName), thanks: t.alerts.thanks(m.stageName) }}
+      />
     </div>
   );
 }

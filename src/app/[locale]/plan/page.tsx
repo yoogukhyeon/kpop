@@ -8,6 +8,7 @@ import { formatDate, getDictionary, isLocale, type Locale } from "@/lib/i18n";
 import { loadPlan, planSearch } from "@/lib/plan-params";
 import { ink, pastelGradient } from "@/lib/color";
 import { mapsUrl } from "@/lib/site";
+import { AlertSignup } from "@/components/AlertSignup";
 import type { KEvent } from "@/lib/types";
 
 type Props = {
@@ -161,6 +162,14 @@ export default async function PlanPage({ params, searchParams }: Props) {
               labels={{ download: t.plan.download, copy: t.plan.copy, copied: t.plan.copied }}
             />
           </div>
+
+          <AlertSignup
+            locale={locale}
+            group={group.slug}
+            member={memberSlugs[0]}
+            failedLabel={t.submit.failed}
+            labels={{ ...t.alerts, title: t.alerts.title(group.name), desc: t.alerts.desc(group.name), thanks: t.alerts.thanks(group.name) }}
+          />
 
           {plan.nearbyBirthdays.length > 0 && (
             <div className="card grid gap-2 text-sm">

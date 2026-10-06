@@ -85,7 +85,17 @@ export default async function AdminPage() {
             const n = memberName(s.member);
             return (
               <li key={s.id} className="text-muted">
-                {s.status === "approved" ? "✅" : "❌"} {n.member} — {s.cafe_name} ({s.start_date}){s.event_id ? ` · ${s.event_id}` : ""}
+                {s.status === "approved" ? "✅" : "❌"} {n.member} — {s.cafe_name} ({s.start_date})
+                {s.event_id && (
+                  <>
+                    {" · "}
+                    <a href={`/ko/events/e/${s.event_id}`} target="_blank" rel="noopener" className="text-brand underline">페이지</a>
+                    {" · 홍보 카드(주최자에게 전달): "}
+                    {["ko", "en", "ja", "zh-tw", "th"].map((l) => (
+                      <a key={l} href={`/${l}/events/e/${s.event_id}/card?format=story`} target="_blank" rel="noopener" className="mr-1 text-brand underline">{l}</a>
+                    ))}
+                  </>
+                )}
               </li>
             );
           })}
