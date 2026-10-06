@@ -92,6 +92,6 @@ export async function GET(req: NextRequest) {
         <div style={{ display: "flex", fontSize: s(36, 22), opacity: 0.85 }}>{footer}</div>
       </div>
     ),
-    { width, height, fonts, headers: { "Cache-Control": "public, max-age=3600, s-maxage=86400" } },
+    { width, height, fonts, headers: { "Cache-Control": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400" } },
   );
 }

@@ -17,7 +17,8 @@ import type { Area, Place } from "@/lib/types";
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
 // Upcoming events and "next birthday" depend on today.
-export const revalidate = 3600;
+// Daily: "upcoming" depends on the date; data edits refresh on demand.
+export const revalidate = 86400;
 
 const SIGHTSEEING = new Set<Place["type"]>(["agency", "landmark", "store", "experience"]);
 const addDays = (d: string, n: number) => new Date(Date.parse(`${d}T00:00:00Z`) + n * 86_400_000).toISOString().slice(0, 10);

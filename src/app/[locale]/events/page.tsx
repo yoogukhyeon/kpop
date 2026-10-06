@@ -7,7 +7,8 @@ import { alternates, getDictionary, isLocale } from "@/lib/i18n";
 import { monthLabel, upcomingMonths } from "@/lib/months";
 import { seoulToday } from "@/lib/site";
 
-export const revalidate = 3600;
+// Daily: "upcoming" depends on the date; data edits refresh on demand.
+export const revalidate = 86400;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;

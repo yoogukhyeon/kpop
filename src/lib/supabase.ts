@@ -16,12 +16,13 @@ export const supabaseConfigured = () => Boolean(url && publishableKey);
 export const DB_CACHE_TAG = "db";
 
 const options = { auth: { persistSession: false, autoRefreshToken: false } };
-// Public reads go through Next's data cache (hourly, tagged) so pages stay static.
+// Public reads go through Next's data cache (daily, tagged) so pages stay static.
+// Data changes weekly and every change runs `npm run refresh`, so a long TTL is safe.
 const publicOptions = {
   ...options,
   global: {
     fetch: (input: RequestInfo | URL, init?: RequestInit) =>
-      fetch(input, { ...init, next: { revalidate: 3600, tags: [DB_CACHE_TAG] } } as RequestInit),
+      fetch(input, { ...init, next: { revalidate: 86400, tags: [DB_CACHE_TAG] } } as RequestInit),
   },
 };
 let publicClient: SupabaseClient | undefined;

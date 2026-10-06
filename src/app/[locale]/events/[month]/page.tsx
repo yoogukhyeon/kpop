@@ -9,7 +9,8 @@ import { seoulToday } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string; month: string }> };
 
-export const revalidate = 3600;
+// Daily: "upcoming" depends on the date; data edits refresh on demand.
+export const revalidate = 86400;
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => upcomingMonths(seoulToday()).map((month) => ({ locale, month })));

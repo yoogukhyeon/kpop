@@ -83,20 +83,19 @@ export async function listPlacesForGroup(slug: string | null): Promise<Place[]> 
   return (await listPlaces()).filter((p) => p.groups.length === 0 || (slug !== null && p.groups.includes(slug)));
 }
 
-/** Published events overlapping [from, to] (inclusive, YYYY-MM-DD). */
-export const listEvents = cache(async (opts: { from?: string; to?: string; group?: string } = {}): Promise<KEvent[]> => {
-  if (!supabaseConfigured()) {
-    return seedEvents
-      .filter((e) => (!opts.from || e.endDate >= opts.from) && (!opts.to || e.startDate <= opts.to))
-      .filter((e) => !opts.group || e.groups.includes(opts.group))
-      .sort((a, b) => a.startDate.localeCompare(b.startDate));
-  }
-  let q = publicDb().from("events").select("*").order("start_date");
-  if (opts.from) q = q.gte("end_date", opts.from);
-  if (opts.to) q = q.lte("start_date", opts.to);
-  if (opts.group) q = q.contains("groups", [opts.group]);
-  return check<Row[]>(await q, "events").map(toEvent);
+// One query for all published events (a small table), filtered in memory: every
+// page and filter combination shares a single cached DB read instead of its own.
+const allEvents = cache(async (): Promise<KEvent[]> => {
+  if (!supabaseConfigured()) return [...seedEvents].sort((a, b) => a.startDate.localeCompare(b.startDate));
+  return check<Row[]>(await publicDb().from("events").select("*").order("start_date"), "events").map(toEvent);
 });
+
+/** Published events overlapping [from, to] (inclusive, YYYY-MM-DD). */
+export async function listEvents(opts: { from?: string; to?: string; group?: string } = {}): Promise<KEvent[]> {
+  return (await allEvents())
+    .filter((e) => (!opts.from || e.endDate >= opts.from) && (!opts.to || e.startDate <= opts.to))
+    .filter((e) => !opts.group || e.groups.includes(opts.group));
+}
 
 const toActivity = (r: Row): Activity => ({
   id: r.id as string,

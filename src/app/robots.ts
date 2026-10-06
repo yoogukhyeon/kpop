@@ -3,7 +3,6 @@ import { site } from "@/lib/site";
 
 // Search engines and AI assistants are explicitly welcome (GEO): being crawlable
 // by answer engines is how guides get cited in ChatGPT, Perplexity, Gemini etc.
-// /api/card must stay crawlable: X/Discord fetch share images and honor robots.txt.
 const AI_AND_SEARCH_BOTS = [
   "Googlebot", "Bingbot", "Yeti", // Yeti = Naver
   "GPTBot", "OAI-SearchBot", "ChatGPT-User",
@@ -12,11 +11,18 @@ const AI_AND_SEARCH_BOTS = [
   "Google-Extended", "Applebot", "Applebot-Extended",
 ];
 
+// Link-preview bots that fetch share images from /api/card.
+const PREVIEW_BOTS = ["Twitterbot", "facebookexternalhit", "Discordbot", "Slackbot", "LinkedInBot", "TelegramBot", "WhatsApp", "Line"];
+
 export default function robots(): MetadataRoute.Robots {
+  // Personal trip plans (/<locale>/plan) are rendered per request and noindex, and
+  // /api/card renders images — keep crawlers off both to save function time.
+  const disallow = ["/admin", "/*/plan", "/api/"];
   return {
     rules: [
-      { userAgent: AI_AND_SEARCH_BOTS, allow: "/", disallow: ["/admin"] },
-      { userAgent: "*", allow: "/", disallow: ["/admin"] },
+      { userAgent: PREVIEW_BOTS, allow: ["/api/card", "/"], disallow: ["/admin"] },
+      { userAgent: AI_AND_SEARCH_BOTS, allow: "/", disallow },
+      { userAgent: "*", allow: "/", disallow },
     ],
     sitemap: `${site.url}/sitemap.xml`,
     host: site.url,

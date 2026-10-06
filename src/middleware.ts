@@ -54,7 +54,15 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // Everything except Next internals, so legacy file URLs (wp-login.php, uploads)
-  // and non-canonical hosts are handled too.
-  matcher: ["/((?!_next/static|_next/image).*)"],
+  // Cost: middleware runs only where it has work to do — pages (locale/host/slash
+  // redirects, /admin auth) and the legacy WordPress paths. Static files, images,
+  // sitemaps, icons and /api routes skip it entirely.
+  matcher: [
+    "/((?!_next/|api/|.*\\.(?:png|jpg|jpeg|gif|webp|avif|svg|ico|txt|xml|webmanifest|js|css|map|woff2?)$).*)",
+    "/wp-content/:path*",
+    "/wp-includes/:path*",
+    "/wp-admin/:path*",
+    "/wp-login.php",
+    "/xmlrpc.php",
+  ],
 };

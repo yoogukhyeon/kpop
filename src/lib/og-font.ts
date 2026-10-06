@@ -15,10 +15,11 @@ const NEEDS_LATIN_FALLBACK = new Set<Locale>(["th"]);
 export async function loadFont(family: string, weight: number, text: string): Promise<ArrayBuffer | null> {
   try {
     const cssUrl = `https://fonts.googleapis.com/css2?family=${family.replace(/ /g, "+")}:wght@${weight}&text=${encodeURIComponent(text)}`;
-    const css = await (await fetch(cssUrl)).text();
+    // Cached for a year in the data cache: same text → same subset.
+    const css = await (await fetch(cssUrl, { next: { revalidate: 31536000 } } as RequestInit)).text();
     const src = css.match(/src: url\((.+?)\) format\('(opentype|truetype)'\)/)?.[1];
     if (!src) return null;
-    const res = await fetch(src);
+    const res = await fetch(src, { next: { revalidate: 31536000 } } as RequestInit);
     return res.ok ? await res.arrayBuffer() : null;
   } catch {
     return null;

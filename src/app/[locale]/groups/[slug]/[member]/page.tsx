@@ -10,7 +10,8 @@ import { seoulToday, site } from "@/lib/site";
 type Props = { params: Promise<{ locale: string; slug: string; member: string }> };
 
 // Upcoming events and "next birthday" depend on today.
-export const revalidate = 3600;
+// Daily: "upcoming" depends on the date; data edits refresh on demand.
+export const revalidate = 86400;
 
 const shift = (d: string, n: number) => new Date(Date.parse(`${d}T00:00:00Z`) + n * 86_400_000).toISOString().slice(0, 10);
 
