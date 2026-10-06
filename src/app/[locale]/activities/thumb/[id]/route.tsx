@@ -2,20 +2,18 @@ import { ImageResponse } from "next/og";
 import { ActivityIcon, ACTIVITY_TONE, Sparkle, stageBackground } from "@/lib/activity-art";
 import { BrandMark } from "@/lib/brand-image";
 import { listActivities } from "@/lib/data";
-import { getDictionary, isLocale, locales } from "@/lib/i18n";
+import { getDictionary, isLocale } from "@/lib/i18n";
 import { ogFonts } from "@/lib/og-font";
 import { partnerName } from "@/lib/partners";
 import { site } from "@/lib/site";
 
 // Thumbnail for one partner activity (1200×630): stage-light background,
 // category icon, product title, area and duration. Used as the card image and
-// as the share/search image, so it is crawlable (not under /api) and static.
-export const revalidate = 86400;
+// as the share/search image, so it is crawlable (not under /api). Rendered on
+// first request and then served from the CDN cache (rendering 100+ images at
+// build time overloads the font fetches).
+export const dynamic = "force-dynamic";
 
-export async function generateStaticParams() {
-  const activities = await listActivities();
-  return locales.flatMap((locale) => activities.map((a) => ({ locale, id: a.id })));
-}
 
 export async function GET(_req: Request, { params }: { params: Promise<{ locale: string; id: string }> }) {
   const { locale, id } = await params;
