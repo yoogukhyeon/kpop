@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ActivityCard } from "@/components/ActivityCard";
-import { JsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, JsonLd } from "@/components/JsonLd";
 import { getEvent, getGroup, listActivities, listAllEvents } from "@/lib/data";
 import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
 import { NOINDEX } from "@/lib/indexing";
@@ -62,6 +62,13 @@ export default async function EventPage({ params }: Props) {
 
   return (
     <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
+      <BreadcrumbJsonLd
+        items={[
+          [t.detail.home, `${site.url}/${locale}`],
+          [t.events.title, `${site.url}/${locale}/events`],
+          [e.title, `${site.url}/${locale}/events/e/${e.id}`],
+        ]}
+      />
       {e.verifiedAt && (
         <JsonLd
           data={{

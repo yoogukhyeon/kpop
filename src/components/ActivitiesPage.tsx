@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ActivityCard } from "@/components/ActivityCard";
-import { JsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, JsonLd } from "@/components/JsonLd";
 import { KlookWidget } from "@/components/KlookWidget";
 import { KLOOK_WIDGETS } from "@/lib/partners";
 import { listActivities } from "@/lib/data";
@@ -24,6 +24,13 @@ export async function ActivitiesPage({ locale, category }: { locale: string; cat
 
   return (
     <div className="grid gap-6">
+      <BreadcrumbJsonLd
+        items={[
+          [t.detail.home, `${site.url}/${locale}`],
+          [t.activities.title, `${site.url}/${locale}/activities`],
+          ...(category ? [[t.activities.categories[category], `${site.url}/${locale}/activities/${category}`] as [string, string]] : []),
+        ]}
+      />
       {items.length > 0 && (
         <JsonLd
           data={{

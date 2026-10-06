@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { ActivityCard } from "@/components/ActivityCard";
 import { KlookWidget } from "@/components/KlookWidget";
-import { JsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, JsonLd } from "@/components/JsonLd";
 import { listActivities } from "@/lib/data";
 import { getGuide, guideLocales, listGuides, listGuidesForLists } from "@/lib/guides";
 import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
@@ -52,6 +52,13 @@ export default async function GuidePage({ params }: Props) {
 
   return (
     <article className="grid max-w-3xl gap-6">
+      <BreadcrumbJsonLd
+        items={[
+          [t.detail.home, `${site.url}/${locale}`],
+          [t.nav.guides, `${site.url}/${locale}/guides`],
+          [guide.title, `${site.url}/${locale}/guides/${slug}`],
+        ]}
+      />
       <JsonLd
         data={{
           "@context": "https://schema.org",

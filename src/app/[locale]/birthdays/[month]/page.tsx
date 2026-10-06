@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BirthdayList } from "@/components/BirthdayList";
-import { JsonLd } from "@/components/JsonLd";
+import { BreadcrumbJsonLd, JsonLd } from "@/components/JsonLd";
 import { MONTHS, birthdayEvents, isMonthParam, listBirthdays } from "@/lib/birthdays";
 import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
 import { seoTitle, seoulToday, site } from "@/lib/site";
@@ -40,6 +40,13 @@ export default async function BirthdayMonthPage({ params }: Props) {
 
   return (
     <div className="grid gap-6">
+      <BreadcrumbJsonLd
+        items={[
+          [t.detail.home, `${site.url}/${locale}`],
+          [t.birthdays.indexTitle, `${site.url}/${locale}/birthdays`],
+          [t.birthdays.title(name), `${site.url}/${locale}/birthdays/${month}`],
+        ]}
+      />
       <JsonLd
         data={{
           "@context": "https://schema.org",

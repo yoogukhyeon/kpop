@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { EventList } from "@/components/EventList";
+import { BreadcrumbJsonLd } from "@/components/JsonLd";
 import { listEvents } from "@/lib/data";
 import { alternates, getDictionary, isLocale, locales } from "@/lib/i18n";
 import { isMonth, monthLabel, monthRange, upcomingMonths } from "@/lib/months";
-import { seoulToday, seoTitle } from "@/lib/site";
+import { seoulToday, seoTitle, site } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string; month: string }> };
 
@@ -39,6 +40,13 @@ export default async function MonthEventsPage({ params }: Props) {
 
   return (
     <div className="tap-links grid gap-6">
+      <BreadcrumbJsonLd
+        items={[
+          [t.detail.home, `${site.url}/${locale}`],
+          [t.events.title, `${site.url}/${locale}/events`],
+          [t.events.monthTitle(monthLabel(month, locale)), `${site.url}/${locale}/events/${month}`],
+        ]}
+      />
       <Link href={`/${locale}/events`} className="text-sm text-brand hover:underline">← {t.events.title}</Link>
       <h1 className="text-3xl font-extrabold tracking-tight">{t.events.monthTitle(monthLabel(month, locale))}</h1>
       <p className="-mt-3 max-w-3xl text-muted">{t.meta.monthDesc(monthLabel(month, locale))}</p>
