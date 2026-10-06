@@ -175,6 +175,13 @@ export const ko: Dictionary = {
     consent: "신청하면 개인정보처리방침에 동의한 것으로 봅니다. 스팸은 보내지 않아요.",
     invalid: "올바른 이메일을 입력해 주세요.",
   },
+  ux: {
+    nowOn: "진행 중",
+    until: (d: string) => `${d}까지`,
+    today: "오늘",
+    alsoInSeoul: "여행 기간 서울에서 열리는 다른 이벤트",
+    otherMembers: (g: string) => `${g} 다른 멤버`,
+  },
   footer: "팬이 만든 가이드입니다. 아티스트·소속사와 관계가 없습니다. 이벤트 정보는 바뀔 수 있으니 반드시 공식 공지를 확인하세요.",
   area: {
     yongsan: "용산", seongsu: "성수", gangnam: "강남·압구정", mapo: "마포·홍대·상암",

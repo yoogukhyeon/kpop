@@ -23,8 +23,8 @@ export function ActivityCard({ activity: a, locale, compact = false }: { activit
       rel="sponsored nofollow noopener"
       className={`group grid h-full overflow-hidden rounded-3xl border border-line bg-surface shadow-[0_4px_18px_rgba(124,92,255,0.07)] transition hover:-translate-y-1 hover:shadow-[0_10px_24px_rgba(124,92,255,0.15)] ${compact ? "grid-cols-[88px_1fr]" : "grid-rows-[auto_1fr]"}`}
     >
-      <div className={`relative grid place-items-center ${compact ? "" : "aspect-[16/9]"}`} style={{ background: tone.bg }}>
-        <span className={compact ? "text-3xl" : "text-5xl"} aria-hidden>{tone.icon}</span>
+      <div className={`relative grid place-items-center ${compact ? "" : "h-28 sm:h-36"}`} style={{ background: tone.bg }}>
+        <span className={compact ? "text-4xl" : "text-6xl"} aria-hidden>{tone.icon}</span>
         {!compact && (
           <span className="absolute left-3 top-3 rounded-full bg-white/85 px-2.5 py-1 text-xs font-bold">
             {t.activities.categories[a.category]}

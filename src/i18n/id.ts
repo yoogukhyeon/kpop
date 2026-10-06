@@ -175,6 +175,13 @@ export const id: Dictionary = {
     consent: "Dengan berlangganan kamu menyetujui Kebijakan Privasi kami. Tanpa spam.",
     invalid: "Masukkan email yang valid.",
   },
+  ux: {
+    nowOn: "Sedang berlangsung",
+    until: (d: string) => `sampai ${d}`,
+    today: "Hari ini",
+    alsoInSeoul: "Acara lain di Seoul selama perjalananmu",
+    otherMembers: (g: string) => `Anggota ${g} lainnya`,
+  },
   footer: "Panduan buatan fans. Tidak berafiliasi dengan artis atau agensi mana pun. Detail acara bisa berubah — selalu cek pengumuman resmi.",
   area: {
     yongsan: "Yongsan", seongsu: "Seongsu", gangnam: "Gangnam / Apgujeong", mapo: "Mapo / Hongdae / Sangam",

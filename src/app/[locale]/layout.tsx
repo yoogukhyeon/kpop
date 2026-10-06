@@ -34,6 +34,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         : undefined,
     },
     alternates: { types: { "application/rss+xml": `/${locale}/rss.xml` } },
+    // The site is about Seoul: regional geo tags for local/answer engines.
+    other: { "geo.region": "KR-11", "geo.placename": "Seoul", "geo.position": "37.5665;126.9780", ICBM: "37.5665, 126.9780" },
   };
 }
 
@@ -72,6 +74,8 @@ export default async function LocaleLayout({
                 email: site.contactEmail,
                 description: "Fan-made K-pop trip planner and travel guide for international fans visiting Seoul.",
                 contactPoint: { "@type": "ContactPoint", contactType: "customer support", email: site.contactEmail, availableLanguage: ["en", "ja", "zh-TW", "zh-CN", "vi", "th", "id", "es", "ko"] },
+                areaServed: { "@type": "City", name: "Seoul", sameAs: "https://en.wikipedia.org/wiki/Seoul", containedInPlace: { "@type": "Country", name: "South Korea" } },
+                knowsAbout: ["K-pop", "K-pop concerts in Seoul", "Idol birthday cafes", "K-pop pop-up stores", "Music show recordings", "Travel in Seoul"],
               },
               {
                 "@type": "WebSite",

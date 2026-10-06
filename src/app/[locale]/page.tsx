@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ActivityCard } from "@/components/ActivityCard";
+import { BirthdayList } from "@/components/BirthdayList";
+import { EventCard } from "@/components/EventCard";
+import { birthdayEvents, listBirthdays, nextOccurrence } from "@/lib/birthdays";
 import { GroupCard } from "@/components/GroupCard";
 import { PlannerForm } from "@/components/PlannerForm";
 import { listActivities, listEvents, listGroups } from "@/lib/data";
 import { listGuidesForLists } from "@/lib/guides";
-import { alternates, formatDate, getDictionary, isLocale } from "@/lib/i18n";
-import { ink, pastel } from "@/lib/color";
+import { alternates, getDictionary, isLocale } from "@/lib/i18n";
 import { seoulToday } from "@/lib/site";
 
 const addDays = (d: string, n: number) =>
@@ -30,12 +32,20 @@ export default async function Home({
   const { group } = await searchParams;
   const t = getDictionary(locale);
   const today = seoulToday();
-  const [groups, events, guides, activities] = await Promise.all([
+  const [groups, events, guides, activities, birthdays, birthdayCafes] = await Promise.all([
     listGroups(),
     listEvents({ from: today }),
     listGuidesForLists(locale),
     listActivities(),
+    listBirthdays(),
+    birthdayEvents(),
   ]);
+  // Birthdays in the next week, soonest first.
+  const weekOut = addDays(today, 7);
+  const soon = birthdays
+    .filter((b) => nextOccurrence(b.monthDay, today) <= weekOut)
+    .sort((a, b) => nextOccurrence(a.monthDay, today).localeCompare(nextOccurrence(b.monthDay, today)))
+    .slice(0, 4);
   // One of each category first, so the row shows the range.
   const featured = (["ticket", "experience", "tour"] as const)
     .map((c) => activities.find((a) => a.category === c))
@@ -110,26 +120,22 @@ export default async function Home({
             <Link href={`/${locale}/events`} className="inline-flex min-h-10 items-center text-sm font-semibold text-muted hover:text-text">{t.home.seeAll} ›</Link>
           </div>
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {events.slice(0, 6).map((e) => {
-              const g = groupName.get(e.groups[0]);
-              return (
-                <li key={e.id} className="card flex gap-4 p-4">
-                  <div
-                    className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl text-center"
-                    style={{ background: pastel(g?.accent ?? "#7c5cff", 30), color: ink(g?.accent ?? "#7c5cff") }}
-                  >
-                    <span className="text-xs font-semibold leading-tight">{formatDate(e.startDate, locale, { month: "short" })}</span>
-                    <span className="text-xl font-extrabold leading-none">{formatDate(e.startDate, locale, { day: "numeric" })}</span>
-                  </div>
-                  <div className="grid min-w-0 gap-1">
-                    <span className="chip w-fit">{t.eventType[e.type]}</span>
-                    <Link href={`/${locale}/events/e/${e.id}`} className="truncate font-bold hover:text-brand hover:underline">{e.title}</Link>
-                    <p className="truncate text-xs text-muted">{e.venue} · {t.area[e.area]}</p>
-                  </div>
-                </li>
-              );
-            })}
+            {events.slice(0, 6).map((e) => (
+              <li key={e.id}>
+                <EventCard e={e} locale={locale} today={today} accent={groupName.get(e.groups[0])?.accent} />
+              </li>
+            ))}
           </ul>
+        </section>
+      )}
+
+      {soon.length > 0 && (
+        <section className="grid gap-5">
+          <div className="flex items-end justify-between gap-4">
+            <h2 className="section-title">🎂 {t.birthdays.upcoming}</h2>
+            <Link href={`/${locale}/birthdays`} className="inline-flex min-h-10 items-center text-sm font-semibold text-muted hover:text-text">{t.home.seeAll} ›</Link>
+          </div>
+          <BirthdayList items={soon} events={birthdayCafes} locale={locale} today={today} />
         </section>
       )}
 

@@ -3,11 +3,12 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { ActivityCard } from "@/components/ActivityCard";
 import { ShareActions } from "@/components/ShareActions";
-import { listActivities } from "@/lib/data";
+import { EventCard } from "@/components/EventCard";
+import { listActivities, listEvents, listGroups } from "@/lib/data";
 import { formatDate, getDictionary, isLocale, type Locale } from "@/lib/i18n";
 import { loadPlan, planSearch } from "@/lib/plan-params";
 import { ink, pastelGradient } from "@/lib/color";
-import { mapsUrl } from "@/lib/site";
+import { mapsUrl, seoulToday } from "@/lib/site";
 import { AlertSignup } from "@/components/AlertSignup";
 import type { KEvent } from "@/lib/types";
 
@@ -41,10 +42,17 @@ export default async function PlanPage({ params, searchParams }: Props) {
   const { group, plan, from, to, memberSlugs } = loaded;
   const search = planSearch({ group: group.slug, from, to, memberSlugs });
   const focusNames = group.members.filter((m) => memberSlugs.includes(m.slug)).map((m) => m.stageName);
-  const [showTickets, anyDay] = await Promise.all([
+  const [showTickets, anyDay, seoulEvents, groups] = await Promise.all([
     listActivities({ category: "ticket", tags: ["music-show"] }),
     listActivities({ group: group.slug, tags: ["fan-tour", "dance", "hongdae", "seongsu"] }),
+    listEvents({ from, to }),
+    listGroups(),
   ]);
+  // Other groups' events while the fan is in Seoul (pop-ups are open to everyone).
+  const inPlan = new Set(plan.days.flatMap((d) => d.events.map((e) => e.id)));
+  const alsoOn = seoulEvents.filter((e) => !inPlan.has(e.id) && e.type !== "birthday-cafe").slice(0, 6);
+  const accentOf = new Map(groups.map((g) => [g.slug, g.accent]));
+  const today = seoulToday();
   // Products tied to a weekday (music show packages) only appear in the
   // weekday-matched ticket slot, never as a free-day idea.
   const bookable = anyDay.filter((a) => !a.weekdays?.length);
@@ -78,12 +86,12 @@ export default async function PlanPage({ params, searchParams }: Props) {
         <p className="text-sm font-semibold opacity-90">{focusNames.length ? focusNames.join(" · ") : group.fandom}</p>
         <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{t.plan.title(group.name)}</h1>
         <p className="opacity-90">
-          {formatDate(from, locale, { month: "long", day: "numeric" })} – {formatDate(to, locale, { month: "long", day: "numeric", year: "numeric" })}
+          {formatDate(from, locale, { month: "long", day: "numeric", year: "numeric" })} – {formatDate(to, locale, { month: "long", day: "numeric" })}
         </p>
         <div className="flex flex-wrap gap-2 text-sm">
-          <Stat label={t.stats.events(plan.stats.events)} />
-          <Stat label={t.stats.birthdays(plan.stats.birthdays)} />
-          <Stat label={t.stats.spots(plan.stats.spots)} />
+          {plan.stats.events > 0 && <Stat label={t.stats.events(plan.stats.events)} />}
+          {plan.stats.birthdays > 0 && <Stat label={t.stats.birthdays(plan.stats.birthdays)} />}
+          {plan.stats.spots > 0 && <Stat label={t.stats.spots(plan.stats.spots)} />}
         </div>
         <Link href={`/${locale}?group=${group.slug}#planner`} className="inline-flex min-h-10 w-fit items-center text-sm font-semibold underline underline-offset-4 opacity-90 hover:opacity-100">
           {t.plan.edit}
@@ -142,6 +150,16 @@ export default async function PlanPage({ params, searchParams }: Props) {
               )}
             </li>
           ))}
+          {alsoOn.length > 0 && (
+            <li className="grid gap-3">
+              <h2 className="section-title">🗓️ {t.ux.alsoInSeoul}</h2>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {alsoOn.map((e) => (
+                  <li key={e.id}><EventCard e={e} locale={locale} today={today} accent={accentOf.get(e.groups[0])} /></li>
+                ))}
+              </ul>
+            </li>
+          )}
         </ol>
 
         <aside className="grid h-fit gap-4 lg:sticky lg:top-24">

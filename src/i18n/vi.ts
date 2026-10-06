@@ -175,6 +175,13 @@ export const vi: Dictionary = {
     consent: "Khi đăng ký, bạn đồng ý với Chính sách quyền riêng tư. Không gửi spam.",
     invalid: "Vui lòng nhập email hợp lệ.",
   },
+  ux: {
+    nowOn: "Đang diễn ra",
+    until: (d: string) => `đến ${d}`,
+    today: "Hôm nay",
+    alsoInSeoul: "Sự kiện khác ở Seoul trong chuyến đi",
+    otherMembers: (g: string) => `Thành viên khác của ${g}`,
+  },
   footer: "Cẩm nang do fan làm. Không liên kết với nghệ sĩ hay công ty nào. Thông tin sự kiện có thể thay đổi — hãy luôn xem thông báo chính thức.",
   area: {
     yongsan: "Yongsan", seongsu: "Seongsu", gangnam: "Gangnam / Apgujeong", mapo: "Mapo / Hongdae / Sangam",

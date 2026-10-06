@@ -1,6 +1,7 @@
-import { listActivities, listGroups } from "@/lib/data";
+import { MONTHS, listBirthdays } from "@/lib/birthdays";
+import { listActivities, listEvents, listGroups } from "@/lib/data";
 import { listGuides } from "@/lib/guides";
-import { site } from "@/lib/site";
+import { seoulToday, site } from "@/lib/site";
 
 // llms.txt (https://llmstxt.org): a plain-Markdown map of the site for AI
 // assistants and answer engines, so they can find and cite the right pages.
@@ -8,7 +9,17 @@ import { site } from "@/lib/site";
 export const revalidate = 86400;
 
 export async function GET() {
-  const [guides, groups, activities] = await Promise.all([listGuides("en"), listGroups(), listActivities()]);
+  const [guides, koGuides, groups, activities, birthdays, events] = await Promise.all([
+    listGuides("en"),
+    listGuides("ko"),
+    listGroups(),
+    listActivities(),
+    listBirthdays(),
+    listEvents({ from: seoulToday() }),
+  ]);
+  const monthName = (mm: string) => new Date(`2026-${mm}-01T00:00:00Z`).toLocaleString("en", { month: "long", timeZone: "UTC" });
+  // Only verified events: answer engines should never cite unchecked dates.
+  const verified = events.filter((e) => e.verifiedAt);
   const u = site.url;
 
   const body = `# ${site.name}
@@ -43,6 +54,16 @@ ${groups.map((g) => `- [${g.name} Seoul fan trip guide](${u}/en/groups/${g.slug}
 ## Events
 
 - [K-pop events in Seoul](${u}/en/events): concerts, fan meetings, birthday cafes and pop-ups with foreigner ticketing notes.
+${verified.map((e) => `- [${e.title}](${u}/en/events/e/${e.id}): ${e.startDate === e.endDate ? e.startDate : `${e.startDate} to ${e.endDate}`}, ${e.venue}, Seoul. Checked ${e.verifiedAt}.`).join("\n")}
+
+## K-pop idol birthday calendar
+
+- [K-pop idol birthday calendar](${u}/en/birthdays): ${birthdays.length} idols' birthdays by month, with birthday cafes in Seoul and a trip plan for each birthday.
+${MONTHS.map((mm) => `- [K-pop idol birthdays in ${monthName(mm)}](${u}/en/birthdays/${mm}): ${birthdays.filter((b) => b.monthDay.startsWith(mm)).length} idols`).join("\n")}
+
+## Korean-language guides (한국어 가이드)
+
+${koGuides.map((g) => `- [${g.title}](${u}/ko/guides/${g.slug}): ${g.description}`).join("\n")}
 
 ## About
 
@@ -53,7 +74,7 @@ ${groups.map((g) => `- [${g.name} Seoul fan trip guide](${u}/en/groups/${g.slug}
 
 ## Optional
 
-- [Full guide text](${u}/llms-full.txt): all English guides in one Markdown file.
+- [Full guide text](${u}/llms-full.txt): all English and Korean guides in one Markdown file.
 `;
 
   return new Response(body, { headers: { "Content-Type": "text/markdown; charset=utf-8" } });

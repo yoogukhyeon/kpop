@@ -175,6 +175,13 @@ export const en = {
     consent: "By subscribing you agree to our Privacy Policy. One email per update, never spam.",
     invalid: "Please enter a valid email.",
   },
+  ux: {
+    nowOn: "Now on",
+    until: (d: string) => `until ${d}`,
+    today: "Today",
+    alsoInSeoul: "Also on in Seoul during your trip",
+    otherMembers: (g: string) => `Other ${g} members`,
+  },
   footer: "Fan-made guide. Not affiliated with any artist or agency. Event details can change — always check the official notice.",
   area: {
     yongsan: "Yongsan", seongsu: "Seongsu", gangnam: "Gangnam / Apgujeong", mapo: "Mapo / Hongdae / Sangam",

@@ -28,7 +28,7 @@ export function AlertSignup({
       ) : (
         <>
           <p className="text-sm text-muted">{labels.desc}</p>
-          <form action={action} className="flex flex-col gap-2 sm:flex-row">
+          <form action={action} className="grid gap-2">
             <input type="hidden" name="group" value={group} />
             <input type="hidden" name="locale" value={locale} />
             {member && <input type="hidden" name="member" value={member} />}
@@ -39,9 +39,9 @@ export function AlertSignup({
               required
               placeholder={labels.placeholder}
               aria-label={labels.placeholder}
-              className="input flex-1 bg-surface"
+              className="input w-full bg-surface"
             />
-            <button className="btn shrink-0" disabled={pending}>{labels.submit}</button>
+            <button className="btn w-full" disabled={pending}>{labels.submit}</button>
           </form>
           {state.error && <p className="text-xs text-warn">{state.error === "invalid" ? labels.invalid : failedLabel}</p>}
           <p className="text-xs text-muted">

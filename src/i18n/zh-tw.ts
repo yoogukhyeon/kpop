@@ -175,6 +175,13 @@ export const zhTW: Dictionary = {
     consent: "訂閱即表示你同意隱私權政策。不會寄送垃圾郵件。",
     invalid: "請輸入有效的電子郵件。",
   },
+  ux: {
+    nowOn: "進行中",
+    until: (d: string) => `至 ${d}`,
+    today: "今天",
+    alsoInSeoul: "旅行期間首爾的其他活動",
+    otherMembers: (g: string) => `${g} 其他成員`,
+  },
   footer: "粉絲製作的攻略。與任何藝人或經紀公司無關。活動資訊可能變動，請務必確認官方公告。",
   area: {
     yongsan: "龍山", seongsu: "聖水", gangnam: "江南・狎鷗亭", mapo: "麻浦・弘大・上岩",

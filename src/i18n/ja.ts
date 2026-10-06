@@ -175,6 +175,13 @@ export const ja: Dictionary = {
     consent: "登録するとプライバシーポリシーに同意したことになります。スパムは送りません。",
     invalid: "正しいメールアドレスを入力してください。",
   },
+  ux: {
+    nowOn: "開催中",
+    until: (d: string) => `${d}まで`,
+    today: "今日",
+    alsoInSeoul: "旅行中にソウルで開催中のイベント",
+    otherMembers: (g: string) => `${g}の他のメンバー`,
+  },
   footer: "ファンが作るガイドです。アーティストや事務所とは関係ありません。イベント情報は変わることがあるため、必ず公式告知をご確認ください。",
   area: {
     yongsan: "龍山", seongsu: "聖水", gangnam: "江南・狎鴎亭", mapo: "麻浦・弘大・上岩",

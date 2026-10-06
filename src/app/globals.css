@@ -75,6 +75,11 @@ p, li, dd, summary {
 :lang(ja), :lang(zh-tw), :lang(zh-cn) {
   line-break: strict;
 }
+/* Korean: break between words, not mid-word (long strings still wrap below). */
+:lang(ko) {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
 /* Long URLs and unbroken strings never push the layout wider. */
 a, td, th {
   overflow-wrap: anywhere;
@@ -150,8 +155,9 @@ a, td, th {
   .prose li:has(> input[type="checkbox"]) {
     @apply list-none -ml-6;
   }
+  /* Full-width tables; cells wrap instead of scrolling on phones. */
   .prose table {
-    @apply block w-full overflow-x-auto border-collapse text-sm;
+    @apply w-full border-collapse text-sm;
   }
   .prose th,
   .prose td {

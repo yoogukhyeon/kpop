@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ActivityCard } from "@/components/ActivityCard";
 import { Cover } from "@/components/Cover";
+import { EventCard } from "@/components/EventCard";
 import { ink, pastel } from "@/lib/color";
 import { GroupCard } from "@/components/GroupCard";
 import { JsonLd } from "@/components/JsonLd";
@@ -211,19 +212,9 @@ export default async function GroupPage({ params }: Props) {
           <section id="events" className="grid gap-4">
             <h2 className="section-title">🗓️ {t.group.upcoming}</h2>
             {upcoming.length ? (
-              <ul className="grid gap-3">
+              <ul className="grid gap-3 sm:grid-cols-2">
                 {upcoming.map((e) => (
-                  <li key={e.id} className="card flex items-center gap-4 p-4">
-                    <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl" style={{ background: pastel(g.accent, 30), color: ink(g.accent) }}>
-                      <span className="text-[11px] font-semibold leading-none">{formatDate(e.startDate, locale, { month: "short" })}</span>
-                      <span className="text-lg font-extrabold leading-none">{formatDate(e.startDate, locale, { day: "numeric" })}</span>
-                    </div>
-                    <div className="grid min-w-0 gap-1 text-sm">
-                      <span className="chip w-fit">{t.eventType[e.type]}</span>
-                      <b className="truncate">{e.title}</b>
-                      <span className="text-muted">{formatDate(e.startDate, locale)} – {formatDate(e.endDate, locale)} · {e.venue}</span>
-                    </div>
-                  </li>
+                  <li key={e.id}><EventCard e={e} locale={locale} today={today} accent={g.accent} /></li>
                 ))}
               </ul>
             ) : (

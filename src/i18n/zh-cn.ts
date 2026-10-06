@@ -175,6 +175,13 @@ export const zhCN: Dictionary = {
     consent: "订阅即表示你同意隐私政策。不会发送垃圾邮件。",
     invalid: "请输入有效的邮箱。",
   },
+  ux: {
+    nowOn: "进行中",
+    until: (d: string) => `至 ${d}`,
+    today: "今天",
+    alsoInSeoul: "旅行期间首尔的其他活动",
+    otherMembers: (g: string) => `${g} 其他成员`,
+  },
   footer: "粉丝制作的攻略。与任何艺人或经纪公司无关。活动信息可能变动，请务必确认官方公告。",
   area: {
     yongsan: "龙山", seongsu: "圣水", gangnam: "江南・狎鸥亭", mapo: "麻浦・弘大・上岩",

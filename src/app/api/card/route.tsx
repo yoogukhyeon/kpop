@@ -42,7 +42,12 @@ export async function GET(req: NextRequest) {
   const header = `${site.name}  ·  ${focus.length ? focus.join(" · ") : group.fandom}`;
   const title = t.card.title(group.name);
   const dates = `${formatDate(from, locale)} – ${formatDate(to, locale, { month: "short", day: "numeric", year: "numeric" })}`;
-  const stats = [t.stats.events(plan.stats.events), t.stats.birthdays(plan.stats.birthdays), t.stats.spots(plan.stats.spots)];
+  // Zero counts read as "nothing here", so only non-empty stats go on the card.
+  const stats = [
+    plan.stats.events && t.stats.events(plan.stats.events),
+    plan.stats.birthdays && t.stats.birthdays(plan.stats.birthdays),
+    plan.stats.spots && t.stats.spots(plan.stats.spots),
+  ].filter((s): s is string => Boolean(s));
   const footer = `${t.card.cta} → ${site.url.replace(/^https?:\/\//, "")}`;
 
   const allText = [header, ...title, dates, ...stats, ...highlights, footer].join("");
