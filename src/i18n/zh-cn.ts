@@ -181,6 +181,8 @@ export const zhCN: Dictionary = {
     today: "今天",
     alsoInSeoul: "旅行期间首尔的其他活动",
     otherMembers: (g: string) => `${g} 其他成员`,
+    submitSteps: ["谁的生日？", "咖啡馆信息", "联系方式与公告"],
+    submitPerks: [{ title: "免费发布", body: "完全不收费。" }, { title: "9种语言展示", body: "以英文、日文、中文、泰文等介绍给海外粉丝。" }, { title: "宣传卡片", body: "获取粉丝语言的故事卡片，直接发布。" }],
   },
   footer: "粉丝制作的攻略。与任何艺人或经纪公司无关。活动信息可能变动，请务必确认官方公告。",
   area: {

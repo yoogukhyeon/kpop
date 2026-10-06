@@ -128,42 +128,100 @@ a, td, th {
   }
 }
 
-/* Guide article body (rendered Markdown). */
+/* Guide article body (rendered Markdown): magazine-style K-pop look. */
 @layer components {
   .prose {
-    @apply grid gap-4 leading-relaxed;
+    @apply grid gap-4 text-[17px] leading-[1.85];
   }
   .prose h2 {
-    @apply mt-4 text-2xl font-bold tracking-tight;
+    @apply relative mt-6 pl-4 text-2xl font-extrabold tracking-tight;
+  }
+  .prose h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.2em;
+    bottom: 0.2em;
+    width: 6px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--pink), var(--brand));
   }
   .prose h3 {
-    @apply mt-2 text-lg font-semibold;
+    @apply mt-2 text-lg font-bold text-brand;
   }
   .prose a {
-    @apply font-medium text-brand underline underline-offset-4;
+    @apply font-semibold text-brand underline decoration-brand/40 decoration-2 underline-offset-4 hover:decoration-brand;
+  }
+  /* Highlighter-pen bold. */
+  .prose strong {
+    @apply font-bold;
+    background: linear-gradient(transparent 62%, #ffd6e7 62%);
   }
   .prose ul,
   .prose ol {
-    @apply grid gap-1.5 pl-6;
+    @apply grid list-none gap-2.5 pl-0;
   }
-  .prose ul {
-    @apply list-disc;
+  .prose ul > li {
+    @apply relative pl-6;
+  }
+  .prose ul > li::before {
+    content: "";
+    position: absolute;
+    left: 0.25rem;
+    top: 0.72em;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--pink), var(--brand));
   }
   .prose ol {
-    @apply list-decimal;
+    counter-reset: step;
+  }
+  .prose ol > li {
+    @apply relative rounded-2xl bg-subtle py-3 pl-14 pr-4;
+    counter-increment: step;
+  }
+  .prose ol > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0.9rem;
+    top: 0.8rem;
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 900;
+    line-height: 1;
+    color: #fff;
+    background: linear-gradient(135deg, var(--pink), var(--brand));
   }
   .prose li:has(> input[type="checkbox"]) {
     @apply list-none -ml-6;
   }
+  .prose blockquote {
+    @apply rounded-2xl border-l-4 border-sun bg-sun-soft px-5 py-3;
+  }
+  .prose hr {
+    @apply my-2 border-dashed border-line;
+  }
   /* Full-width tables; cells wrap instead of scrolling on phones. */
   .prose table {
-    @apply w-full border-collapse text-sm;
+    @apply w-full border-separate border-spacing-0 overflow-hidden rounded-2xl border border-line text-sm;
   }
   .prose th,
   .prose td {
-    @apply border border-line px-3 py-2 text-left;
+    @apply border-b border-line px-3 py-2.5 text-left;
+  }
+  .prose tr:last-child td {
+    @apply border-b-0;
   }
   .prose th {
-    @apply bg-subtle;
+    @apply font-extrabold text-brand;
+    background: linear-gradient(135deg, var(--pink-soft), var(--brand-soft));
+  }
+  .prose tbody tr:nth-child(even) td {
+    @apply bg-[#fcfaff];
   }
 }

@@ -67,17 +67,27 @@ export default async function GuidePage({ params }: Props) {
           ...(guide.sources.length ? { citation: guide.sources } : {}),
         }}
       />
-      <header className="tap-links grid gap-2">
-        <Link href={`/${locale}/guides`} className="w-fit text-sm text-brand hover:underline">← {t.nav.guides}</Link>
-        <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{guide.title}</h1>
-        <p className="text-sm text-muted">
-          {t.guides.updated}: {formatDate(guide.updated, locale, { year: "numeric", month: "long", day: "numeric" })}
+      <header
+        className="tap-links relative grid gap-3 overflow-hidden rounded-[2rem] p-6 sm:p-10"
+        style={{
+          background:
+            "radial-gradient(circle at 92% 8%, #ffd6e7 0, transparent 42%), radial-gradient(circle at 0% 100%, #dcd2ff 0, transparent 50%), linear-gradient(135deg, #fff3f8 0%, #f3eeff 100%)",
+        }}
+      >
+        <span aria-hidden className="pointer-events-none absolute right-5 top-4 text-3xl opacity-70 sm:right-8 sm:text-5xl">✨</span>
+        <Link href={`/${locale}/guides`} className="w-fit text-sm font-semibold text-brand hover:underline">← {t.nav.guides}</Link>
+        <span className="chip-pink w-fit">📚 {t.guides.title}</span>
+        <h1 className="text-[1.7rem] font-extrabold leading-tight tracking-tight sm:text-4xl">{guide.title}</h1>
+        <p className="text-sm font-semibold text-muted">
+          🗓️ {t.guides.updated}: {formatDate(guide.updated, locale, { year: "numeric", month: "long", day: "numeric" })}
         </p>
       </header>
 
-      <aside className="rounded-3xl bg-brand-soft p-5">
-        <p className="text-xs font-black uppercase tracking-wide text-brand">{t.guides.inShort}</p>
-        <p className="mt-1.5 font-semibold leading-relaxed">{guide.description}</p>
+      <aside className="rounded-3xl bg-gradient-to-br from-pink via-brand to-[#7ad7ff] p-[2px]">
+        <div className="rounded-[calc(1.5rem-2px)] bg-surface p-5">
+          <p className="text-xs font-black uppercase tracking-wide text-pink">✦ {t.guides.inShort}</p>
+          <p className="mt-1.5 font-semibold leading-relaxed">{guide.description}</p>
+        </div>
       </aside>
 
       <div className="prose" dangerouslySetInnerHTML={{ __html: guide.html }} />
@@ -125,12 +135,19 @@ export default async function GuidePage({ params }: Props) {
 
       {others.length > 0 && (
         <nav className="tap-links grid gap-2">
-          <h2 className="font-bold">{t.guides.more}</h2>
-          <ul className="grid gap-1.5 text-sm">
-            {others.map((g) => (
+          <h2 className="section-title">📚 {t.guides.more}</h2>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {others.slice(0, 6).map((g) => (
               <li key={g.slug}>
-                <Link href={`/${g.lang}/guides/${g.slug}`} hrefLang={g.lang} className="text-brand hover:underline">{g.title}</Link>
-                {g.lang !== locale && <span className="text-muted"> (English)</span>}
+                <Link
+                  href={`/${g.lang}/guides/${g.slug}`}
+                  hrefLang={g.lang}
+                  className="card grid h-full gap-1.5 p-4 transition hover:-translate-y-0.5 hover:border-brand"
+                >
+                  {g.lang !== locale && <span className="chip w-fit">English</span>}
+                  <b className="line-clamp-2 leading-snug">{g.title}</b>
+                  <span className="line-clamp-2 text-xs text-muted">{g.description}</span>
+                </Link>
               </li>
             ))}
           </ul>

@@ -181,6 +181,8 @@ export const ko: Dictionary = {
     today: "오늘",
     alsoInSeoul: "여행 기간 서울에서 열리는 다른 이벤트",
     otherMembers: (g: string) => `${g} 다른 멤버`,
+    submitSteps: ["누구의 생일인가요?", "카페 정보", "연락처와 공지"],
+    submitPerks: [{ title: "무료 등록", body: "비용이 전혀 들지 않아요." }, { title: "9개 언어 노출", body: "영어·일본어·중국어·태국어 등 해외 팬 페이지에 소개돼요." }, { title: "홍보 카드 제공", body: "팬들의 언어로 된 스토리 카드를 바로 받아 올릴 수 있어요." }],
   },
   footer: "팬이 만든 가이드입니다. 아티스트·소속사와 관계가 없습니다. 이벤트 정보는 바뀔 수 있으니 반드시 공식 공지를 확인하세요.",
   area: {

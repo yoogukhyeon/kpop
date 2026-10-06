@@ -181,6 +181,8 @@ export const en = {
     today: "Today",
     alsoInSeoul: "Also on in Seoul during your trip",
     otherMembers: (g: string) => `Other ${g} members`,
+    submitSteps: ["Whose birthday?", "Cafe details", "How we reach you"],
+    submitPerks: [{ title: "Free listing", body: "No fees, ever." }, { title: "9 languages", body: "Shown to fans in English, Japanese, Chinese, Thai and more." }, { title: "Promo cards", body: "Get story cards in your fans' languages to post." }],
   },
   footer: "Fan-made guide. Not affiliated with any artist or agency. Event details can change — always check the official notice.",
   area: {

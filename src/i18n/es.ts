@@ -183,6 +183,8 @@ export const es: Dictionary = {
     today: "Hoy",
     alsoInSeoul: "Otros eventos en Seúl durante tu viaje",
     otherMembers: (g: string) => `Otros miembros de ${g}`,
+    submitSteps: ["¿De quién es el cumpleaños?", "Datos del café", "Contacto y anuncio"],
+    submitPerks: [{ title: "Gratis", body: "Sin ningún costo." }, { title: "En 9 idiomas", body: "Se muestra a fans en inglés, japonés, chino, tailandés y más." }, { title: "Tarjetas promo", body: "Recibe tarjetas para stories en el idioma de tus fans." }],
   },
   footer: "Guía hecha por fans. Sin relación con artistas ni agencias. Los datos de eventos pueden cambiar: revisa siempre el anuncio oficial.",
   area: {

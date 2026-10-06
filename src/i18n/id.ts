@@ -181,6 +181,8 @@ export const id: Dictionary = {
     today: "Hari ini",
     alsoInSeoul: "Acara lain di Seoul selama perjalananmu",
     otherMembers: (g: string) => `Anggota ${g} lainnya`,
+    submitSteps: ["Ulang tahun siapa?", "Detail kafe", "Kontak dan pengumuman"],
+    submitPerks: [{ title: "Gratis", body: "Tanpa biaya sama sekali." }, { title: "Tampil dalam 9 bahasa", body: "Dikenalkan ke fans dalam bahasa Inggris, Jepang, Mandarin, Thai, dan lainnya." }, { title: "Kartu promosi", body: "Dapatkan kartu story dalam bahasa fans untuk langsung diunggah." }],
   },
   footer: "Panduan buatan fans. Tidak berafiliasi dengan artis atau agensi mana pun. Detail acara bisa berubah — selalu cek pengumuman resmi.",
   area: {

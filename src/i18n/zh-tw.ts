@@ -181,6 +181,8 @@ export const zhTW: Dictionary = {
     today: "今天",
     alsoInSeoul: "旅行期間首爾的其他活動",
     otherMembers: (g: string) => `${g} 其他成員`,
+    submitSteps: ["誰的生日？", "咖啡廳資訊", "聯絡方式與公告"],
+    submitPerks: [{ title: "免費刊登", body: "完全不收費。" }, { title: "9種語言曝光", body: "以英文、日文、中文、泰文等介紹給海外粉絲。" }, { title: "宣傳卡片", body: "取得粉絲語言的限動卡片，直接發布。" }],
   },
   footer: "粉絲製作的攻略。與任何藝人或經紀公司無關。活動資訊可能變動，請務必確認官方公告。",
   area: {

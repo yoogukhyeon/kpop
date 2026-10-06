@@ -181,6 +181,8 @@ export const vi: Dictionary = {
     today: "Hôm nay",
     alsoInSeoul: "Sự kiện khác ở Seoul trong chuyến đi",
     otherMembers: (g: string) => `Thành viên khác của ${g}`,
+    submitSteps: ["Sinh nhật của ai?", "Thông tin quán", "Liên hệ và thông báo"],
+    submitPerks: [{ title: "Đăng miễn phí", body: "Hoàn toàn không mất phí." }, { title: "Hiển thị 9 ngôn ngữ", body: "Giới thiệu đến fan bằng tiếng Anh, Nhật, Trung, Thái và nhiều hơn." }, { title: "Thẻ quảng bá", body: "Nhận thẻ story theo ngôn ngữ của fan để đăng ngay." }],
   },
   footer: "Cẩm nang do fan làm. Không liên kết với nghệ sĩ hay công ty nào. Thông tin sự kiện có thể thay đổi — hãy luôn xem thông báo chính thức.",
   area: {
