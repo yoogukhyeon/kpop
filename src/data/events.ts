@@ -107,4 +107,17 @@ export const events: KEvent[] = [
     sourceUrl: "https://www.asiae.co.kr/en/article/life-general/2026060909045404987",
     verifiedAt: "2026-10-06",
   },
+  {
+    id: "enhypen-spooky-enchin-popup-2026",
+    type: "popup",
+    title: "ENHYPEN 'SPOOKY ENCHIN' Official Character Pop-up",
+    groups: ["enhypen"],
+    startDate: "2026-09-29",
+    endDate: "2026-10-09",
+    venue: "HAESO, Seongdong-gu",
+    area: "seongsu",
+    ticketing: { platform: "Weverse (advance reservation)", foreignerAccess: "unknown" },
+    sourceUrl: "https://en.fannstar.tf.co.kr/fnnews/read/355579",
+    verifiedAt: null,
+  },
 ];
