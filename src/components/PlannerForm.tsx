@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/lib/i18n";
 
 interface GroupOption {
@@ -27,6 +27,32 @@ export function PlannerForm({
   const [from, setFrom] = useState(defaults.from);
   const [to, setTo] = useState(defaults.to);
 
+  const formRef = useRef<HTMLFormElement>(null);
+  const groupRef = useRef<HTMLSelectElement>(null);
+  const [highlight, setHighlight] = useState(false);
+
+  // Header "Trip planner" button: bring the form into view and point at it.
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    const open = () => {
+      if (window.location.hash !== "#planner") return;
+      formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      groupRef.current?.focus({ preventScroll: true });
+      setHighlight(true);
+      clearTimeout(timer);
+      timer = setTimeout(() => setHighlight(false), 1600);
+    };
+    const first = setTimeout(open, 60);
+    window.addEventListener("planner:open", open);
+    window.addEventListener("hashchange", open);
+    return () => {
+      clearTimeout(first);
+      clearTimeout(timer);
+      window.removeEventListener("planner:open", open);
+      window.removeEventListener("hashchange", open);
+    };
+  }, []);
+
   const current = groups.find((g) => g.slug === group);
   const toggle = (slug: string) =>
     setMembers((ms) => (ms.includes(slug) ? ms.filter((m) => m !== slug) : [...ms, slug]));
@@ -39,11 +65,16 @@ export function PlannerForm({
   }
 
   return (
-    <form onSubmit={submit} className="grid gap-4 rounded-[2rem] border border-line bg-surface p-5 shadow-[0_10px_30px_rgba(124,92,255,0.12)] sm:p-6">
+    <form
+      ref={formRef}
+      onSubmit={submit}
+      className={`grid gap-4 rounded-[2rem] border bg-surface p-5 shadow-[0_10px_30px_rgba(124,92,255,0.12)] transition duration-500 sm:p-6 ${highlight ? "border-brand ring-4 ring-brand/30" : "border-line"}`}
+    >
       <div className="grid gap-3 lg:grid-cols-[1.4fr_1fr_1fr_auto] lg:items-end">
         <label className="grid gap-1.5">
           <span className="text-xs font-bold text-muted">{labels.group}</span>
           <select
+            ref={groupRef}
             className="input font-semibold"
             value={group}
             onChange={(e) => {

@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ActivityCard } from "@/components/ActivityCard";
+import { JsonLd } from "@/components/JsonLd";
 import { KlookWidget } from "@/components/KlookWidget";
 import { KLOOK_WIDGETS } from "@/lib/partners";
 import { listActivities } from "@/lib/data";
 import { getDictionary, isLocale } from "@/lib/i18n";
+import { site } from "@/lib/site";
 import type { ActivityCategory } from "@/lib/types";
 
 export const ACTIVITY_CATEGORIES: ActivityCategory[] = ["tour", "experience", "ticket"];
@@ -22,6 +24,22 @@ export async function ActivitiesPage({ locale, category }: { locale: string; cat
 
   return (
     <div className="grid gap-6">
+      {items.length > 0 && (
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: category ? `${t.activities.categories[category]} · ${t.activities.title}` : t.activities.title,
+            itemListElement: items.map((a, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: a.title,
+              url: a.url,
+              image: `${site.url}/${locale}/activities/thumb/${a.id}`,
+            })),
+          }}
+        />
+      )}
       <header className="grid gap-2">
         <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">🎟️ {t.activities.title}</h1>
         <p className="max-w-2xl text-muted">{t.activities.intro}</p>

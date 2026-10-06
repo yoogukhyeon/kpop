@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ActivityCard } from "@/components/ActivityCard";
 import { Cover } from "@/components/Cover";
 import { EventCard } from "@/components/EventCard";
+import { MemberCard } from "@/components/MemberCard";
 import { ink, pastel } from "@/lib/color";
 import { GroupCard } from "@/components/GroupCard";
 import { JsonLd } from "@/components/JsonLd";
@@ -11,7 +12,7 @@ import { isGroupIndexable, NOINDEX } from "@/lib/indexing";
 import { MobileCta } from "@/components/MobileCta";
 import { PlanBox } from "@/components/PlanBox";
 import { getGroup, listActivities, listEvents, listGroups, listPlacesForGroup } from "@/lib/data";
-import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
+import { alternates, getDictionary, isLocale, locales } from "@/lib/i18n";
 import { mapsUrl, seoulToday, site, seoTitle } from "@/lib/site";
 import { AlertSignup } from "@/components/AlertSignup";
 import type { Area, Place } from "@/lib/types";
@@ -237,18 +238,10 @@ export default async function GroupPage({ params }: Props) {
           {g.members.length > 0 && (
             <section id="members" className="grid gap-4">
               <h2 className="section-title">💜 {t.group.members}</h2>
-              <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                {g.members.map((m) => (
+              <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-5">
+                {g.members.map((m, i) => (
                   <li key={m.slug}>
-                    <Link href={`/${locale}/groups/${g.slug}/${m.slug}`} className="flex items-center gap-3 rounded-full border border-line bg-surface p-2 pr-4 transition hover:border-brand">
-                      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-sm font-black" style={{ background: pastel(g.accent, 35), color: ink(g.accent) }}>
-                        {m.stageName.slice(0, 1)}
-                      </span>
-                      <span className="grid min-w-0">
-                        <b className="truncate">{m.stageName}</b>
-                        <span className="text-xs text-muted">🎂 {formatDate(m.birthday, locale, { month: "long", day: "numeric" })}</span>
-                      </span>
-                    </Link>
+                    <MemberCard member={m} index={i} accent={g.accent} href={`/${locale}/groups/${g.slug}/${m.slug}`} locale={locale} today={today} />
                   </li>
                 ))}
               </ul>

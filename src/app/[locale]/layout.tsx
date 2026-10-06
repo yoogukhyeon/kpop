@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { JsonLd } from "@/components/JsonLd";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { PlannerButton } from "@/components/PlannerButton";
 import { getDictionary, isLocale, locales } from "@/lib/i18n";
 import { site } from "@/lib/site";
 import "../globals.css";
@@ -101,13 +102,16 @@ export default async function LocaleLayout({
               <Link href={`/${locale}/guides`} className="hover:text-text">{t.nav.guides}</Link>
             </nav>
             <div className="ml-auto flex items-center gap-2">
-              <Link href={`/${locale}/submit`} className="hidden text-sm font-semibold text-muted hover:text-text sm:block">
-                {t.nav.submit}
+              <Link
+                href={`/${locale}/submit`}
+                className="hidden h-9 items-center gap-1 rounded-full bg-pink-soft px-4 text-sm font-bold text-pink transition hover:-translate-y-0.5 hover:brightness-95 sm:inline-flex"
+              >
+                🎂 {t.nav.submit}
               </Link>
               <Suspense>
                 <LanguageSwitcher current={locale} options={languageOptions} />
               </Suspense>
-              <Link href={`/${locale}#planner`} className="btn hidden h-9 px-3 text-sm sm:inline-flex">{t.nav.planner}</Link>
+              <PlannerButton locale={locale} label={t.nav.planner} />
             </div>
           </div>
           <nav className="flex gap-5 overflow-x-auto px-4 pb-2.5 text-sm font-semibold text-muted md:hidden">
@@ -116,7 +120,7 @@ export default async function LocaleLayout({
             <Link href={`/${locale}/activities`} className="shrink-0">{t.activities.nav}</Link>
             <Link href={`/${locale}/events`} className="shrink-0">{t.nav.events}</Link>
             <Link href={`/${locale}/guides`} className="shrink-0">{t.nav.guides}</Link>
-            <Link href={`/${locale}/submit`} className="shrink-0">{t.nav.submit}</Link>
+            <Link href={`/${locale}/submit`} className="shrink-0 rounded-full bg-pink-soft px-3 text-pink">🎂 {t.nav.submit}</Link>
           </nav>
         </header>
         <main className="mx-auto max-w-6xl px-4 py-6 sm:py-8">{children}</main>

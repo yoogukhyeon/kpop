@@ -1,17 +1,12 @@
 import { getDictionary, type Locale } from "@/lib/i18n";
 import { partnerHref, partnerName } from "@/lib/partners";
 import type { Activity } from "@/lib/types";
+import { ActivityIcon, stageBackground } from "@/lib/activity-art";
 
-const TONE: Record<Activity["category"], { bg: string; icon: string }> = {
-  tour: { bg: "linear-gradient(135deg, #e6f3ff, #cfe6ff)", icon: "🚌" },
-  experience: { bg: "linear-gradient(135deg, #ffeef4, #ffd6e7)", icon: "💃" },
-  ticket: { bg: "linear-gradient(135deg, #fff6d9, #ffe9a8)", icon: "🎫" },
-};
 
 /** Product card for a partner activity. The whole card links out to the partner page. */
 export function ActivityCard({ activity: a, locale, compact = false }: { activity: Activity; locale: Locale; compact?: boolean }) {
   const t = getDictionary(locale);
-  const tone = TONE[a.category];
   const partner = partnerName(a.partner);
   const duration =
     a.duration === undefined ? null : typeof a.duration === "number" ? t.activities.duration.minutes(a.duration) : t.activities.duration[a.duration];
@@ -23,14 +18,22 @@ export function ActivityCard({ activity: a, locale, compact = false }: { activit
       rel="sponsored nofollow noopener"
       className={`group grid h-full overflow-hidden rounded-3xl border border-line bg-surface shadow-[0_4px_18px_rgba(124,92,255,0.07)] transition hover:-translate-y-1 hover:shadow-[0_10px_24px_rgba(124,92,255,0.15)] ${compact ? "grid-cols-[88px_1fr]" : "grid-rows-[auto_1fr]"}`}
     >
-      <div className={`relative grid place-items-center ${compact ? "" : "h-28 sm:h-36"}`} style={{ background: tone.bg }}>
-        <span className={compact ? "text-4xl" : "text-6xl"} aria-hidden>{tone.icon}</span>
-        {!compact && (
-          <span className="absolute left-3 top-3 rounded-full bg-white/85 px-2.5 py-1 text-xs font-bold">
-            {t.activities.categories[a.category]}
-          </span>
-        )}
-      </div>
+      {compact ? (
+        <div className="relative grid place-items-center" style={{ backgroundImage: stageBackground(a.category) }}>
+          <ActivityIcon category={a.category} size={36} />
+        </div>
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element -- generated thumbnail route, already sized
+        <img
+          src={`/${locale}/activities/thumb/${a.id}`}
+          alt={a.title}
+          width={1200}
+          height={630}
+          loading="lazy"
+          decoding="async"
+          className="aspect-[1200/630] w-full bg-[#1b1036] object-cover"
+        />
+      )}
       <div className="grid content-start gap-1.5 p-4">
         <span className="flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs font-bold text-muted">
           <span>{partner}{a.area ? ` · ${t.area[a.area]}` : ""}</span>
