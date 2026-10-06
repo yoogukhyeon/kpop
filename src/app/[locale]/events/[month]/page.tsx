@@ -5,7 +5,7 @@ import { EventList } from "@/components/EventList";
 import { listEvents } from "@/lib/data";
 import { alternates, getDictionary, isLocale, locales } from "@/lib/i18n";
 import { isMonth, monthLabel, monthRange, upcomingMonths } from "@/lib/months";
-import { seoulToday } from "@/lib/site";
+import { seoulToday, seoTitle } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string; month: string }> };
 
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const label = monthLabel(month, locale);
   const hasEvents = (await listEvents(monthRange(month))).length > 0;
   return {
-    title: t.events.monthTitle(label),
+    title: seoTitle(t.events.monthTitle(label)),
     description: t.meta.monthDesc(label),
     alternates: alternates(locale, `/events/${month}`),
     // Empty month pages are thin content; keep them out of the index until they have events.
@@ -41,6 +41,7 @@ export default async function MonthEventsPage({ params }: Props) {
     <div className="tap-links grid gap-6">
       <Link href={`/${locale}/events`} className="text-sm text-brand hover:underline">← {t.events.title}</Link>
       <h1 className="text-3xl font-extrabold tracking-tight">{t.events.monthTitle(monthLabel(month, locale))}</h1>
+      <p className="-mt-3 max-w-3xl text-muted">{t.meta.monthDesc(monthLabel(month, locale))}</p>
       <EventList events={events} locale={locale} />
     </div>
   );

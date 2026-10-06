@@ -15,3 +15,11 @@ export function seoulToday(): string {
 
 export const mapsUrl = (query: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+
+/**
+ * Page <title>: keeps the " · SideQuest Day" suffix only when the whole title stays
+ * short enough not to be cut off in search results (~60 characters).
+ */
+export function seoTitle(title: string): string | { absolute: string } {
+  return [...title].length + [...` · ${site.name}`].length > 60 ? { absolute: title } : title;
+}

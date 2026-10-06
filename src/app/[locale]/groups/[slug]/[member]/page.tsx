@@ -5,7 +5,7 @@ import { getGroup, listGroups } from "@/lib/data";
 import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
 import { JsonLd } from "@/components/JsonLd";
 import { isMemberIndexable, NOINDEX } from "@/lib/indexing";
-import { seoulToday, site } from "@/lib/site";
+import { seoulToday, site, seoTitle } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string; slug: string; member: string }> };
 
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { g, m } = found;
   const t = getDictionary(locale);
   return {
-    title: t.meta.memberTitle(m.stageName, g.name),
+    title: seoTitle(t.meta.memberTitle(m.stageName, g.name)),
     description: t.meta.memberDesc(m.stageName, formatDate(m.birthday, locale, { month: "long", day: "numeric" }), g.fandom),
     alternates: alternates(locale, `/groups/${g.slug}/${m.slug}`),
     robots: (await isMemberIndexable(g, m)) ? undefined : NOINDEX,

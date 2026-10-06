@@ -11,7 +11,7 @@ import { MobileCta } from "@/components/MobileCta";
 import { PlanBox } from "@/components/PlanBox";
 import { getGroup, listActivities, listEvents, listGroups, listPlacesForGroup } from "@/lib/data";
 import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
-import { mapsUrl, seoulToday, site } from "@/lib/site";
+import { mapsUrl, seoulToday, site, seoTitle } from "@/lib/site";
 import type { Area, Place } from "@/lib/types";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!g || !isLocale(locale)) return {};
   const t = getDictionary(locale);
   return {
-    title: t.meta.groupTitle(g.name),
+    title: seoTitle(t.meta.groupTitle(g.name)),
     description: t.meta.groupDesc(g.name, g.agency, g.fandom),
     alternates: alternates(locale, `/groups/${g.slug}`),
     robots: isGroupIndexable(g) ? undefined : NOINDEX,

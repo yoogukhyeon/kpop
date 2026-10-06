@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ACTIVITY_CATEGORIES, ActivitiesPage } from "@/components/ActivitiesPage";
 import { alternates, getDictionary, isLocale, locales } from "@/lib/i18n";
+import { seoTitle } from "@/lib/site";
 import type { ActivityCategory } from "@/lib/types";
 
 type Props = { params: Promise<{ locale: string; category: string }> };
@@ -17,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!isLocale(locale) || !isCategory(category)) return {};
   const t = getDictionary(locale);
   return {
-    title: `${t.activities.categories[category]} · ${t.activities.title}`,
+    title: seoTitle(`${t.activities.categories[category]} · ${t.activities.title}`),
     description: t.activities.metaDesc,
     alternates: alternates(locale, `/activities/${category}`),
   };

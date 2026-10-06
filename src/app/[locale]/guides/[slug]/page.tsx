@@ -8,7 +8,7 @@ import { listActivities } from "@/lib/data";
 import { getGuide, guideLocales, listGuides, listGuidesForLists } from "@/lib/guides";
 import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
 import { KLOOK_WIDGETS, partnerLinks } from "@/lib/partners";
-import { site } from "@/lib/site";
+import { site, seoTitle } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -23,10 +23,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const guide = await getGuide(locale, slug);
   if (!guide) return {};
   return {
-    title: guide.title,
+    title: seoTitle(guide.title),
     description: guide.description,
     alternates: alternates(locale, `/guides/${slug}`, await guideLocales(slug)),
-    openGraph: { type: "article", title: guide.title, description: guide.description },
+    openGraph: {
+      type: "article",
+      title: guide.title,
+      description: guide.description,
+      images: [{ url: `/${locale}/guides/${slug}/og`, width: 1200, height: 630 }],
+    },
+    twitter: { card: "summary_large_image", title: guide.title, images: [`/${locale}/guides/${slug}/og`] },
   };
 }
 
@@ -55,7 +61,7 @@ export default async function GuidePage({ params }: Props) {
           dateModified: guide.updated,
           inLanguage: locale,
           mainEntityOfPage: `${site.url}/${locale}/guides/${slug}`,
-          image: `${site.url}/${locale}/opengraph-image`,
+          image: `${site.url}/${locale}/guides/${slug}/og`,
           author: { "@id": `${site.url}/#organization` },
           publisher: { "@id": `${site.url}/#organization` },
           ...(guide.sources.length ? { citation: guide.sources } : {}),

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { alternates, defaultLocale, formatDate, getDictionary, isLocale } from "@/lib/i18n";
+import { seoTitle } from "@/lib/site";
 import { getPage, pageLocales, type PageSlug } from "@/lib/pages";
 
 // Shared implementation for /[locale]/about, /privacy, /terms, /disclosure.
@@ -11,7 +12,7 @@ export async function sitePageMetadata(locale: string, slug: PageSlug): Promise<
   if (!isLocale(locale)) return {};
   const page = await getPage(locale, slug);
   if (!page) return {};
-  return { title: page.title, description: page.description, alternates: alternates(locale, `/${slug}`, await pageLocales(slug)) };
+  return { title: seoTitle(page.title), description: page.description, alternates: alternates(locale, `/${slug}`, await pageLocales(slug)) };
 }
 
 export async function SitePage({ locale, slug }: { locale: string; slug: PageSlug }) {
