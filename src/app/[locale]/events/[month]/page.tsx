@@ -37,7 +37,7 @@ export default async function MonthEventsPage({ params }: Props) {
   const events = await listEvents(monthRange(month));
 
   return (
-    <div className="grid gap-6">
+    <div className="tap-links grid gap-6">
       <Link href={`/${locale}/events`} className="text-sm text-brand hover:underline">← {t.events.title}</Link>
       <h1 className="text-3xl font-extrabold tracking-tight">{t.events.monthTitle(monthLabel(month, locale))}</h1>
       <EventList events={events} locale={locale} />

@@ -2,6 +2,7 @@ import type { KEvent } from "@/lib/types";
 
 // Only events with a source are listed. Prefer official notices over news/blogs,
 // and replace secondary sources with the official one during verification.
+// verifiedAt = date the date/venue was confirmed in a reputable news report or official notice.
 
 export const events: KEvent[] = [
   {
@@ -16,5 +17,57 @@ export const events: KEvent[] = [
     ticketing: { platform: "Check official notice", foreignerAccess: "unknown" },
     sourceUrl: "https://hapskorea.com/whats-on-in-seoul-september-28-26",
     verifiedAt: null,
+  },
+  {
+    id: "kgma-2026-day1",
+    type: "concert",
+    title: "2026 KGMA (Korea Grand Music Awards) — Day 1",
+    groups: [],
+    startDate: "2026-11-07",
+    endDate: "2026-11-07",
+    venue: "Gocheok Sky Dome",
+    area: "guro",
+    ticketing: { platform: "Foreigner ticket packages (passport pickup)", foreignerAccess: "open" },
+    sourceUrl: "https://www.allkpop.com/article/2026/09/2026-kgma-splits-its-performer-lineup-across-november-7-and-8",
+    verifiedAt: "2026-10-06",
+  },
+  {
+    id: "kgma-2026-day2",
+    type: "concert",
+    title: "2026 KGMA (Korea Grand Music Awards) — Day 2",
+    groups: ["riize", "ateez"],
+    startDate: "2026-11-08",
+    endDate: "2026-11-08",
+    venue: "Gocheok Sky Dome",
+    area: "guro",
+    ticketing: { platform: "Foreigner ticket packages (passport pickup)", foreignerAccess: "open" },
+    sourceUrl: "https://www.allkpop.com/article/2026/09/2026-kgma-splits-its-performer-lineup-across-november-7-and-8",
+    verifiedAt: "2026-10-06",
+  },
+  {
+    id: "txt-steal-the-wind-seoul-2026",
+    type: "concert",
+    title: "TOMORROW X TOGETHER World Tour 'STEAL THE WIND' in Seoul",
+    groups: ["txt"],
+    startDate: "2026-11-13",
+    endDate: "2026-11-15",
+    venue: "KSPO Dome",
+    area: "songpa",
+    ticketing: { platform: "Membership presales, then general sale — check the official notice", foreignerAccess: "fanclub" },
+    sourceUrl: "https://www.koreajoongangdaily.com/entertainment/tomorrow-x-together-announces-venue-for-seoul-concert-to-kickstart-world-tour/12874371",
+    verifiedAt: "2026-10-06",
+  },
+  {
+    id: "mma-2026",
+    type: "concert",
+    title: "2026 Melon Music Awards (MMA)",
+    groups: [],
+    startDate: "2026-11-14",
+    endDate: "2026-11-15",
+    venue: "Gocheok Sky Dome",
+    area: "guro",
+    ticketing: { platform: "Check official notice", foreignerAccess: "unknown" },
+    sourceUrl: "https://www.asiae.co.kr/en/article/life-general/2026060909045404987",
+    verifiedAt: "2026-10-06",
   },
 ];

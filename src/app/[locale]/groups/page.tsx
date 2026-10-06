@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
+import { GroupCard } from "@/components/GroupCard";
 import { listGroups } from "@/lib/data";
 import { alternates, getDictionary, isLocale } from "@/lib/i18n";
 
@@ -19,17 +19,11 @@ export default async function GroupsPage({ params }: { params: Promise<{ locale:
 
   return (
     <div className="grid gap-6">
-      <h1 className="text-3xl font-extrabold tracking-tight">{t.nav.groups}</h1>
-      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">{t.meta.groupsTitle}</h1>
+      <ul className="grid grid-cols-2 gap-x-4 gap-y-7 sm:grid-cols-3 lg:grid-cols-4">
         {groups.map((g) => (
           <li key={g.slug}>
-            <Link href={`/${locale}/groups/${g.slug}`} className="card flex items-center gap-3 transition hover:border-brand">
-              <span className="h-10 w-10 shrink-0 rounded-xl" style={{ background: g.accent }} />
-              <span className="grid">
-                <b>{g.name}</b>
-                <span className="text-sm text-muted">{g.fandom} · {g.agency}</span>
-              </span>
-            </Link>
+            <GroupCard group={g} locale={locale} membersLabel={g.members.length ? t.detail.members(g.members.length) : undefined} />
           </li>
         ))}
       </ul>

@@ -4,6 +4,7 @@ description: Which ticketing sites foreigners can use, what passport verificatio
 updated: 2026-10-01
 order: 1
 partners: [klook, kkday]
+activities: [music-show]
 sources:
   - https://blog.namanecard.com/en/kpop-concert-tickets-foreigners-guide-2026-en/
   - https://creatrip.com/en/blog/9563

@@ -3,11 +3,12 @@
 // Usage: npm run db:seed   (reads SUPABASE_URL and SUPABASE_SECRET_KEY from .env)
 
 import { createClient } from "@supabase/supabase-js";
+import { activities } from "../src/data/activities";
 import { events } from "../src/data/events";
 import { groups } from "../src/data/groups";
 import { places } from "../src/data/places";
 
-const url = process.env.SUPABASE_URL?.replace(/\/rest\/v1\/?$/, "");
+const url = (process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL)?.replace(/\/rest\/v1\/?$/, "");
 const key = process.env.SUPABASE_SECRET_KEY;
 if (!url || !key) throw new Error("Set SUPABASE_URL and SUPABASE_SECRET_KEY in .env");
 
@@ -45,6 +46,14 @@ async function main() {
     events.map((e) => ({
       id: e.id, type: e.type, title: e.title, groups: e.groups, members: e.members ?? null, start_date: e.startDate, end_date: e.endDate,
       venue: e.venue, area: e.area, ticketing: e.ticketing ?? null, source_url: e.sourceUrl, verified_at: e.verifiedAt,
+    })),
+    "id",
+  );
+  await upsert(
+    "activities",
+    activities.map((a, i) => ({
+      id: a.id, partner: a.partner, category: a.category, title: a.title, summary: a.summary, url: a.url, area: a.area ?? null,
+      groups: a.groups, tags: a.tags, weekdays: a.weekdays ?? null, duration: a.duration ?? null, sort: i, checked_at: a.checkedAt,
     })),
     "id",
   );

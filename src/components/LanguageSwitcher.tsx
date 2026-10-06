@@ -16,7 +16,7 @@ export function LanguageSwitcher({
   return (
     <select
       aria-label="Language"
-      className="rounded-lg border border-line bg-surface px-2 py-1 text-sm"
+      className="h-9 rounded-lg border border-line bg-surface px-2 text-sm font-semibold"
       value={current}
       onChange={(e) => {
         const q = search ? `?${search}` : "";

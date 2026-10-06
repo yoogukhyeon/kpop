@@ -1,11 +1,11 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { headers } from "next/headers";
 import { z } from "zod";
 import { isAdminAuthorized } from "@/lib/admin-auth";
 import { seoulToday } from "@/lib/site";
-import { adminDb } from "@/lib/supabase";
+import { adminDb, DB_CACHE_TAG } from "@/lib/supabase";
 
 const AREAS = ["yongsan", "seongsu", "gangnam", "mapo", "songpa", "jung", "gangdong", "yeouido", "guro"] as const;
 
@@ -51,6 +51,7 @@ export async function approveSubmission(form: FormData) {
     .eq("id", id);
   if (update.error) throw new Error(`Submission update failed: ${update.error.message}`);
 
+  revalidateTag(DB_CACHE_TAG);
   revalidatePath("/", "layout");
 }
 
@@ -64,4 +65,11 @@ export async function rejectSubmission(form: FormData) {
     .eq("status", "pending");
   if (error) throw new Error(`Reject failed: ${error.message}`);
   revalidatePath("/admin");
+}
+
+/** Drops cached DB reads and regenerates pages — use after editing data or running db:seed. */
+export async function refreshSiteData() {
+  await requireAdmin();
+  revalidateTag(DB_CACHE_TAG);
+  revalidatePath("/", "layout");
 }

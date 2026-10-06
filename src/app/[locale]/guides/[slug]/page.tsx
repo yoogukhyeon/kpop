@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import { ActivityCard } from "@/components/ActivityCard";
+import { KlookWidget } from "@/components/KlookWidget";
 import { JsonLd } from "@/components/JsonLd";
-import { getGuide, guideLocales, listGuides } from "@/lib/guides";
+import { listActivities } from "@/lib/data";
+import { getGuide, guideLocales, listGuides, listGuidesForLists } from "@/lib/guides";
 import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
-import { partnerLinks } from "@/lib/partners";
+import { KLOOK_WIDGETS, partnerLinks } from "@/lib/partners";
 import { site } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
@@ -38,7 +41,8 @@ export default async function GuidePage({ params }: Props) {
   }
   const t = getDictionary(locale);
   const partners = partnerLinks(guide.partners, locale);
-  const others = (await listGuides(locale)).filter((g) => g.slug !== slug);
+  const others = (await listGuidesForLists(locale)).filter((g) => g.slug !== slug);
+  const activities = guide.activities.length ? await listActivities({ tags: guide.activities, limit: 4 }) : [];
 
   return (
     <article className="grid max-w-3xl gap-6">
@@ -51,21 +55,44 @@ export default async function GuidePage({ params }: Props) {
           dateModified: guide.updated,
           inLanguage: locale,
           mainEntityOfPage: `${site.url}/${locale}/guides/${slug}`,
-          publisher: { "@type": "Organization", name: site.name, url: site.url },
+          image: `${site.url}/${locale}/opengraph-image`,
+          author: { "@id": `${site.url}/#organization` },
+          publisher: { "@id": `${site.url}/#organization` },
+          ...(guide.sources.length ? { citation: guide.sources } : {}),
         }}
       />
-      <header className="grid gap-2">
-        <Link href={`/${locale}/guides`} className="text-sm text-brand hover:underline">← {t.nav.guides}</Link>
+      <header className="tap-links grid gap-2">
+        <Link href={`/${locale}/guides`} className="w-fit text-sm text-brand hover:underline">← {t.nav.guides}</Link>
         <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{guide.title}</h1>
         <p className="text-sm text-muted">
           {t.guides.updated}: {formatDate(guide.updated, locale, { year: "numeric", month: "long", day: "numeric" })}
         </p>
       </header>
 
+      <aside className="rounded-3xl bg-brand-soft p-5">
+        <p className="text-xs font-black uppercase tracking-wide text-brand">{t.guides.inShort}</p>
+        <p className="mt-1.5 font-semibold leading-relaxed">{guide.description}</p>
+      </aside>
+
       <div className="prose" dangerouslySetInnerHTML={{ __html: guide.html }} />
 
+      {activities.length > 0 && (
+        <section className="grid gap-3">
+          <h2 className="section-title">🎟️ {t.activities.recommended}</h2>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {activities.map((a) => (
+              <li key={a.id}><ActivityCard activity={a} locale={locale} compact /></li>
+            ))}
+          </ul>
+          <p className="text-xs text-muted">{t.activities.note}</p>
+        </section>
+      )}
+
+      {/* Travel-essentials widget on guides about the trip itself (those recommending Klook). */}
+      {guide.partners.includes("klook") && <KlookWidget adid={KLOOK_WIDGETS.essentials} title={t.activities.travelEssentials} />}
+
       {partners.length > 0 && (
-        <aside className="card grid gap-2">
+        <aside className="tap-links card grid gap-2">
           <h2 className="font-bold">{t.partners.title}</h2>
           <ul className="grid gap-1.5 text-sm">
             {partners.map((p) => (
@@ -80,7 +107,7 @@ export default async function GuidePage({ params }: Props) {
       )}
 
       {guide.sources.length > 0 && (
-        <section className="grid gap-1 text-xs text-muted">
+        <section className="tap-links grid gap-1 text-xs text-muted">
           <h2 className="font-semibold">{t.guides.sources}</h2>
           <ul className="grid gap-0.5">
             {guide.sources.map((s) => (
@@ -91,11 +118,14 @@ export default async function GuidePage({ params }: Props) {
       )}
 
       {others.length > 0 && (
-        <nav className="grid gap-2">
+        <nav className="tap-links grid gap-2">
           <h2 className="font-bold">{t.guides.more}</h2>
           <ul className="grid gap-1.5 text-sm">
             {others.map((g) => (
-              <li key={g.slug}><Link href={`/${locale}/guides/${g.slug}`} className="text-brand hover:underline">{g.title}</Link></li>
+              <li key={g.slug}>
+                <Link href={`/${g.lang}/guides/${g.slug}`} hrefLang={g.lang} className="text-brand hover:underline">{g.title}</Link>
+                {g.lang !== locale && <span className="text-muted"> (English)</span>}
+              </li>
             ))}
           </ul>
         </nav>

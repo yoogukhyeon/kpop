@@ -69,3 +69,28 @@ export interface KEvent {
   sourceUrl: string;
   verifiedAt: string | null;
 }
+
+export type ActivityCategory = "tour" | "experience" | "ticket";
+
+/** A bookable partner product (tour, class, ticket). Prices aren't stored — they change; we link to the partner page. */
+export interface Activity {
+  id: string;
+  partner: "klook" | "kkday";
+  category: ActivityCategory;
+  /** Product name as the partner lists it. */
+  title: string;
+  summary: Record<Locale, string>;
+  /** Partner product page; affiliate tracking is appended at render time. */
+  url: string;
+  area?: Area;
+  /** Group slugs the product is specifically about; empty = any fan. */
+  groups: string[];
+  /** Matching keys for contextual placement, e.g. "music-show", "dance", "fan-tour". */
+  tags: string[];
+  /** Days of week the product runs (0 = Sunday), for music show tickets. */
+  weekdays?: number[];
+  /** Length as stated on the partner page — minutes, or half/full day. Omit when not confirmed. */
+  duration?: number | "half-day" | "full-day";
+  /** Date we last confirmed the product page exists. */
+  checkedAt: string | null;
+}

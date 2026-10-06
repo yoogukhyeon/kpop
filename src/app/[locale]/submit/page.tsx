@@ -23,6 +23,7 @@ export default async function SubmitPage({ params }: { params: Promise<{ locale:
       <p className="text-muted">{t.submit.intro}</p>
       <SubmitCafeForm
         labels={t.submit}
+        consent={t.legal.consent}
         groups={groups.map((g) => ({ slug: g.slug, name: g.name, members: g.members.map((m) => ({ slug: m.slug, stageName: m.stageName })) }))}
       />
     </div>

@@ -10,7 +10,7 @@ interface GroupOption {
   members: { slug: string; stageName: string }[];
 }
 
-export function SubmitCafeForm({ groups, labels }: { groups: GroupOption[]; labels: Dictionary["submit"] }) {
+export function SubmitCafeForm({ groups, labels, consent }: { groups: GroupOption[]; labels: Dictionary["submit"]; consent: string }) {
   const [state, action, pending] = useActionState<SubmitState, FormData>(submitCafe, { ok: false });
 
   if (state.ok) return <p className="card font-medium text-brand">{labels.thanks}</p>;
@@ -41,6 +41,7 @@ export function SubmitCafeForm({ groups, labels }: { groups: GroupOption[]; labe
       <Field name="endDate" type="date" label={labels.end} error={err("endDate")} />
       <Field name="contact" label={labels.contact} error={err("contact")} />
       <Field name="sourceUrl" type="url" label={labels.sourceUrl} error={err("sourceUrl")} />
+      <p className="text-xs text-muted sm:col-span-2">{consent}</p>
       <button className="btn w-fit sm:col-span-2" disabled={pending}>{labels.send}</button>
     </form>
   );

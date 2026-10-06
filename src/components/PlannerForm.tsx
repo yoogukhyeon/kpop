@@ -39,27 +39,38 @@ export function PlannerForm({
   }
 
   return (
-    <form onSubmit={submit} className="card grid gap-4 shadow-sm sm:grid-cols-2">
-      <label className="grid gap-1.5 sm:col-span-2">
-        <span className="text-sm font-medium">{labels.group}</span>
-        <select
-          className="input"
-          value={group}
-          onChange={(e) => {
-            setGroup(e.target.value);
-            setMembers([]);
-          }}
-        >
-          {groups.map((g) => (
-            <option key={g.slug} value={g.slug}>{g.name}</option>
-          ))}
-        </select>
-      </label>
+    <form onSubmit={submit} className="grid gap-4 rounded-[2rem] border border-line bg-surface p-5 shadow-[0_10px_30px_rgba(124,92,255,0.12)] sm:p-6">
+      <div className="grid gap-3 lg:grid-cols-[1.4fr_1fr_1fr_auto] lg:items-end">
+        <label className="grid gap-1.5">
+          <span className="text-xs font-bold text-muted">{labels.group}</span>
+          <select
+            className="input font-semibold"
+            value={group}
+            onChange={(e) => {
+              setGroup(e.target.value);
+              setMembers([]);
+            }}
+          >
+            {groups.map((g) => (
+              <option key={g.slug} value={g.slug}>{g.name}</option>
+            ))}
+          </select>
+        </label>
+        <label className="grid gap-1.5">
+          <span className="text-xs font-bold text-muted">{labels.from}</span>
+          <input type="date" className="input font-semibold" value={from} required onChange={(e) => setFrom(e.target.value)} />
+        </label>
+        <label className="grid gap-1.5">
+          <span className="text-xs font-bold text-muted">{labels.to}</span>
+          <input type="date" className="input font-semibold" value={to} min={from} required onChange={(e) => setTo(e.target.value)} />
+        </label>
+        <button className="btn lg:px-8" type="submit">{labels.submit}</button>
+      </div>
 
       {current && current.members.length > 0 && (
-        <fieldset className="grid gap-1.5 sm:col-span-2">
-          <legend className="mb-1.5 text-sm font-medium">{labels.members}</legend>
-          <div className="flex flex-wrap gap-2">
+        <fieldset className="grid gap-2">
+          <legend className="mb-2 text-xs font-bold text-muted">{labels.members}</legend>
+          <div className="flex flex-wrap gap-1.5">
             <Chip active={members.length === 0} onClick={() => setMembers([])}>{labels.allMembers}</Chip>
             {current.members.map((m) => (
               <Chip key={m.slug} active={members.includes(m.slug)} onClick={() => toggle(m.slug)}>
@@ -69,20 +80,7 @@ export function PlannerForm({
           </div>
         </fieldset>
       )}
-
-      <label className="grid gap-1.5">
-        <span className="text-sm font-medium">{labels.from}</span>
-        <input type="date" className="input" value={from} required onChange={(e) => setFrom(e.target.value)} />
-      </label>
-      <label className="grid gap-1.5">
-        <span className="text-sm font-medium">{labels.to}</span>
-        <input type="date" className="input" value={to} min={from} required onChange={(e) => setTo(e.target.value)} />
-      </label>
-
-      <div className="flex flex-wrap items-center gap-3 sm:col-span-2">
-        <button className="btn" type="submit">{labels.submit}</button>
-        <span className="text-xs text-muted">{labels.maxDays}</span>
-      </div>
+      <p className="text-xs text-muted">{labels.maxDays}</p>
     </form>
   );
 }
@@ -93,8 +91,8 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-full border px-3 py-1.5 text-sm transition ${
-        active ? "border-brand bg-brand-soft font-semibold text-brand" : "border-line bg-surface text-muted hover:text-text"
+      className={`rounded-full border px-3 py-1.5 text-sm font-semibold transition ${
+        active ? "border-brand bg-brand-soft text-brand" : "border-line bg-surface text-muted hover:border-brand hover:text-brand"
       }`}
     >
       {children}

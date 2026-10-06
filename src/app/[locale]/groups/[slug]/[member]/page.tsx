@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getGroup, listGroups } from "@/lib/data";
 import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
 import { JsonLd } from "@/components/JsonLd";
+import { isMemberIndexable, NOINDEX } from "@/lib/indexing";
 import { seoulToday, site } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string; slug: string; member: string }> };
@@ -40,6 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: t.meta.memberTitle(m.stageName, g.name),
     description: t.meta.memberDesc(m.stageName, formatDate(m.birthday, locale, { month: "long", day: "numeric" }), g.fandom),
     alternates: alternates(locale, `/groups/${g.slug}/${m.slug}`),
+    robots: (await isMemberIndexable(g, m)) ? undefined : NOINDEX,
   };
 }
 
@@ -54,7 +56,7 @@ export default async function MemberPage({ params }: Props) {
   const planHref = `/${locale}/plan?${new URLSearchParams({ group: g.slug, members: m.slug, from: shift(next, -2), to: shift(next, 2) })}`;
 
   return (
-    <div className="grid max-w-2xl gap-6">
+    <div className="tap-links grid max-w-2xl gap-6">
       <JsonLd
         data={{
           "@context": "https://schema.org",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "../globals.css";
 
 export const metadata: Metadata = {
-  title: "BiasTrip admin",
+  title: "SideQuest Day admin",
   robots: { index: false, follow: false },
 };
 

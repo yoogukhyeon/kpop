@@ -1,0 +1,6 @@
+.env
+.env.*
+.data
+supabase/.temp
+.next
+node_modules

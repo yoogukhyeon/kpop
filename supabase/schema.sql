@@ -93,5 +93,35 @@ drop policy if exists "public submit cafe" on cafe_submissions;
 create policy "public submit cafe" on cafe_submissions for insert to anon, authenticated
   with check (status = 'pending' and event_id is null and reviewed_at is null);
 
+-- Explicit API privileges (needed when the project doesn't auto-expose new tables).
+-- RLS above still decides which rows each role can see or write.
+grant usage on schema public to anon, authenticated, service_role;
+grant select on groups, members, places, events to anon, authenticated;
+grant insert on cafe_submissions to anon, authenticated;
+grant all on groups, members, places, events, cafe_submissions to service_role;
+
+create table if not exists activities (
+  id          text primary key,
+  partner     text not null check (partner in ('klook', 'kkday')),
+  category    text not null check (category in ('tour', 'experience', 'ticket')),
+  title       text not null,
+  summary     jsonb not null,           -- { "en": "...", "ja": "...", "es": "...", "ko": "..." }
+  url         text not null,
+  area        text,
+  groups      text[] not null default '{}',
+  tags        text[] not null default '{}',
+  weekdays    int[],
+  duration    jsonb,                    -- minutes (number) or "half-day" / "full-day"
+  sort        int not null default 0,
+  published   boolean not null default true,
+  checked_at  date
+);
+alter table activities add column if not exists duration jsonb;
+alter table activities enable row level security;
+drop policy if exists "public read published activities" on activities;
+create policy "public read published activities" on activities for select to anon, authenticated using (published);
+grant select on activities to anon, authenticated;
+grant all on activities to service_role;
+
 -- Make the API pick up the new tables immediately.
 notify pgrst, 'reload schema';

@@ -35,3 +35,6 @@ Locales: `en` (default), `ja`, `es`, `ko`. UI strings live in `src/i18n/<locale>
 | `src/lib/partners.ts` | Affiliate links, enabled per env var. |
 | `src/app/api/card` | Share card images (`format=story` 1080×1920, `format=og` 1200×630). |
 | `src/lib/submissions.ts` | Birthday cafe submissions — dev-only JSONL storage until a DB is connected. |
+
+
+Klook·KKday 제휴 프로그램 url 넣고 검수를 받을꺼야 

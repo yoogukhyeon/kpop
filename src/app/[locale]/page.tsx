@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ActivityCard } from "@/components/ActivityCard";
+import { GroupCard } from "@/components/GroupCard";
 import { PlannerForm } from "@/components/PlannerForm";
-import { listGroups } from "@/lib/data";
-import { alternates, getDictionary, isLocale } from "@/lib/i18n";
+import { listActivities, listEvents, listGroups } from "@/lib/data";
+import { listGuidesForLists } from "@/lib/guides";
+import { alternates, formatDate, getDictionary, isLocale } from "@/lib/i18n";
+import { ink, pastel } from "@/lib/color";
 import { seoulToday } from "@/lib/site";
 
 const addDays = (d: string, n: number) =>
@@ -25,39 +29,146 @@ export default async function Home({
   if (!isLocale(locale)) notFound();
   const { group } = await searchParams;
   const t = getDictionary(locale);
-  const groups = await listGroups();
   const today = seoulToday();
+  const [groups, events, guides, activities] = await Promise.all([
+    listGroups(),
+    listEvents({ from: today }),
+    listGuidesForLists(locale),
+    listActivities(),
+  ]);
+  // One of each category first, so the row shows the range.
+  const featured = (["ticket", "experience", "tour"] as const)
+    .map((c) => activities.find((a) => a.category === c))
+    .filter((a) => a !== undefined);
+  const groupName = new Map(groups.map((g) => [g.slug, g]));
 
   return (
-    <div className="grid gap-10">
-      <section className="grid gap-6 pt-4">
-        <div className="grid max-w-2xl gap-3">
-          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">{t.tagline}</h1>
-          <p className="text-lg text-muted">{t.heroSub}</p>
+    <div className="grid gap-14">
+      <section
+        id="planner"
+        className="relative -mx-4 -mt-6 overflow-hidden px-4 pb-6 pt-10 sm:-mt-8 sm:rounded-b-[2rem] sm:pt-14"
+        style={{
+          background:
+            "radial-gradient(circle at 8% 20%, #ffd6e7 0, transparent 38%), radial-gradient(circle at 92% 10%, #fff1b8 0, transparent 35%), radial-gradient(circle at 75% 95%, #d9e7ff 0, transparent 45%), #fffafc",
+        }}
+      >
+        <span aria-hidden className="pointer-events-none absolute -right-6 top-6 hidden text-7xl opacity-80 sm:block">💜</span>
+        <span aria-hidden className="pointer-events-none absolute right-28 top-24 hidden text-4xl opacity-70 sm:block">✨</span>
+        <span aria-hidden className="pointer-events-none absolute right-10 top-44 hidden text-5xl opacity-70 lg:block">🎤</span>
+        <div className="relative mx-auto grid max-w-6xl gap-6">
+          <div className="grid max-w-3xl gap-3">
+            <span className="chip-pink w-fit">{t.home.badge}</span>
+            <h1 className="text-3xl font-extrabold leading-tight tracking-tight sm:text-5xl">{t.tagline}</h1>
+            <p className="text-base text-muted sm:text-lg">{t.heroSub}</p>
+          </div>
+          <PlannerForm
+            locale={locale}
+            labels={t.form}
+            groups={groups.map((g) => ({
+              slug: g.slug,
+              name: g.name,
+              members: g.members.map((m) => ({ slug: m.slug, stageName: m.stageName })),
+            }))}
+            defaults={{ group, from: addDays(today, 30), to: addDays(today, 35) }}
+          />
         </div>
-        <PlannerForm
-          locale={locale}
-          labels={t.form}
-          groups={groups.map((g) => ({
-            slug: g.slug,
-            name: g.name,
-            members: g.members.map((m) => ({ slug: m.slug, stageName: m.stageName })),
-          }))}
-          defaults={{ group, from: addDays(today, 30), to: addDays(today, 35) }}
-        />
       </section>
 
-      <section className="grid gap-3">
-        <h2 className="text-xl font-bold">{t.nav.groups}</h2>
-        <div className="flex flex-wrap gap-2">
-          {groups.map((g) => (
-            <Link key={g.slug} href={`/${locale}/groups/${g.slug}`} className="btn-ghost text-sm">
-              <span className="h-2.5 w-2.5 rounded-full" style={{ background: g.accent }} />
-              {g.name}
-            </Link>
-          ))}
+      <section className="grid gap-5">
+        <div className="flex items-end justify-between gap-4">
+          <h2 className="section-title">⭐ {t.home.popular}</h2>
+          <Link href={`/${locale}/groups`} className="inline-flex min-h-10 items-center text-sm font-semibold text-muted hover:text-text">{t.home.seeAll} ›</Link>
         </div>
+        <ul className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 lg:grid-cols-4">
+          {groups.slice(0, 8).map((g) => (
+            <li key={g.slug}>
+              <GroupCard group={g} locale={locale} membersLabel={g.members.length ? t.detail.members(g.members.length) : undefined} />
+            </li>
+          ))}
+        </ul>
       </section>
+
+      {featured.length > 0 && (
+        <section className="grid gap-5">
+          <div className="flex items-end justify-between gap-4">
+            <h2 className="section-title">🎟️ {t.activities.recommended}</h2>
+            <Link href={`/${locale}/activities`} className="inline-flex min-h-10 items-center text-sm font-semibold text-muted hover:text-text">{t.home.seeAll} ›</Link>
+          </div>
+          <ul className="grid gap-4 sm:grid-cols-3">
+            {featured.map((a) => (
+              <li key={a.id}><ActivityCard activity={a} locale={locale} /></li>
+            ))}
+          </ul>
+          <p className="text-xs text-muted">{t.activities.note}</p>
+        </section>
+      )}
+
+      {events.length > 0 && (
+        <section className="grid gap-5">
+          <div className="flex items-end justify-between gap-4">
+            <h2 className="section-title">🗓️ {t.home.upcoming}</h2>
+            <Link href={`/${locale}/events`} className="inline-flex min-h-10 items-center text-sm font-semibold text-muted hover:text-text">{t.home.seeAll} ›</Link>
+          </div>
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {events.slice(0, 6).map((e) => {
+              const g = groupName.get(e.groups[0]);
+              return (
+                <li key={e.id} className="card flex gap-4 p-4">
+                  <div
+                    className="grid h-16 w-16 shrink-0 place-items-center rounded-2xl text-center"
+                    style={{ background: pastel(g?.accent ?? "#7c5cff", 30), color: ink(g?.accent ?? "#7c5cff") }}
+                  >
+                    <span className="text-xs font-semibold leading-tight">{formatDate(e.startDate, locale, { month: "short" })}</span>
+                    <span className="text-xl font-extrabold leading-none">{formatDate(e.startDate, locale, { day: "numeric" })}</span>
+                  </div>
+                  <div className="grid min-w-0 gap-1">
+                    <span className="chip w-fit">{t.eventType[e.type]}</span>
+                    <p className="truncate font-bold">{e.title}</p>
+                    <p className="truncate text-xs text-muted">{e.venue} · {t.area[e.area]}</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+      <section className="grid gap-3 sm:grid-cols-3">
+        {t.home.why.map((w, i) => {
+          const tone = [
+            { bg: "bg-pink-soft", dot: "bg-pink", icon: "💖" },
+            { bg: "bg-sun-soft", dot: "bg-sun", icon: "🗺️" },
+            { bg: "bg-brand-soft", dot: "bg-brand", icon: "📸" },
+          ][i % 3];
+          return (
+            <div key={w.title} className={`grid content-start gap-2 rounded-3xl p-6 ${tone.bg}`}>
+              <span className={`grid h-11 w-11 place-items-center rounded-full text-xl ${tone.dot}`}>{tone.icon}</span>
+              <p className="text-lg font-bold">{w.title}</p>
+              <p className="text-sm text-muted">{w.body}</p>
+            </div>
+          );
+        })}
+      </section>
+
+      {guides.length > 0 && (
+        <section className="grid gap-5">
+          <div className="flex items-end justify-between gap-4">
+            <h2 className="section-title">📚 {t.home.guides}</h2>
+            <Link href={`/${locale}/guides`} className="inline-flex min-h-10 items-center text-sm font-semibold text-muted hover:text-text">{t.home.seeAll} ›</Link>
+          </div>
+          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {guides.slice(0, 6).map((g) => (
+              <li key={g.slug}>
+                <Link href={`/${g.lang}/guides/${g.slug}`} hrefLang={g.lang} className="card grid h-full gap-1.5 transition hover:border-text">
+                  {g.lang !== locale && <span className="chip w-fit">English</span>}
+                  <p className="font-bold leading-snug">{g.title}</p>
+                  <p className="line-clamp-2 text-sm text-muted">{g.description}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   );
 }

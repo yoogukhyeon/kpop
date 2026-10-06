@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
+import { ActivityCard } from "@/components/ActivityCard";
 import { ShareActions } from "@/components/ShareActions";
+import { listActivities } from "@/lib/data";
 import { formatDate, getDictionary, isLocale, type Locale } from "@/lib/i18n";
 import { loadPlan, planSearch } from "@/lib/plan-params";
+import { ink, pastelGradient } from "@/lib/color";
 import { mapsUrl } from "@/lib/site";
 import type { KEvent } from "@/lib/types";
 
@@ -37,15 +40,43 @@ export default async function PlanPage({ params, searchParams }: Props) {
   const { group, plan, from, to, memberSlugs } = loaded;
   const search = planSearch({ group: group.slug, from, to, memberSlugs });
   const focusNames = group.members.filter((m) => memberSlugs.includes(m.slug)).map((m) => m.stageName);
+  const [showTickets, anyDay] = await Promise.all([
+    listActivities({ category: "ticket", tags: ["music-show"] }),
+    listActivities({ group: group.slug, tags: ["fan-tour", "dance", "hongdae", "seongsu"] }),
+  ]);
+  // Products tied to a weekday (music show packages) only appear in the
+  // weekday-matched ticket slot, never as a free-day idea.
+  const bookable = anyDay.filter((a) => !a.weekdays?.length);
+
+  // Free days (no event) get one bookable idea: same neighbourhood as the day's
+  // spots if possible, the bias group's own products first, never repeated.
+  const ideas = new Map<string, (typeof bookable)[number]>();
+  const used = new Set<string>();
+  for (const day of plan.days) {
+    if (day.events.length) continue;
+    const dayAreas = new Set(day.areas.map((a) => a.area));
+    const pick =
+      bookable.find((a) => !used.has(a.id) && a.area && dayAreas.has(a.area)) ?? bookable.find((a) => !used.has(a.id));
+    if (!pick) break;
+    used.add(pick.id);
+    ideas.set(day.date, pick);
+  }
+  const recommended = bookable.filter((a) => !used.has(a.id)).slice(0, 3);
+  // Music show tickets for a given date, matched on the weekday the show records.
+  const ticketsOn = (date: string) => {
+    const weekday = new Date(`${date}T00:00:00Z`).getUTCDay();
+    return showTickets.filter((a) => a.weekdays?.includes(weekday)).slice(0, 1);
+  };
 
   return (
     <div className="grid gap-8">
-      <section className="grid gap-3">
-        <p className="text-sm font-semibold" style={{ color: group.accent }}>
-          {focusNames.length ? focusNames.join(" · ") : group.fandom}
-        </p>
+      <section
+        className="relative grid gap-3 overflow-hidden rounded-[2rem] p-6 sm:p-8"
+        style={{ background: pastelGradient(group.accent), color: ink(group.accent) }}
+      >
+        <p className="text-sm font-semibold opacity-90">{focusNames.length ? focusNames.join(" · ") : group.fandom}</p>
         <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{t.plan.title(group.name)}</h1>
-        <p className="text-muted">
+        <p className="opacity-90">
           {formatDate(from, locale, { month: "long", day: "numeric" })} – {formatDate(to, locale, { month: "long", day: "numeric", year: "numeric" })}
         </p>
         <div className="flex flex-wrap gap-2 text-sm">
@@ -53,12 +84,12 @@ export default async function PlanPage({ params, searchParams }: Props) {
           <Stat label={t.stats.birthdays(plan.stats.birthdays)} />
           <Stat label={t.stats.spots(plan.stats.spots)} />
         </div>
-        <Link href={`/${locale}?group=${group.slug}`} className="w-fit text-sm text-brand underline-offset-4 hover:underline">
+        <Link href={`/${locale}?group=${group.slug}#planner`} className="inline-flex min-h-10 w-fit items-center text-sm font-semibold underline underline-offset-4 opacity-90 hover:opacity-100">
           {t.plan.edit}
         </Link>
       </section>
 
-      <div className="grid gap-8 lg:grid-cols-[1fr_300px]">
+      <div className="grid gap-8 lg:grid-cols-[1fr_320px]">
         <ol className="grid gap-4">
           {plan.days.map((day, i) => (
             <li key={day.date} className="card grid gap-3">
@@ -68,7 +99,7 @@ export default async function PlanPage({ params, searchParams }: Props) {
               </h2>
 
               {day.birthdays.map((m) => (
-                <p key={m.slug} className="rounded-xl bg-brand-soft px-3 py-2 text-sm font-medium text-brand">
+                <p key={m.slug} className="rounded-full bg-pink-soft px-4 py-2 text-sm font-bold text-pink">
                   🎂 {t.plan.birthday(m.stageName)}
                 </p>
               ))}
@@ -91,14 +122,28 @@ export default async function PlanPage({ params, searchParams }: Props) {
                 </div>
               ))}
 
-              {!day.events.length && !day.areas.length && !day.birthdays.length && (
+              {ticketsOn(day.date).map((a) => (
+                <div key={a.id} className="grid gap-1.5">
+                  <p className="text-xs font-bold text-muted">🎫 {t.activities.onThisDay}</p>
+                  <ActivityCard activity={a} locale={locale} compact />
+                </div>
+              ))}
+
+              {ideas.get(day.date) && (
+                <div className="grid gap-1.5">
+                  <p className="text-xs font-bold text-muted">💡 {t.activities.freeDayIdea}</p>
+                  <ActivityCard activity={ideas.get(day.date)!} locale={locale} compact />
+                </div>
+              )}
+
+              {!day.events.length && !day.areas.length && !day.birthdays.length && !ideas.get(day.date) && (
                 <p className="text-sm text-muted">{t.plan.noEvents}</p>
               )}
             </li>
           ))}
         </ol>
 
-        <aside className="grid h-fit gap-4 lg:sticky lg:top-4">
+        <aside className="grid h-fit gap-4 lg:sticky lg:top-24">
           <div className="card grid gap-3">
             <h2 className="font-bold">{t.plan.share}</h2>
             {/* eslint-disable-next-line @next/next/no-img-element -- generated image, not a static asset */}
@@ -107,7 +152,7 @@ export default async function PlanPage({ params, searchParams }: Props) {
               alt=""
               width={1080}
               height={1920}
-              className="mx-auto w-40 rounded-xl border border-line"
+              className="mx-auto w-40 rounded-3xl border border-line"
             />
             <p className="text-xs text-muted">{t.plan.shareNote}</p>
             <ShareActions
@@ -133,6 +178,15 @@ export default async function PlanPage({ params, searchParams }: Props) {
               <p key={p.id}><span className="font-medium">{p.name}</span> — <span className="text-muted">{p.note[locale]}</span></p>
             ))}
           </div>
+          {recommended.length > 0 && (
+            <div className="card grid gap-3">
+              <h2 className="font-bold">🎟️ {t.activities.recommended}</h2>
+              {recommended.map((a) => (
+                <ActivityCard key={a.id} activity={a} locale={locale} compact />
+              ))}
+              <p className="text-xs text-muted">{t.activities.note}</p>
+            </div>
+          )}
         </aside>
       </div>
     </div>
@@ -140,13 +194,13 @@ export default async function PlanPage({ params, searchParams }: Props) {
 }
 
 function Stat({ label }: { label: string }) {
-  return <span className="rounded-full border border-line bg-surface px-3 py-1 font-medium">{label}</span>;
+  return <span className="rounded-full bg-white/70 px-3 py-1 font-bold">{label}</span>;
 }
 
 function EventRow({ e, locale }: { e: KEvent; locale: Locale }) {
   const t = getDictionary(locale);
   return (
-    <div className="grid gap-1 rounded-xl border border-line p-3 text-sm">
+    <div className="grid gap-1 rounded-3xl bg-subtle p-4 text-sm">
       <p>
         <span className="mr-2 rounded-md bg-brand-soft px-1.5 py-0.5 text-xs font-semibold text-brand">{t.eventType[e.type]}</span>
         <b>{e.title}</b>

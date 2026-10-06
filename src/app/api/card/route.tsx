@@ -2,28 +2,14 @@ import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 import { defaultLocale, formatDate, getDictionary, isLocale, type Locale } from "@/lib/i18n";
 import { loadPlan } from "@/lib/plan-params";
+import { mixHex } from "@/lib/color";
+import { ogFonts } from "@/lib/og-font";
 import { site } from "@/lib/site";
 
 // Share card for a trip plan. `format=story` → 1080×1920 (IG/TikTok story),
 // `format=og` → 1200×630 (link previews on X, Discord, etc.). `locale` picks the language.
 
 const SIZES = { story: { width: 1080, height: 1920 }, og: { width: 1200, height: 630 } } as const;
-const FONT_FAMILY: Record<Locale, string> = { en: "Noto Sans", es: "Noto Sans", ja: "Noto Sans JP", ko: "Noto Sans KR" };
-
-/** Fetches a Google Font subset containing only `text` (keeps CJK fonts small). */
-async function loadFont(family: string, weight: number, text: string): Promise<ArrayBuffer | null> {
-  try {
-    const cssUrl = `https://fonts.googleapis.com/css2?family=${family.replace(/ /g, "+")}:wght@${weight}&text=${encodeURIComponent(text)}`;
-    const css = await (await fetch(cssUrl)).text();
-    const src = css.match(/src: url\((.+?)\) format\('(opentype|truetype)'\)/)?.[1];
-    if (!src) return null;
-    const res = await fetch(src);
-    return res.ok ? await res.arrayBuffer() : null;
-  } catch {
-    return null;
-  }
-}
-
 export async function GET(req: NextRequest) {
   const params = Object.fromEntries(req.nextUrl.searchParams);
   const loaded = await loadPlan(params);
@@ -60,12 +46,7 @@ export async function GET(req: NextRequest) {
   const footer = `${t.card.cta} → ${site.url.replace(/^https?:\/\//, "")}`;
 
   const allText = [header, ...title, dates, ...stats, ...highlights, footer].join("");
-  const family = FONT_FAMILY[locale];
-  const [regular, bold] = await Promise.all([loadFont(family, 400, allText), loadFont(family, 800, allText)]);
-  const fonts = [
-    ...(regular ? [{ name: "Card", data: regular, weight: 400 as const, style: "normal" as const }] : []),
-    ...(bold ? [{ name: "Card", data: bold, weight: 800 as const, style: "normal" as const }] : []),
-  ];
+  const fonts = await ogFonts(locale, allText);
 
   const s = <T,>(storyValue: T, ogValue: T) => (story ? storyValue : ogValue);
 
@@ -78,8 +59,8 @@ export async function GET(req: NextRequest) {
       <div
         style={{
           width, height, display: "flex", flexDirection: "column", justifyContent: "space-between",
-          padding: s(96, 56), color: "#ffffff", fontFamily: fonts.length ? "Card" : undefined,
-          background: `linear-gradient(160deg, ${group.accent} 0%, #1b1530 75%)`,
+          padding: s(96, 56), color: mixHex(group.accent, "#1b1530", 0.7), fontFamily: fonts.length ? [...new Set(fonts.map((f) => f.name))].join(", ") : undefined,
+          background: `linear-gradient(160deg, ${mixHex(group.accent, "#ffffff", 0.18)} 0%, ${mixHex(group.accent, "#ffffff", 0.45)} 100%)`,
         }}
       >
         <div style={{ display: "flex", fontSize: s(40, 24), opacity: 0.85 }}>{header}</div>
@@ -93,7 +74,7 @@ export async function GET(req: NextRequest) {
             {stats.map((label) => (
               <div
                 key={label}
-                style={{ display: "flex", lineHeight: 1.2, padding: s("14px 28px", "8px 18px"), borderRadius: 999, background: "rgba(255,255,255,0.16)" }}
+                style={{ display: "flex", lineHeight: 1.2, padding: s("14px 28px", "8px 18px"), borderRadius: 999, background: "rgba(255,255,255,0.75)" }}
               >
                 {label}
               </div>

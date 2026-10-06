@@ -1,96 +1,163 @@
 @import "tailwindcss";
 
+/* Cute pastel look, always light: soft pink-white canvas, lavender for actions,
+   K-pop pink and sunny yellow for highlights, rounded pill shapes everywhere. */
 :root {
-  --bg: #fbfaff;
+  color-scheme: light;
+  --bg: #fffbfe;
   --surface: #ffffff;
-  --text: #1b1530;
-  --muted: #6b6485;
-  --line: #e7e3f3;
-  --brand: #7c3aed;
-  --brand-soft: #f1eaff;
+  --subtle: #f6f3fb;
+  --text: #2a2440;
+  --muted: #7a7491;
+  --line: #efe8f5;
+  --brand: #7c5cff;
+  --brand-soft: #f0ebff;
+  --pink: #ff3d84;
+  --pink-soft: #ffeef4;
+  --sun: #ffb800;
+  --sun-soft: #fff6d9;
+  --mint-soft: #e3f8ef;
+  --sky-soft: #e6f3ff;
+  --ok: #12a150;
   --warn: #b45309;
   --warn-soft: #fff7e6;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f0c1a;
-    --surface: #18142a;
-    --text: #efeaff;
-    --muted: #a59fc0;
-    --line: #2c2645;
-    --brand: #a78bfa;
-    --brand-soft: #251d42;
-    --warn: #fbbf24;
-    --warn-soft: #2a2110;
-  }
 }
 
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
+  --color-subtle: var(--subtle);
   --color-text: var(--text);
   --color-muted: var(--muted);
   --color-line: var(--line);
   --color-brand: var(--brand);
   --color-brand-soft: var(--brand-soft);
+  --color-pink: var(--pink);
+  --color-pink-soft: var(--pink-soft);
+  --color-sun: var(--sun);
+  --color-sun-soft: var(--sun-soft);
+  --color-mint-soft: var(--mint-soft);
+  --color-sky-soft: var(--sky-soft);
+  --color-ok: var(--ok);
   --color-warn: var(--warn);
   --color-warn-soft: var(--warn-soft);
-  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Pretendard Variable", Pretendard, "Hiragino Sans", "Noto Sans JP", "PingFang TC", "Noto Sans TC", "PingFang SC", "Noto Sans SC", "Noto Sans Thai", "Leelawadee UI", ui-sans-serif, system-ui, sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+}
+/* Readability: balanced headings, no orphan words, language-aware line breaking. */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+p, li, dd, summary {
+  text-wrap: pretty;
+}
+/* Korean: break between words, not inside them. */
+:lang(ko) {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+/* Vietnamese: Pretendard lacks many Vietnamese glyphs, so stacked diacritics
+   came from a fallback font and rendered misaligned. System UI fonts (SF Pro,
+   Segoe UI, Roboto) cover Vietnamese fully. */
+:lang(vi) {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+}
+/* Chinese/Japanese: strict kinsoku (no closing punctuation at line start). */
+:lang(ja), :lang(zh-tw), :lang(zh-cn) {
+  line-break: strict;
+}
+/* Long URLs and unbroken strings never push the layout wider. */
+a, td, th {
+  overflow-wrap: anywhere;
 }
 
-.input {
-  @apply w-full rounded-xl border border-line bg-surface px-3 py-2.5 text-text outline-none focus:border-brand;
+/* Touch devices: text links in menus, breadcrumbs, footers and link lists get a
+   comfortable tap height (≥40px) without changing the desktop layout. */
+@media (pointer: coarse) {
+  header nav a,
+  footer a,
+  .tap-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+  }
 }
-.btn {
-  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3 font-semibold text-white transition hover:opacity-90 disabled:opacity-50;
+
+/* Anchored sections stop below the sticky header + tab bar. */
+[id] {
+  scroll-margin-top: 120px;
 }
-.btn-ghost {
-  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-line bg-surface px-4 py-2.5 font-medium text-text transition hover:border-brand;
-}
-.card {
-  @apply rounded-2xl border border-line bg-surface p-5;
+
+/* Component classes live in the components layer so utilities (hidden, h-9,
+   w-fit…) can still override them where they are used. */
+@layer components {
+  .input {
+    @apply h-12 w-full rounded-2xl border-2 border-line bg-surface px-4 text-text outline-none transition focus:border-brand;
+  }
+  .btn {
+    @apply inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand px-6 font-bold text-white shadow-[0_6px_16px_rgba(124,92,255,0.3)] transition hover:-translate-y-0.5 hover:brightness-105 disabled:opacity-50;
+  }
+  .btn-ghost {
+    @apply inline-flex h-10 items-center justify-center gap-2 rounded-full border-2 border-line bg-surface px-4 text-sm font-bold text-text transition hover:border-brand hover:text-brand;
+  }
+  .card {
+    @apply rounded-3xl border border-line bg-surface p-5 shadow-[0_4px_18px_rgba(124,92,255,0.07)];
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full bg-subtle px-2.5 py-1 text-xs font-bold text-muted;
+  }
+  .chip-pink {
+    @apply inline-flex items-center gap-1 rounded-full bg-pink-soft px-2.5 py-1 text-xs font-bold text-pink;
+  }
+  .section-title {
+    @apply text-xl font-extrabold tracking-tight sm:text-2xl;
+  }
 }
 
 /* Guide article body (rendered Markdown). */
-.prose {
-  @apply grid gap-4 leading-relaxed;
-}
-.prose h2 {
-  @apply mt-4 text-2xl font-bold tracking-tight;
-}
-.prose h3 {
-  @apply mt-2 text-lg font-semibold;
-}
-.prose a {
-  @apply font-medium text-brand underline underline-offset-4;
-}
-.prose ul,
-.prose ol {
-  @apply grid gap-1.5 pl-6;
-}
-.prose ul {
-  @apply list-disc;
-}
-.prose ol {
-  @apply list-decimal;
-}
-.prose li:has(> input[type="checkbox"]) {
-  @apply list-none -ml-6;
-}
-.prose table {
-  @apply block w-full overflow-x-auto border-collapse text-sm;
-}
-.prose th,
-.prose td {
-  @apply border border-line px-3 py-2 text-left;
-}
-.prose th {
-  @apply bg-brand-soft;
+@layer components {
+  .prose {
+    @apply grid gap-4 leading-relaxed;
+  }
+  .prose h2 {
+    @apply mt-4 text-2xl font-bold tracking-tight;
+  }
+  .prose h3 {
+    @apply mt-2 text-lg font-semibold;
+  }
+  .prose a {
+    @apply font-medium text-brand underline underline-offset-4;
+  }
+  .prose ul,
+  .prose ol {
+    @apply grid gap-1.5 pl-6;
+  }
+  .prose ul {
+    @apply list-disc;
+  }
+  .prose ol {
+    @apply list-decimal;
+  }
+  .prose li:has(> input[type="checkbox"]) {
+    @apply list-none -ml-6;
+  }
+  .prose table {
+    @apply block w-full overflow-x-auto border-collapse text-sm;
+  }
+  .prose th,
+  .prose td {
+    @apply border border-line px-3 py-2 text-left;
+  }
+  .prose th {
+    @apply bg-subtle;
+  }
 }

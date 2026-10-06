@@ -1,10 +1,11 @@
 import "server-only";
 import { cache } from "react";
+import { activities as seedActivities } from "@/data/activities";
 import { events as seedEvents } from "@/data/events";
 import { groups as seedGroups } from "@/data/groups";
 import { places as seedPlaces } from "@/data/places";
 import { publicDb, supabaseConfigured } from "@/lib/supabase";
-import type { Group, KEvent, Place } from "@/lib/types";
+import type { Activity, ActivityCategory, Group, KEvent, Place } from "@/lib/types";
 
 // Data access layer. Pages call only these functions. With Supabase configured
 // the database is the source of truth; without it (local dev with no keys) the
@@ -96,3 +97,39 @@ export const listEvents = cache(async (opts: { from?: string; to?: string; group
   if (opts.group) q = q.contains("groups", [opts.group]);
   return check<Row[]>(await q, "events").map(toEvent);
 });
+
+const toActivity = (r: Row): Activity => ({
+  id: r.id as string,
+  partner: r.partner as Activity["partner"],
+  category: r.category as ActivityCategory,
+  title: r.title as string,
+  summary: r.summary as Activity["summary"],
+  url: r.url as string,
+  area: (r.area as Activity["area"] | null) ?? undefined,
+  groups: r.groups as string[],
+  tags: r.tags as string[],
+  weekdays: (r.weekdays as number[] | null) ?? undefined,
+  duration: (r.duration as Activity["duration"] | null) ?? undefined,
+  checkedAt: (r.checked_at as string | null) ?? null,
+});
+
+const allActivities = cache(async (): Promise<Activity[]> => {
+  if (!supabaseConfigured()) return seedActivities;
+  return check<Row[]>(await publicDb().from("activities").select("*").order("sort"), "activities").map(toActivity);
+});
+
+/**
+ * Published activities, optionally filtered. With `group`, products made for that
+ * group come first, then general ones. `tags` matches any of the given tags.
+ */
+export async function listActivities(opts: { category?: ActivityCategory; group?: string; tags?: string[]; limit?: number } = {}) {
+  let list = await allActivities();
+  if (opts.category) list = list.filter((a) => a.category === opts.category);
+  if (opts.tags?.length) list = list.filter((a) => a.tags.some((t) => opts.tags!.includes(t)));
+  if (opts.group) {
+    list = list
+      .filter((a) => a.groups.length === 0 || a.groups.includes(opts.group!))
+      .sort((a, b) => Number(b.groups.includes(opts.group!)) - Number(a.groups.includes(opts.group!)));
+  }
+  return opts.limit ? list.slice(0, opts.limit) : list;
+}

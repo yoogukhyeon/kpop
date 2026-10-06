@@ -1,7 +1,7 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
-import { marked } from "marked";
+import { renderMarkdown } from "@/lib/markdown";
 import { locales, type Locale } from "@/lib/i18n";
 
 // Guides are Markdown files in src/content/guides/<locale>/<slug>.md.
@@ -18,6 +18,8 @@ export interface GuideMeta {
   updated: string;
   order: number;
   partners: string[];
+  /** Activity tags to recommend under the guide (see src/data/activities.ts). */
+  activities: string[];
   sources: string[];
 }
 
@@ -30,6 +32,7 @@ function toMeta(slug: string, data: Record<string, unknown>): GuideMeta {
     updated: data.updated instanceof Date ? data.updated.toISOString().slice(0, 10) : String(data.updated),
     order: Number(data.order ?? 99),
     partners: (data.partners as string[] | undefined) ?? [],
+    activities: (data.activities as string[] | undefined) ?? [],
     sources: (data.sources as string[] | undefined) ?? [],
   };
 }
@@ -53,7 +56,7 @@ export async function getGuide(locale: Locale, slug: string): Promise<(GuideMeta
   if (!/^[a-z0-9-]+$/.test(slug)) return null;
   try {
     const { data, content } = matter(await readFile(path.join(ROOT, locale, `${slug}.md`), "utf8"));
-    return { ...toMeta(slug, data), html: await marked.parse(content) };
+    return { ...toMeta(slug, data), html: await renderMarkdown(content) };
   } catch {
     return null;
   }
@@ -63,4 +66,18 @@ export async function getGuide(locale: Locale, slug: string): Promise<(GuideMeta
 export async function guideLocales(slug: string): Promise<Locale[]> {
   const found = await Promise.all(locales.map(async (l) => ((await slugs(l)).includes(slug) ? l : null)));
   return found.filter((l): l is Locale => l !== null);
+}
+
+export type GuideLink = GuideMeta & { lang: Locale };
+
+/**
+ * Guides to show in a locale's lists: its own translations first, then English
+ * guides that aren't translated yet (linked to /en, labelled as English), so
+ * newer languages don't show an empty guide section.
+ */
+export async function listGuidesForLists(locale: Locale): Promise<GuideLink[]> {
+  const own = (await listGuides(locale)).map((g) => ({ ...g, lang: locale }));
+  if (locale === "en") return own;
+  const english = (await listGuides("en")).filter((g) => !own.some((o) => o.slug === g.slug));
+  return [...own, ...english.map((g) => ({ ...g, lang: "en" as Locale }))];
 }

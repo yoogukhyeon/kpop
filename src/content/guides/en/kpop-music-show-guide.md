@@ -4,6 +4,7 @@ description: The weekly music show schedule, which shows visitors can actually g
 updated: 2026-10-01
 order: 2
 partners: [klook]
+activities: [music-show]
 sources:
   - https://korearoute.com/guides/kpop-music-show-guide
   - https://koreabyme.com/how-to-attend-kpop-music-shows-in-korea-a-guide-for-foreigners/

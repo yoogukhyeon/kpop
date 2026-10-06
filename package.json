@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:seed": "tsx --env-file=.env scripts/seed.ts"
+    "db:seed": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/seed.ts",
+    "db:migrate": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/migrate.ts",
+    "indexnow": "tsx scripts/indexnow.ts",
+    "refresh": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/refresh.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.2",
@@ -23,10 +26,12 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.27",
+    "pg": "^8.23.1",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
     "typescript": "^5"

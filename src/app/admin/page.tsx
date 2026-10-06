@@ -1,4 +1,4 @@
-import { approveSubmission, rejectSubmission } from "@/app/admin/actions";
+import { approveSubmission, refreshSiteData, rejectSubmission } from "@/app/admin/actions";
 import { listGroups } from "@/lib/data";
 import { getDictionary } from "@/lib/i18n";
 import { adminDb } from "@/lib/supabase";
@@ -39,7 +39,13 @@ export default async function AdminPage() {
 
   return (
     <div className="grid gap-8">
-      <h1 className="text-2xl font-extrabold">생일카페 등록 검토</h1>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h1 className="text-2xl font-extrabold">생일카페 등록 검토</h1>
+        <form action={refreshSiteData}>
+          <button className="btn-ghost">🔄 사이트 데이터 새로고침</button>
+        </form>
+      </div>
+      <p className="-mt-6 text-xs text-muted">DB를 직접 고치거나 시드를 다시 넣은 뒤 누르면 모든 페이지에 바로 반영됩니다.</p>
 
       <section className="grid gap-4">
         <h2 className="font-bold">대기 중 ({pending.data.length})</h2>
