@@ -9,7 +9,7 @@ import { GroupCard } from "@/components/GroupCard";
 import { PlannerForm } from "@/components/PlannerForm";
 import { listActivities, listEvents, listGroups } from "@/lib/data";
 import { listGuidesForLists } from "@/lib/guides";
-import { alternates, getDictionary, isLocale } from "@/lib/i18n";
+import { alternates, getDictionary, isLocale, ogBase } from "@/lib/i18n";
 import { seoulToday } from "@/lib/site";
 
 const addDays = (d: string, n: number) =>
@@ -17,7 +17,13 @@ const addDays = (d: string, n: number) =>
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  return isLocale(locale) ? { alternates: alternates(locale, "") } : {};
+  if (!isLocale(locale)) return {};
+  const t = getDictionary(locale);
+  return {
+    title: { absolute: t.seo.homeTitle },
+    alternates: alternates(locale, ""),
+    openGraph: { ...ogBase(locale), title: t.seo.homeTitle, description: t.heroSub },
+  };
 }
 
 export default async function Home({

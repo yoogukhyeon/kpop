@@ -5,7 +5,7 @@ import { ActivityCard } from "@/components/ActivityCard";
 import { ShareActions } from "@/components/ShareActions";
 import { EventCard } from "@/components/EventCard";
 import { listActivities, listEvents, listGroups } from "@/lib/data";
-import { formatDate, getDictionary, isLocale, type Locale } from "@/lib/i18n";
+import { formatDate, getDictionary, isLocale, ogBase, type Locale } from "@/lib/i18n";
 import { loadPlan, planSearch } from "@/lib/plan-params";
 import { ink, pastelGradient } from "@/lib/color";
 import { mapsUrl, seoulToday } from "@/lib/site";
@@ -28,7 +28,7 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     title,
     // Personal plans are share targets, not search landing pages.
     robots: { index: false, follow: true },
-    openGraph: { title, images: [{ url: og, width: 1200, height: 630 }] },
+    openGraph: { ...ogBase(locale), title, images: [{ url: og, width: 1200, height: 630 }] },
     twitter: { card: "summary_large_image", title, images: [og] },
   };
 }

@@ -1,7 +1,7 @@
 ---
 title: How to Attend K-pop Music Shows in Seoul as a Foreigner
 description: The weekly music show schedule, which shows visitors can actually get into, and what a recording day looks like.
-updated: 2026-10-01
+updated: 2026-10-08
 order: 2
 partners: [klook]
 activities: [music-show]
@@ -10,11 +10,29 @@ sources:
   - https://koreabyme.com/how-to-attend-kpop-music-shows-in-korea-a-guide-for-foreigners/
   - https://blog.trazy.com/ultimate-guide-to-weekly-k-pop-music-shows/
   - https://blog.namanecard.com/en/the-show-kpop-return-june-2026-sbs-life-bigc/
+figures:
+  - title: "Weekly music show schedule"
+    items:
+      - "Tue · The Show (SBS LIFE)"
+      - "Wed · Show Champion (MBC M)"
+      - "Thu · M Countdown (Mnet)"
+      - "Fri · Music Bank (KBS2)"
+      - "Sat · Show! Music Core (MBC)"
+      - "Sun · Inkigayo (SBS)"
+faq:
+  - q: "Are K-pop music show recordings free?"
+    a: "Most are free. Foreigner-only passes, such as M Countdown's, are sold on overseas platforms like Klook."
+  - q: "Can I attend without being in a fan club?"
+    a: "Music Bank runs a free audience lottery for KBS accounts registered as foreigners living abroad, and M Countdown and The Show have offered visitor seats. Pre-recordings for Inkigayo, Show! Music Core and Show Champion are mostly fan club only."
+  - q: "How long does a music show take?"
+    a: "The live broadcast alone usually takes 3–4 hours. Pre-recording plus live for a popular group can take 6–8 hours including waiting."
 ---
 
 Weekly music shows are the cheapest way to see your group live — most are free. The catch: seats are limited and most are reserved for fan club members.
 
 ## The weekly schedule
+
+![Weekly music show schedule](fig:1)
 
 | Day | Show | Channel |
 |---|---|---|

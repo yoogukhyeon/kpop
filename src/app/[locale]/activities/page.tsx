@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ActivitiesPage } from "@/components/ActivitiesPage";
 import { seoTitle } from "@/lib/site";
-import { alternates, getDictionary, isLocale } from "@/lib/i18n";
+import { alternates, getDictionary, isLocale, ogBase } from "@/lib/i18n";
 import { listActivities } from "@/lib/data";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: seoTitle(t.activities.title),
     description: t.activities.metaDesc,
     alternates: alternates(locale, "/activities"),
-    openGraph: { title: t.activities.title, description: t.activities.metaDesc, images: image },
+    openGraph: { ...ogBase(locale), title: t.activities.title, description: t.activities.metaDesc, images: image },
     twitter: { card: "summary_large_image", images: image?.map((i) => i.url) },
   };
 }

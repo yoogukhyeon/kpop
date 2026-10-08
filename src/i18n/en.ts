@@ -184,6 +184,13 @@ export const en = {
     submitSteps: ["Whose birthday?", "Cafe details", "How we reach you"],
     submitPerks: [{ title: "Free listing", body: "No fees, ever." }, { title: "9 languages", body: "Shown to fans in English, Japanese, Chinese, Thai and more." }, { title: "Promo cards", body: "Get story cards in your fans' languages to post." }],
   },
+  seo: {
+    toc: "In this guide",
+    readMin: (n: number) => `${n} min read`,
+    keyPoints: "Key points",
+    homeTitle: "Seoul K-pop Trip Planner for Fans | SideQuest Day",
+    eventDesc: (title: string, type: string, date: string, venue: string, area: string) => `${title}: ${type} on ${date} at ${venue}, ${area}, Seoul. Foreigner ticket notes, how to get there and a trip plan around the date.`,
+  },
   footer: "Fan-made guide. Not affiliated with any artist or agency. Event details can change — always check the official notice.",
   area: {
     yongsan: "Yongsan", seongsu: "Seongsu", gangnam: "Gangnam / Apgujeong", mapo: "Mapo / Hongdae / Sangam",

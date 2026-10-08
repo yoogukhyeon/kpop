@@ -1,7 +1,7 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import matter from "gray-matter";
-import { renderMarkdown } from "@/lib/markdown";
+import { renderMarkdown, withHeadingIds } from "@/lib/markdown";
 import { locales, type Locale } from "@/lib/i18n";
 
 // Guides are Markdown files in src/content/guides/<locale>/<slug>.md.
@@ -21,6 +21,9 @@ export interface GuideMeta {
   /** Activity tags to recommend under the guide (see src/data/activities.ts). */
   activities: string[];
   sources: string[];
+  /** Infographics drawn by /[locale]/guides/[slug]/fig/[n]; referenced in Markdown as ![alt](fig:n). */
+  figures: { title: string; items: string[] }[];
+  faq: { q: string; a: string }[];
 }
 
 function toMeta(slug: string, data: Record<string, unknown>): GuideMeta {
@@ -34,6 +37,8 @@ function toMeta(slug: string, data: Record<string, unknown>): GuideMeta {
     partners: (data.partners as string[] | undefined) ?? [],
     activities: (data.activities as string[] | undefined) ?? [],
     sources: (data.sources as string[] | undefined) ?? [],
+    figures: (data.figures as GuideMeta["figures"] | undefined) ?? [],
+    faq: (data.faq as GuideMeta["faq"] | undefined) ?? [],
   };
 }
 
@@ -52,11 +57,20 @@ export async function listGuides(locale: Locale): Promise<GuideMeta[]> {
   return metas.sort((a, b) => a.order - b.order);
 }
 
-export async function getGuide(locale: Locale, slug: string): Promise<(GuideMeta & { html: string }) | null> {
+export type Guide = GuideMeta & { html: string; headings: { id: string; text: string }[]; readMinutes: number };
+
+export async function getGuide(locale: Locale, slug: string): Promise<Guide | null> {
   if (!/^[a-z0-9-]+$/.test(slug)) return null;
   try {
     const { data, content } = matter(await readFile(path.join(ROOT, locale, `${slug}.md`), "utf8"));
-    return { ...toMeta(slug, data), html: await renderMarkdown(content) };
+    const source = content.replace(/\]\(fig:(\d+)\)/g, `](/${locale}/guides/${slug}/fig/$1)`);
+    const { html, headings } = withHeadingIds(await renderMarkdown(source));
+    // Rough reading speed: ~500 CJK/Thai characters or ~220 words a minute.
+    const text = content.replace(/[#*>|`\-\[\]()]/g, " ");
+    const cjk = (text.match(/[\u0e00-\u0e7f\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]/g) ?? []).length;
+    const words = text.replace(/[\u0e00-\u0e7f\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]/g, " ").split(/\s+/).filter(Boolean).length;
+    const readMinutes = Math.max(1, Math.round(cjk / 500 + words / 220));
+    return { ...toMeta(slug, data), html, headings, readMinutes };
   } catch {
     return null;
   }

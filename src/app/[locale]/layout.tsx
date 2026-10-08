@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import { JsonLd } from "@/components/JsonLd";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { PlannerButton } from "@/components/PlannerButton";
-import { getDictionary, isLocale, locales } from "@/lib/i18n";
+import { getDictionary, isLocale, locales, ogBase } from "@/lib/i18n";
 import { site } from "@/lib/site";
 import "../globals.css";
 
@@ -27,7 +27,9 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     applicationName: site.name,
     publisher: site.name,
     creator: site.name,
-    openGraph: { siteName: site.name, locale, type: "website" },
+    openGraph: ogBase(locale),
+    // Allow large image previews (Google Discover, Naver) and full snippets.
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
     verification: {
       google: process.env.GOOGLE_SITE_VERIFICATION,
       other: process.env.NAVER_SITE_VERIFICATION

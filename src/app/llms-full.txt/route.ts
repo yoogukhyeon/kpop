@@ -18,7 +18,7 @@ export async function GET() {
     guides.map(async (g) => {
       const { content } = matter(await readFile(path.join(process.cwd(), "src/content/guides", g.lang, `${g.slug}.md`), "utf8"));
       // Make relative links absolute so they still work out of context.
-      const body = content.replace(/\]\(\//g, `](${site.url}/`);
+      const body = content.replace(/!\[[^\]]*\]\(fig:\d+\)\n?/g, "").replace(/\]\(\//g, `](${site.url}/`);
       return `# ${g.title}\n\nSource: ${site.url}/${g.lang}/guides/${g.slug} · Language: ${g.lang} · Last checked: ${g.updated}\n\n> ${g.description}\n${body}`;
     }),
   );

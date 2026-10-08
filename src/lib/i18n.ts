@@ -64,3 +64,18 @@ export function alternates(locale: Locale, path: string, only: readonly Locale[]
   if (only.includes(defaultLocale)) languages["x-default"] = `/${defaultLocale}${path}`;
   return { canonical: `/${locale}${path}`, languages };
 }
+
+/** Open Graph locale codes (language_TERRITORY). */
+export const OG_LOCALE: Record<Locale, string> = {
+  en: "en_US", ko: "ko_KR", ja: "ja_JP", "zh-tw": "zh_TW", "zh-cn": "zh_CN", vi: "vi_VN", th: "th_TH", id: "id_ID", es: "es_ES",
+};
+
+/** Shared Open Graph fields; spread into page-level openGraph (which replaces the layout's). */
+export function ogBase(locale: Locale) {
+  return {
+    siteName: "SideQuest Day",
+    locale: OG_LOCALE[locale],
+    alternateLocale: locales.filter((l) => l !== locale).map((l) => OG_LOCALE[l]),
+    type: "website" as const,
+  };
+}

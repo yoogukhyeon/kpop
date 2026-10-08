@@ -184,6 +184,13 @@ export const vi: Dictionary = {
     submitSteps: ["Sinh nhật của ai?", "Thông tin quán", "Liên hệ và thông báo"],
     submitPerks: [{ title: "Đăng miễn phí", body: "Hoàn toàn không mất phí." }, { title: "Hiển thị 9 ngôn ngữ", body: "Giới thiệu đến fan bằng tiếng Anh, Nhật, Trung, Thái và nhiều hơn." }, { title: "Thẻ quảng bá", body: "Nhận thẻ story theo ngôn ngữ của fan để đăng ngay." }],
   },
+  seo: {
+    toc: "Nội dung",
+    readMin: (n: number) => `${n} phút đọc`,
+    keyPoints: "Điểm chính",
+    homeTitle: "Lên lịch du lịch Seoul theo K-pop | SideQuest Day",
+    eventDesc: (title: string, type: string, date: string, venue: string, area: string) => `${title}: ${type} ngày ${date} tại ${venue}, ${area}, Seoul. Thông tin mua vé cho người nước ngoài, cách đi và lịch trình Seoul quanh ngày diễn ra.`,
+  },
   footer: "Cẩm nang do fan làm. Không liên kết với nghệ sĩ hay công ty nào. Thông tin sự kiện có thể thay đổi — hãy luôn xem thông báo chính thức.",
   area: {
     yongsan: "Yongsan", seongsu: "Seongsu", gangnam: "Gangnam / Apgujeong", mapo: "Mapo / Hongdae / Sangam",

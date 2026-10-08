@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ACTIVITY_CATEGORIES, ActivitiesPage } from "@/components/ActivitiesPage";
-import { alternates, getDictionary, isLocale, locales } from "@/lib/i18n";
+import { alternates, getDictionary, isLocale, locales, ogBase } from "@/lib/i18n";
 import { listActivities } from "@/lib/data";
 import { seoTitle } from "@/lib/site";
 import type { ActivityCategory } from "@/lib/types";
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: seoTitle(title),
     description: t.activities.metaDesc,
     alternates: alternates(locale, `/activities/${category}`),
-    openGraph: { title, description: t.activities.metaDesc, images: image },
+    openGraph: { ...ogBase(locale), title, description: t.activities.metaDesc, images: image },
     twitter: { card: "summary_large_image", images: image?.map((i) => i.url) },
   };
 }

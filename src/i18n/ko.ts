@@ -68,17 +68,17 @@ export const ko: Dictionary = {
   },
   meta: {
     groupsTitle: "K-POP 그룹별 서울 성지순례 가이드",
-    groupsDesc: "그룹별 소속사 사옥, 생일카페, 콘서트, 성지순례 장소를 정리한 서울 K-POP 여행 가이드.",
+    groupsDesc: "BTS, SEVENTEEN, Stray Kids 등 인기 그룹별로 소속사 사옥, 생일카페, 서울 콘서트, 성지순례 장소와 멤버 생일을 정리한 서울 K-POP 여행 가이드.",
     groupTitle: (g: string) => `${g} 성지순례 가이드 — 서울 장소, 생일카페, 콘서트`,
     groupDesc: (g: string, agency: string, fandom: string) =>
       `${g} 서울 성지순례를 계획 중이라면? ${agency} 사옥, ${fandom} 생일카페, 다가오는 콘서트와 방문 장소를 한곳에 모았습니다.`,
     memberTitle: (m: string, g: string) => `${m} (${g}) 생일카페 정보`,
     memberDesc: (m: string, date: string, fandom: string) =>
       `${m}의 생일은 ${date}입니다. ${fandom} 생일카페가 주로 열리는 곳과 생일에 맞춘 일정 짜는 법.`,
-    eventsDesc: "서울에서 열리는 K-POP 콘서트, 팬미팅, 생일카페, 팝업스토어 일정.",
+    eventsDesc: "서울에서 열리는 K-POP 콘서트, 팬미팅, 팝업스토어, 생일카페 일정을 날짜순으로 정리했습니다. 외국인 예매 가능 여부, 공연장 위치, 진행 중인 팝업까지 한눈에 확인하세요.",
     monthDesc: (month: string) => `${month} 서울 K-POP 콘서트, 팬미팅, 생일카페, 팝업스토어 일정.`,
-    submitDesc: "생일카페를 무료로 등록하고 해외 K-POP 팬들에게 영어·일본어·스페인어로 홍보하세요.",
-    guidesDesc: "K-POP 팬을 위한 서울 실전 가이드: 티켓, 음악방송, 생일카페, 공연장, 여행 준비.",
+    submitDesc: "서울에서 생일카페를 여시나요? 무료로 등록하면 영어·일본어·중국어·태국어 등 9개 언어 페이지에 소개되고, 해외 팬용 홍보 카드도 바로 받을 수 있습니다.",
+    guidesDesc: "K-POP 팬을 위한 서울 실전 가이드: 음악방송 방청 신청, 콘서트 티켓, KSPO DOME·고척돔 가는 법, 생일카페 매너, 홍대 코스까지 직접 정리했습니다.",
   },
   home: {
     badge: "무료 · 회원가입 없음",
@@ -138,12 +138,12 @@ export const ko: Dictionary = {
     onThisDay: "이 날 예약할 수 있는 음악방송",
     note: "일부 링크는 제휴 링크일 수 있습니다. 가격과 예약 가능 여부는 바뀔 수 있으니 파트너 페이지에서 확인하세요.",
     empty: "이 카테고리에는 아직 액티비티가 없습니다.",
-    metaDesc: "해외 팬을 위한 서울 K-POP 팬 투어, 댄스 클래스, 음악방송 방청권을 한곳에서 비교하세요.",
+    metaDesc: "해외 팬과 함께 가기 좋은 서울 K-POP 팬 투어, 댄스 클래스, 음악방송 방청권을 한곳에서 비교하세요. 지역·소요 시간·요일별로 정리하고 Klook·KKday 예약 링크를 연결했습니다.",
   },
   birthdays: {
     nav: "생일",
     indexTitle: "K-POP 아이돌 생일 캘린더",
-    indexDesc: "멤버 생일을 월별로 정리했습니다. 서울 생일카페 정보와 생일에 맞춘 여행 일정도 바로 만들 수 있어요.",
+    indexDesc: "K-POP 아이돌 멤버 생일을 월별로 정리했습니다. 다가오는 생일 D-day, 서울 생일카페 정보, 생일 주간에 맞춘 서울 여행 일정까지 한 번에 확인하세요.",
     title: (month: string) => `${month} 생일 아이돌`,
     desc: (month: string) => `${month}에 생일인 K-POP 아이돌은? 날짜, 그룹, 서울 생일카페 정보와 생일 맞춤 일정 짜는 법.`,
     intro: (n: number, month: string) => `수록 그룹 중 ${n}명이 ${month}에 생일을 맞습니다. 생일 전후 며칠 동안 서울에서 팬들이 생일카페를 열며, 주로 홍대·마포와 성수에 모여 있습니다.`,
@@ -183,6 +183,13 @@ export const ko: Dictionary = {
     otherMembers: (g: string) => `${g} 다른 멤버`,
     submitSteps: ["누구의 생일인가요?", "카페 정보", "연락처와 공지"],
     submitPerks: [{ title: "무료 등록", body: "비용이 전혀 들지 않아요." }, { title: "9개 언어 노출", body: "영어·일본어·중국어·태국어 등 해외 팬 페이지에 소개돼요." }, { title: "홍보 카드 제공", body: "팬들의 언어로 된 스토리 카드를 바로 받아 올릴 수 있어요." }],
+  },
+  seo: {
+    toc: "목차",
+    readMin: (n: number) => `${n}분 읽기`,
+    keyPoints: "이 글의 핵심",
+    homeTitle: "서울 K-POP 여행 플래너 · 최애 일정 맞춤 | SideQuest Day",
+    eventDesc: (title: string, type: string, date: string, venue: string, area: string) => `${title} — ${date} ${venue}(서울 ${area})에서 열리는 ${type}. 외국인 예매 정보, 가는 법, 일정에 맞춘 서울 여행 계획까지 확인하세요.`,
   },
   footer: "팬이 만든 가이드입니다. 아티스트·소속사와 관계가 없습니다. 이벤트 정보는 바뀔 수 있으니 반드시 공식 공지를 확인하세요.",
   area: {

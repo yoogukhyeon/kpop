@@ -6,7 +6,7 @@ import { KlookWidget } from "@/components/KlookWidget";
 import { BreadcrumbJsonLd, JsonLd } from "@/components/JsonLd";
 import { listActivities } from "@/lib/data";
 import { getGuide, guideLocales, listGuides, listGuidesForLists } from "@/lib/guides";
-import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
+import { alternates, formatDate, getDictionary, isLocale, locales, ogBase } from "@/lib/i18n";
 import { KLOOK_WIDGETS, partnerLinks } from "@/lib/partners";
 import { site, seoTitle } from "@/lib/site";
 
@@ -27,6 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: guide.description,
     alternates: alternates(locale, `/guides/${slug}`, await guideLocales(slug)),
     openGraph: {
+      ...ogBase(locale),
       type: "article",
       title: guide.title,
       description: guide.description,
@@ -68,7 +69,7 @@ export default async function GuidePage({ params }: Props) {
           dateModified: guide.updated,
           inLanguage: locale,
           mainEntityOfPage: `${site.url}/${locale}/guides/${slug}`,
-          image: `${site.url}/${locale}/guides/${slug}/og`,
+          image: [`${site.url}/${locale}/guides/${slug}/og`, `${site.url}/${locale}/guides/${slug}/fig/0`],
           author: { "@id": `${site.url}/#organization` },
           publisher: { "@id": `${site.url}/#organization` },
           ...(guide.sources.length ? { citation: guide.sources } : {}),
@@ -86,7 +87,7 @@ export default async function GuidePage({ params }: Props) {
         <span className="chip-pink w-fit">📚 {t.guides.title}</span>
         <h1 className="text-[1.7rem] font-extrabold leading-tight tracking-tight sm:text-4xl">{guide.title}</h1>
         <p className="text-sm font-semibold text-muted">
-          🗓️ {t.guides.updated}: {formatDate(guide.updated, locale, { year: "numeric", month: "long", day: "numeric" })}
+          🗓️ {t.guides.updated}: {formatDate(guide.updated, locale, { year: "numeric", month: "long", day: "numeric" })} · ⏱ {t.seo.readMin(guide.readMinutes)}
         </p>
       </header>
 
@@ -97,7 +98,58 @@ export default async function GuidePage({ params }: Props) {
         </div>
       </aside>
 
+      {guide.headings.length > 1 && (
+        <figure className="grid gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element -- generated infographic */}
+          <img
+            src={`/${locale}/guides/${slug}/fig/0`}
+            alt={`${t.seo.keyPoints}: ${guide.headings.map((h) => h.text).join(", ")}`}
+            width={1200}
+            height={900}
+            className="w-full rounded-3xl shadow-[0_10px_30px_rgba(124,92,255,0.12)]"
+          />
+        </figure>
+      )}
+
+      {guide.headings.length > 2 && (
+        <nav aria-label={t.seo.toc} className="tap-links rounded-3xl border border-line bg-surface p-5">
+          <p className="mb-2 text-sm font-black text-brand">📑 {t.seo.toc}</p>
+          <ol className="grid gap-1 text-sm font-semibold">
+            {guide.headings.map((h, i) => (
+              <li key={h.id}>
+                <a href={`#${h.id}`} className="inline-flex gap-2 hover:text-brand">
+                  <span className="text-pink">{String(i + 1).padStart(2, "0")}</span>
+                  {h.text}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+
       <div className="prose" dangerouslySetInnerHTML={{ __html: guide.html }} />
+
+      {guide.faq.length > 0 && (
+        <section className="grid gap-3">
+          <JsonLd
+            data={{
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              mainEntity: guide.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+            }}
+          />
+          <h2 className="section-title">💬 {t.detail.tabs.faq}</h2>
+          {guide.faq.map((f) => (
+            <details key={f.q} className="group rounded-3xl border border-line bg-surface p-5 open:border-brand">
+              <summary className="flex cursor-pointer list-none items-start justify-between gap-3 font-bold">
+                <span><span className="text-pink">Q.</span> {f.q}</span>
+                <span aria-hidden className="text-muted transition group-open:rotate-180">⌄</span>
+              </summary>
+              <p className="mt-3 leading-relaxed text-muted">{f.a}</p>
+            </details>
+          ))}
+        </section>
+      )}
 
       {activities.length > 0 && (
         <section className="grid gap-3">

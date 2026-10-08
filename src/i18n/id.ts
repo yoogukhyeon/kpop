@@ -184,6 +184,13 @@ export const id: Dictionary = {
     submitSteps: ["Ulang tahun siapa?", "Detail kafe", "Kontak dan pengumuman"],
     submitPerks: [{ title: "Gratis", body: "Tanpa biaya sama sekali." }, { title: "Tampil dalam 9 bahasa", body: "Dikenalkan ke fans dalam bahasa Inggris, Jepang, Mandarin, Thai, dan lainnya." }, { title: "Kartu promosi", body: "Dapatkan kartu story dalam bahasa fans untuk langsung diunggah." }],
   },
+  seo: {
+    toc: "Isi panduan",
+    readMin: (n: number) => `${n} menit baca`,
+    keyPoints: "Poin penting",
+    homeTitle: "Rencana Trip K-pop ke Seoul | SideQuest Day",
+    eventDesc: (title: string, type: string, date: string, venue: string, area: string) => `${title}: ${type} pada ${date} di ${venue}, ${area}, Seoul. Info tiket untuk turis asing, cara ke lokasi, dan rencana trip Seoul sesuai tanggal.`,
+  },
   footer: "Panduan buatan fans. Tidak berafiliasi dengan artis atau agensi mana pun. Detail acara bisa berubah — selalu cek pengumuman resmi.",
   area: {
     yongsan: "Yongsan", seongsu: "Seongsu", gangnam: "Gangnam / Apgujeong", mapo: "Mapo / Hongdae / Sangam",

@@ -200,6 +200,9 @@ a, td, th {
   .prose li:has(> input[type="checkbox"]) {
     @apply list-none -ml-6;
   }
+  .prose img {
+    @apply my-2 w-full rounded-3xl shadow-[0_10px_30px_rgba(124,92,255,0.12)];
+  }
   .prose blockquote {
     @apply rounded-2xl border-l-4 border-sun bg-sun-soft px-5 py-3;
   }

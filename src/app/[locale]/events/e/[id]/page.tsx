@@ -5,7 +5,7 @@ import { ActivityCard } from "@/components/ActivityCard";
 import { DownloadButton } from "@/components/DownloadButton";
 import { BreadcrumbJsonLd, JsonLd } from "@/components/JsonLd";
 import { getEvent, getGroup, listActivities, listAllEvents } from "@/lib/data";
-import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
+import { alternates, formatDate, getDictionary, isLocale, locales, ogBase } from "@/lib/i18n";
 import { NOINDEX } from "@/lib/indexing";
 import { mapsUrl, seoTitle, site } from "@/lib/site";
 
@@ -28,7 +28,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const e = await getEvent(id);
   if (!e) return {};
   const t = getDictionary(locale);
-  const desc = `${t.eventType[e.type]} · ${formatDate(e.startDate, locale, { month: "long", day: "numeric", year: "numeric" })} · ${e.venue}, Seoul`;
+  const when =
+    e.startDate === e.endDate
+      ? formatDate(e.startDate, locale, { month: "long", day: "numeric", year: "numeric" })
+      : `${formatDate(e.startDate, locale, { month: "long", day: "numeric", year: "numeric" })} – ${formatDate(e.endDate, locale, { month: "long", day: "numeric" })}`;
+  const desc = t.seo.eventDesc(e.title, t.eventType[e.type], when, e.venue, t.area[e.area]);
   const card = `/${locale}/events/e/${e.id}/card`;
   return {
     title: seoTitle(e.title),
@@ -36,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: alternates(locale, `/events/e/${e.id}`),
     // Unverified listings stay out of the index until checked.
     robots: e.verifiedAt ? undefined : NOINDEX,
-    openGraph: { title: e.title, description: desc, images: [{ url: card, width: 1200, height: 630 }] },
+    openGraph: { ...ogBase(locale), title: e.title, description: desc, images: [{ url: card, width: 1200, height: 630 }] },
     twitter: { card: "summary_large_image", title: e.title, images: [card] },
   };
 }

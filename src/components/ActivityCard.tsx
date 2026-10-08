@@ -16,11 +16,21 @@ export function ActivityCard({ activity: a, locale, compact = false }: { activit
       href={partnerHref(a.partner, a.url)}
       target="_blank"
       rel="sponsored nofollow noopener"
-      className={`group grid h-full overflow-hidden rounded-3xl border border-line bg-surface shadow-[0_4px_18px_rgba(124,92,255,0.07)] transition hover:-translate-y-1 hover:shadow-[0_10px_24px_rgba(124,92,255,0.15)] ${compact ? "grid-cols-[88px_1fr]" : "grid-rows-[auto_1fr]"}`}
+      className={`group grid h-full overflow-hidden rounded-3xl border border-line bg-surface shadow-[0_4px_18px_rgba(124,92,255,0.07)] transition hover:-translate-y-1 hover:shadow-[0_10px_24px_rgba(124,92,255,0.15)] ${compact ? "grid-cols-[96px_1fr]" : "grid-rows-[auto_1fr]"}`}
     >
       {compact ? (
-        <div className="relative grid place-items-center" style={{ backgroundImage: stageBackground(a.category) }}>
-          <ActivityIcon category={a.category} size={36} />
+        <div className="relative grid place-items-center overflow-hidden" style={{ backgroundImage: stageBackground(a.category) }}>
+          {/* Stage beams and sparkles */}
+          <span aria-hidden className="absolute -top-6 left-3 h-32 w-6 rotate-[24deg] bg-gradient-to-b from-white/35 to-transparent" />
+          <span aria-hidden className="absolute -top-6 right-2 h-32 w-4 -rotate-[20deg] bg-gradient-to-b from-white/25 to-transparent" />
+          <span aria-hidden className="absolute left-2 top-2 text-[10px] text-[#ffe08a]">✦</span>
+          <span aria-hidden className="absolute bottom-7 right-2 text-[8px] text-white/80">✦</span>
+          <span className="relative grid h-14 w-14 place-items-center rounded-full bg-white/15 ring-2 ring-white/40 shadow-[0_0_24px_rgba(255,255,255,0.35)] transition group-hover:scale-110">
+            <ActivityIcon category={a.category} size={30} />
+          </span>
+          <span className="absolute inset-x-1.5 bottom-1.5 truncate rounded-full bg-white/90 px-1.5 py-0.5 text-center text-[10px] font-black text-[#2a1650]">
+            {t.activities.categories[a.category]}
+          </span>
         </div>
       ) : (
         // eslint-disable-next-line @next/next/no-img-element -- generated thumbnail route, already sized

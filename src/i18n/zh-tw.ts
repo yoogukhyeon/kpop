@@ -3,7 +3,7 @@ import type { Dictionary } from "./en";
 export const zhTW: Dictionary = {
   langName: "繁體中文",
   tagline: "依照本命安排的首爾 K-POP 之旅。",
-  heroSub: "選擇團體和旅行日期，演唱會、生日咖啡廳、快閃店和聖地巡禮景點，都幫你按天排好。",
+  heroSub: "選擇團體和旅行日期，演唱會、生日咖啡廳、快閃店和聖地巡禮景點都幫你按天排好。免費使用、免註冊，還能下載專屬的首爾追星行程卡片。",
   nav: { planner: "行程規劃", groups: "團體", events: "活動", guides: "攻略", submit: "登錄生日咖啡廳" },
   form: {
     group: "團體", members: "本命（選填）", allMembers: "全體成員",
@@ -68,17 +68,17 @@ export const zhTW: Dictionary = {
   },
   meta: {
     groupsTitle: "K-POP 團體首爾聖地巡禮攻略",
-    groupsDesc: "給 K-POP 粉絲的首爾旅遊攻略：依團體整理經紀公司、生日咖啡廳、演唱會和聖地巡禮景點。",
+    groupsDesc: "BTS、SEVENTEEN、Stray Kids 等人氣團體的首爾追星攻略：經紀公司大樓、生日咖啡廳、演唱會、聖地巡禮景點和成員生日，一頁看完。",
     groupTitle: (g: string) => `${g} 首爾聖地巡禮攻略｜景點・生日咖啡廳・演唱會`,
     groupDesc: (g: string, agency: string, fandom: string) =>
       `計畫去首爾追 ${g}？${agency} 公司大樓、${fandom} 生日咖啡廳、近期演唱會和聖地巡禮景點一次整理。`,
     memberTitle: (m: string, g: string) => `${m}（${g}）首爾生日咖啡廳`,
     memberDesc: (m: string, date: string, fandom: string) =>
       `${m} 的生日是 ${date}。${fandom} 生日咖啡廳在首爾哪裡開、如何配合生日安排行程。`,
-    eventsDesc: "首爾即將舉行的 K-POP 演唱會、粉絲見面會、生日咖啡廳和快閃店，附外國人購票資訊。",
+    eventsDesc: "首爾即將舉行的 K-POP 演唱會、粉絲見面會、快閃店和生日咖啡廳，依日期整理，附外國人購票方式、場館位置和正在進行中的活動。",
     monthDesc: (month: string) => `${month} 首爾 K-POP 演唱會、粉絲見面會、生日咖啡廳和快閃店。`,
-    submitDesc: "在首爾舉辦 K-POP 生日咖啡廳？免費登錄，讓海外粉絲找到你。",
-    guidesDesc: "給來首爾的 K-POP 粉絲的實用攻略：購票、打歌節目、生日咖啡廳、場館和旅行準備。",
+    submitDesc: "在首爾舉辦 K-POP 生日咖啡廳？免費登錄後會以英文、日文、中文、泰文等 9 種語言介紹給海外粉絲，還能立即下載宣傳卡片。",
+    guidesDesc: "給來首爾的 K-POP 粉絲的實用攻略：打歌節目觀看方法、演唱會購票、KSPO DOME 與高尺巨蛋交通、生日咖啡廳禮儀和行前準備。",
   },
   home: {
     badge: "免費・免註冊",
@@ -138,12 +138,12 @@ export const zhTW: Dictionary = {
     onThisDay: "這天可預訂的打歌節目",
     note: "部分連結可能是聯盟連結。價格和名額可能變動，請至合作夥伴頁面確認。",
     empty: "這個分類還沒有活動。",
-    metaDesc: "給海外粉絲的首爾 K-POP 追星行程、舞蹈課和打歌節目門票，一次比較。",
+    metaDesc: "給海外粉絲的首爾 K-POP 追星行程、舞蹈課和打歌節目門票，依地區、所需時間和星期整理，一次比較並直接前往 Klook、KKday 預訂。",
   },
   birthdays: {
     nav: "生日",
     indexTitle: "K-POP 偶像生日曆",
-    indexDesc: "依月份整理每位成員的生日，附首爾生日咖啡廳資訊，一鍵規劃生日行程。",
+    indexDesc: "依月份整理 K-POP 偶像成員生日，附生日倒數、首爾生日咖啡廳資訊，還能一鍵規劃配合生日週的首爾行程。",
     title: (month: string) => `${month}生日的 K-POP 偶像`,
     desc: (month: string) => `${month}有哪些 K-POP 偶像過生日？日期、團體、首爾生日咖啡廳，以及如何配合生日規劃行程。`,
     intro: (n: number, month: string) => `收錄團體中有 ${n} 位成員在${month}過生日。粉絲會在生日前後幾天於首爾開生日咖啡廳，主要在弘大・麻浦和聖水。`,
@@ -183,6 +183,13 @@ export const zhTW: Dictionary = {
     otherMembers: (g: string) => `${g} 其他成員`,
     submitSteps: ["誰的生日？", "咖啡廳資訊", "聯絡方式與公告"],
     submitPerks: [{ title: "免費刊登", body: "完全不收費。" }, { title: "9種語言曝光", body: "以英文、日文、中文、泰文等介紹給海外粉絲。" }, { title: "宣傳卡片", body: "取得粉絲語言的限動卡片，直接發布。" }],
+  },
+  seo: {
+    toc: "目錄",
+    readMin: (n: number) => `閱讀約 ${n} 分鐘`,
+    keyPoints: "本文重點",
+    homeTitle: "首爾 K-POP 追星行程規劃 | SideQuest Day",
+    eventDesc: (title: string, type: string, date: string, venue: string, area: string) => `${title}：${date}在首爾${area}的${venue}舉行的${type}。查看外國人購票資訊、交通方式，並配合日期規劃首爾行程。`,
   },
   footer: "粉絲製作的攻略。與任何藝人或經紀公司無關。活動資訊可能變動，請務必確認官方公告。",
   area: {

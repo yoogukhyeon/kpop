@@ -186,6 +186,13 @@ export const es: Dictionary = {
     submitSteps: ["¿De quién es el cumpleaños?", "Datos del café", "Contacto y anuncio"],
     submitPerks: [{ title: "Gratis", body: "Sin ningún costo." }, { title: "En 9 idiomas", body: "Se muestra a fans en inglés, japonés, chino, tailandés y más." }, { title: "Tarjetas promo", body: "Recibe tarjetas para stories en el idioma de tus fans." }],
   },
+  seo: {
+    toc: "En esta guía",
+    readMin: (n: number) => `${n} min de lectura`,
+    keyPoints: "Puntos clave",
+    homeTitle: "Planificador de viaje K-pop a Seúl | SideQuest Day",
+    eventDesc: (title: string, type: string, date: string, venue: string, area: string) => `${title}: ${type} el ${date} en ${venue}, ${area}, Seúl. Venta de entradas para extranjeros, cómo llegar y un plan de viaje para esas fechas.`,
+  },
   footer: "Guía hecha por fans. Sin relación con artistas ni agencias. Los datos de eventos pueden cambiar: revisa siempre el anuncio oficial.",
   area: {
     yongsan: "Yongsan", seongsu: "Seongsu", gangnam: "Gangnam / Apgujeong", mapo: "Mapo / Hongdae / Sangam",

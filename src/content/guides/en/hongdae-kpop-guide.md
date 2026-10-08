@@ -1,11 +1,25 @@
 ---
 title: Hongdae for K-pop Fans — Busking, Birthday Cafes and Shopping
 description: Why Hongdae is the K-pop fan's neighbourhood, how to get there from Incheon Airport, and how to spend a day there.
-updated: 2026-10-05
+updated: 2026-10-08
 order: 11
 partners: [agoda, klook]
 activities: [hongdae]
 sources: []
+figures:
+  - title: "A Hongdae day"
+    items:
+      - "Afternoon · K-pop shops and birthday cafes"
+      - "Early evening · street busking"
+      - "Night · street food and cafes"
+      - "Tip · the airport train stops right here"
+faq:
+  - q: "How do I get from Incheon Airport to Hongdae?"
+    a: "The Airport Railroad (AREX) runs directly to Hongik University Station, which is also on Line 2 and the Gyeongui–Jungang Line."
+  - q: "When can I see busking in Hongdae?"
+    a: "Mostly in the evening and on weekends, on the main streets around Hongik University."
+  - q: "Is Hongdae a good place to stay for a K-pop trip?"
+    a: "Yes — plenty of hotels and a direct airport train. If your concert is at Olympic Park (KSPO Dome), allow extra travel time."
 ---
 
 Hongdae — the area around Hongik University in Mapo-gu — is where young Seoul hangs out, and it's packed with things K-pop fans love.
@@ -23,6 +37,8 @@ Hongdae — the area around Hongik University in Mapo-gu — is where young Seou
 - AREX connects Hongik University Station directly with Incheon International Airport, which makes Hongdae a convenient first or last stop.
 
 ## A Hongdae day
+
+![A Hongdae day](fig:1)
 
 1. **Afternoon:** browse the K-pop shops and any birthday cafe open that week.
 2. **Early evening:** walk the main streets to catch busking performances.
