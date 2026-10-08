@@ -1,4 +1,4 @@
-import { approveSubmission, refreshSiteData, rejectSubmission } from "@/app/admin/actions";
+import { approveSubmission, moderateMessage, refreshSiteData, rejectSubmission } from "@/app/admin/actions";
 import { listGroups } from "@/lib/data";
 import { getDictionary } from "@/lib/i18n";
 import { adminDb } from "@/lib/supabase";
@@ -21,10 +21,16 @@ interface Submission {
 
 export default async function AdminPage() {
   const db = adminDb();
-  const [pending, reviewed, groups] = await Promise.all([
+  const [pending, reviewed, groups, messages] = await Promise.all([
     db.from("cafe_submissions").select("*").eq("status", "pending").order("created_at"),
     db.from("cafe_submissions").select("*").neq("status", "pending").order("reviewed_at", { ascending: false }).limit(20),
     listGroups(),
+    db
+      .from("birthday_messages")
+      .select("id, group_slug, member_slug, nickname, body, reports, hidden, created_at")
+      .order("reports", { ascending: false })
+      .order("created_at", { ascending: false })
+      .limit(40),
   ]);
   if (pending.error) throw new Error(pending.error.message);
   if (reviewed.error) throw new Error(reviewed.error.message);
@@ -76,6 +82,32 @@ export default async function AdminPage() {
             </article>
           );
         })}
+      </section>
+
+      <section className="grid gap-3">
+        <h2 className="font-bold">💌 생일 축하 메시지 관리 (신고 많은 순 · 최근 40개)</h2>
+        {(messages.data ?? []).length === 0 && <p className="text-sm text-muted">아직 메시지가 없습니다.</p>}
+        <ul className="grid gap-2 text-sm">
+          {(messages.data ?? []).map((m) => (
+            <li key={m.id} className={`card grid gap-1 p-3 ${m.hidden ? "opacity-60" : ""}`}>
+              <p className="text-xs text-muted">
+                {m.group_slug}/{m.member_slug} · {m.nickname} · {new Date(m.created_at).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}
+                {m.reports > 0 && <b className="text-warn"> · 신고 {m.reports}</b>}
+                {m.hidden && <b> · 숨김</b>}
+              </p>
+              <p className="whitespace-pre-wrap">{m.body}</p>
+              <div className="flex gap-2">
+                {(m.hidden ? ["show", "delete"] : ["hide", "delete"]).map((op) => (
+                  <form key={op} action={moderateMessage}>
+                    <input type="hidden" name="id" value={m.id} />
+                    <input type="hidden" name="op" value={op} />
+                    <button className="btn-ghost h-8 px-3 text-xs">{{ hide: "숨기기", show: "복구", delete: "삭제" }[op]}</button>
+                  </form>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="grid gap-2">

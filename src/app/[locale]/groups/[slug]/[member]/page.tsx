@@ -7,6 +7,7 @@ import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/
 import { JsonLd } from "@/components/JsonLd";
 import { isMemberIndexable, NOINDEX } from "@/lib/indexing";
 import { AlertSignup } from "@/components/AlertSignup";
+import { Guestbook } from "@/components/Guestbook";
 import { seoulToday, site, seoTitle } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string; slug: string; member: string }> };
@@ -63,7 +64,7 @@ export default async function MemberPage({ params }: Props) {
   const planHref = `/${locale}/plan?${new URLSearchParams({ group: g.slug, members: m.slug, from: shift(next, -2), to: shift(next, 2) })}`;
 
   return (
-    <div className="tap-links grid max-w-2xl gap-6">
+    <div className="tap-links grid max-w-3xl gap-6">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -104,6 +105,18 @@ export default async function MemberPage({ params }: Props) {
         <Link href={planHref} className="btn w-fit">{t.member.planCta}</Link>
         <Link href={`/${locale}/birthdays/${m.birthday.slice(5, 7)}`} className="btn-ghost h-12 w-fit">🎂 {t.birthdays.title(formatDate(m.birthday, locale, { month: "long" }))}</Link>
       </div>
+      <Guestbook
+        locale={locale}
+        group={g.slug}
+        member={m.slug}
+        labels={{
+          ...t.gb,
+          title: t.gb.title(m.stageName),
+          placeholder: t.gb.placeholder(m.stageName),
+          empty: t.gb.empty(m.stageName),
+          count: t.gb.count(1_000_001).replace("1000001", "{n}").replace("1,000,001", "{n}"),
+        }}
+      />
       <AlertSignup
         locale={locale}
         group={g.slug}

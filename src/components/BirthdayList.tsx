@@ -33,6 +33,9 @@ export function BirthdayList({ items, events, locale, today }: { items: Birthday
               </p>
               <Link href={`/${locale}/groups/${b.group.slug}`} className="inline-flex min-h-6 w-fit items-center text-sm text-muted hover:text-text">{b.group.name}</Link>
               {cafes.length > 0 && <span className="chip-pink w-fit">🎂 {t.birthdays.cafes(cafes.length)}</span>}
+              <Link href={`/${locale}/groups/${b.group.slug}/${b.member.slug}#messages`} className="inline-flex min-h-7 w-fit items-center text-xs font-bold text-pink hover:underline">
+                💌 {t.gb.cta}
+              </Link>
             </div>
             <Link href={planHref(locale, b, date)} className="btn h-10 shrink-0 px-4 text-sm">{t.birthdays.plan}</Link>
           </li>

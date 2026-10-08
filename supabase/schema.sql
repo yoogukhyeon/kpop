@@ -141,4 +141,30 @@ grant insert on subscriptions to anon, authenticated;
 grant all on subscriptions to service_role;
 
 -- Make the API pick up the new tables immediately.
+-- Birthday guestbook: fans leave a message (nickname + password, no account).
+-- One message per IP per member per Seoul day; the IP is stored only as a
+-- salted hash and cleared after 30 days. All access goes through the server
+-- (secret key) — no public policies, so password/IP hashes never leave it.
+create table if not exists birthday_messages (
+  id uuid primary key default gen_random_uuid(),
+  group_slug text not null references groups (slug) on delete cascade,
+  member_slug text not null,
+  nickname text not null check (char_length(nickname) between 1 and 20),
+  body text not null check (char_length(body) between 1 and 300),
+  card text not null default 'pink',
+  sticker text not null default 'cake',
+  locale text not null,
+  password_hash text not null,
+  ip_hash text,
+  kst_day date not null,
+  reports int not null default 0,
+  hidden boolean not null default false,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz
+);
+create unique index if not exists birthday_messages_daily on birthday_messages (group_slug, member_slug, ip_hash, kst_day);
+create index if not exists birthday_messages_member on birthday_messages (group_slug, member_slug, created_at desc);
+alter table birthday_messages enable row level security;
+grant all on birthday_messages to service_role;
+
 notify pgrst, 'reload schema';

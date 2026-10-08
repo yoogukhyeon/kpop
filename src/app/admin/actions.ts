@@ -73,3 +73,16 @@ export async function refreshSiteData() {
   revalidateTag(DB_CACHE_TAG);
   revalidatePath("/", "layout");
 }
+
+const messageInput = z.object({ id: z.uuid(), op: z.enum(["hide", "show", "delete"]) });
+
+/** Guestbook moderation: hide, restore (also clears reports) or delete a message. */
+export async function moderateMessage(form: FormData) {
+  await requireAdmin();
+  const { id, op } = messageInput.parse(Object.fromEntries(form));
+  const db = adminDb().from("birthday_messages");
+  const { error } =
+    op === "delete" ? await db.delete().eq("id", id) : await db.update(op === "hide" ? { hidden: true } : { hidden: false, reports: 0 }).eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin");
+}
