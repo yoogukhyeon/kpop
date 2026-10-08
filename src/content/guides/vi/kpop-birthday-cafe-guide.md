@@ -1,12 +1,28 @@
 ---
 title: Cà phê sinh nhật K-pop ở Seoul — hoạt động thế nào
 description: Cà phê sinh nhật là gì, tập trung ở đâu tại Seoul, quà tặng và bốc thăm hoạt động ra sao, và quy tắc ứng xử cần nhớ.
-updated: 2026-10-06
+updated: 2026-10-08
 order: 3
 partners: []
 sources:
   - https://blog.namanecard.com/en/seoul-kpop-birthday-cafes-2026-fan-events-hanok-seongsu/
   - https://world.nol.com/en/content/articles/7ece8791-d27a-48b9-ba17-861be4ff1d44
+figures:
+  - title: "Checklist đi cà phê sinh nhật"
+    items:
+      - "Xem thông báo: ngày, giờ mở cửa, cách vào"
+      - "1 đồ uống = 1 bộ quà tặng"
+      - "Ngày sinh nhật nên đến sớm"
+      - "Đọc luật bốc thăm may mắn"
+      - "Hỏi trước khi chụp fan khác"
+      - "Không di chuyển đồ trang trí"
+faq:
+  - q: "Cà phê sinh nhật có thu phí vào cửa không?"
+    a: "Không, vào cửa miễn phí. Thường mỗi đồ uống bạn gọi sẽ kèm một bộ quà như cup sleeve, photocard, sticker."
+  - q: "Cà phê sinh nhật mở khi nào?"
+    a: "Thường mở vài ngày trước và sau sinh nhật idol, được thông báo trên X và Instagram khoảng 1–2 tuần trước."
+  - q: "Cà phê sinh nhật ở Seoul thường ở đâu?"
+    a: "Nhiều nhất ở quận Mapo — Hongdae, Sinchon, Hapjeong — và ở Seongsu-dong, nơi hay có sự kiện lớn."
 ---
 
 Cà phê sinh nhật (생일카페, “saengka”) là sự kiện do fan tổ chức: họ thuê một quán cà phê bình thường trong vài ngày quanh sinh nhật idol và trang trí đầy ảnh, banner và đồ theo chủ đề. Vào cửa miễn phí, và đây là một trong những nơi tốt nhất để gặp fan khác ở Seoul.
@@ -23,6 +39,8 @@ Cà phê sinh nhật tập trung ở vài khu:
 - **Seongsu-dong.** Nhiều quán cà phê thiết kế đẹp và không gian pop-up, hợp với sự kiện lớn, dễ chụp ảnh.
 
 ## Đi thế nào
+
+![Checklist đi cà phê sinh nhật](fig:1)
 
 1. **Xem thông báo:** ngày, giờ mở cửa và quy định. Quán nổi tiếng có thể phải xếp hàng hoặc vào theo khung giờ đúng ngày sinh nhật.
 2. **Gọi đồ uống:** hầu hết quán tặng một bộ quà cho mỗi ly — cup sleeve, photocard, sticker, slogan.

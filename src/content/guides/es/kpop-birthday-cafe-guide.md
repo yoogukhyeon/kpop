@@ -1,12 +1,28 @@
 ---
 title: Cafés de cumpleaños K-pop en Seúl — cómo funcionan
 description: Qué son los cafés de cumpleaños, en qué barrios de Seúl se concentran, cómo funcionan los regalos y sorteos, y la etiqueta que debes seguir.
-updated: 2026-10-01
+updated: 2026-10-08
 order: 3
 partners: []
 sources:
   - https://blog.namanecard.com/en/seoul-kpop-birthday-cafes-2026-fan-events-hanok-seongsu/
   - https://world.nol.com/en/content/articles/7ece8791-d27a-48b9-ba17-861be4ff1d44
+figures:
+  - title: "Checklist para cafés de cumpleaños"
+    items:
+      - "Revisa fechas, horario y reglas de entrada"
+      - "1 bebida = 1 set de regalos"
+      - "El día del cumpleaños, ve temprano"
+      - "Lee las reglas del sorteo"
+      - "Pregunta antes de fotografiar a otros fans"
+      - "No muevas la decoración"
+faq:
+  - q: "¿Hay que pagar entrada en un café de cumpleaños?"
+    a: "No, la entrada es gratis. Normalmente recibes un set de regalos —cup sleeves, photocards, stickers— con cada bebida."
+  - q: "¿Cuándo abren los cafés de cumpleaños?"
+    a: "Suelen abrir unos días antes y después del cumpleaños del idol, y se anuncian en X e Instagram una o dos semanas antes."
+  - q: "¿Dónde están los cafés de cumpleaños en Seúl?"
+    a: "Sobre todo en Mapo-gu —Hongdae, Sinchon, Hapjeong— y en Seongsu-dong, donde abundan eventos más grandes."
 ---
 
 Un café de cumpleaños (생일카페, "saengka") es un evento organizado por fans: alquilan un café normal durante unos días alrededor del cumpleaños de un idol y lo llenan de fotos, banners y decoración temática. La entrada es gratis y es una de las mejores formas de conocer a otros fans en Seúl.
@@ -23,6 +39,8 @@ La mayoría se concentra en pocos barrios:
 - **Seongsu-dong.** Cafés de diseño y espacios para pop-ups, populares para eventos más grandes y fotogénicos.
 
 ## Cómo es la visita
+
+![Checklist para cafés de cumpleaños](fig:1)
 
 1. **Revisa el anuncio**: fechas, horario y reglas. Los cafés más populares pueden tener filas o entrada por turnos el día del cumpleaños.
 2. **Pide una bebida.** La mayoría regala un set por cada bebida: fundas para vasos, photocards, stickers, slogans.

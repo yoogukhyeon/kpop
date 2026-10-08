@@ -1,13 +1,29 @@
 ---
 title: Cómo llegar a los recintos de K-pop en Seúl — KSPO Dome, Gocheok Sky Dome y más
 description: Estación de metro más cercana, qué salida usar y cómo evitar la multitud al terminar el concierto en los principales recintos de K-pop de Seúl.
-updated: 2026-10-01
+updated: 2026-10-08
 order: 4
 partners: [agoda]
 sources:
   - https://kconcertguide.com/en/venue/kspo-dome/
   - https://english.seoul.go.kr/gocheok-sky-dome/
   - https://blog.namanecard.com/en/kspo-vs-gocheok-vs-inspire-arena-venue-guide-en/
+figures:
+  - title: "Sal rápido después del concierto"
+    items:
+      - "KSPO Dome → camina a Hanseong Baekje (línea 9)"
+      - "KSPO Dome → Mongchontoseong (línea 8) también"
+      - "Línea 5: toma el tren hacia Macheon"
+      - "Gocheok → espera 20–30 min dentro"
+      - "Gocheok → camina 15 min a Gaebong (línea 1)"
+      - "Inspire Arena → planea la vuelta con tiempo"
+faq:
+  - q: "¿Cuál es la estación más cercana al KSPO Dome?"
+    a: "Olympic Park (líneas 5 y 9). Sal por la salida 3 o 4 y sigue los carteles del concierto: unos 7–10 minutos a pie."
+  - q: "¿Cómo llego al Gocheok Sky Dome?"
+    a: "Toma la línea 1 hasta Guil, salida 2, a pocos minutos a pie. La línea 1 va directo desde la estación de Seúl."
+  - q: "¿Cómo evito la multitud al salir?"
+    a: "Desde el KSPO Dome, camina a Hanseong Baekje (línea 9) o Mongchontoseong (línea 8). En Gocheok, espera 20–30 minutos dentro o camina unos 15 minutos a Gaebong (línea 1)."
 ---
 
 La mayoría de los conciertos de K-pop en Seúl se hacen en unos pocos recintos. Llegar es fácil; lo difícil es salir junto a miles de fans.
@@ -36,6 +52,8 @@ El único estadio techado de Seúl, usado para los conciertos y premiaciones má
 Una gran arena en la isla de Yeongjong, cerca del Aeropuerto Internacional de Incheon. Está lejos del centro de Seúl: revisa la información oficial de transporte y shuttles antes de ir y planea cómo volver, porque de noche hay pocas opciones.
 
 ## Consejos para el día del concierto
+
+![Sal rápido después del concierto](fig:1)
 
 - **Las filas de merch empiezan horas antes.** Si quieres merch oficial, llega por la mañana.
 - **Los lockers** de las estaciones cercanas se llenan rápido. Viaja ligero.

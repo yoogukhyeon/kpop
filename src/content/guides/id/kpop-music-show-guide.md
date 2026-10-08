@@ -1,7 +1,7 @@
 ---
 title: Cara Menonton Acara Musik K-pop di Seoul untuk Orang Asing
 description: Jadwal acara musik mingguan, acara mana yang benar-benar bisa dimasuki turis, dan seperti apa hari rekaman.
-updated: 2026-10-06
+updated: 2026-10-08
 order: 2
 partners: [klook]
 activities: [music-show]
@@ -10,11 +10,29 @@ sources:
   - https://koreabyme.com/how-to-attend-kpop-music-shows-in-korea-a-guide-for-foreigners/
   - https://blog.trazy.com/ultimate-guide-to-weekly-k-pop-music-shows/
   - https://blog.namanecard.com/en/the-show-kpop-return-june-2026-sbs-life-bigc/
+figures:
+  - title: "Jadwal music show mingguan"
+    items:
+      - "Selasa · The Show (SBS LIFE)"
+      - "Rabu · Show Champion (MBC M)"
+      - "Kamis · M Countdown (Mnet)"
+      - "Jumat · Music Bank (KBS2)"
+      - "Sabtu · Show! Music Core (MBC)"
+      - "Minggu · Inkigayo (SBS)"
+faq:
+  - q: "Apakah nonton rekaman music show gratis?"
+    a: "Sebagian besar gratis. Tiket khusus turis asing seperti milik M Countdown dijual berbayar di platform seperti Klook."
+  - q: "Bisa nonton tanpa jadi anggota fan club?"
+    a: "Music Bank punya undian gratis untuk akun KBS yang terdaftar sebagai warga asing di luar negeri, dan M Countdown serta The Show pernah membuka kursi untuk turis. Pre-recording Inkigayo, Show! Music Core dan Show Champion umumnya khusus fan club."
+  - q: "Berapa lama nonton music show?"
+    a: "Siaran langsung saja biasanya 3–4 jam. Pre-recording plus siaran langsung untuk grup populer bisa 6–8 jam termasuk antre."
 ---
 
 Acara musik mingguan adalah cara termurah untuk melihat grup favoritmu secara langsung — sebagian besar gratis. Masalahnya, kursinya terbatas dan kebanyakan untuk anggota fan club.
 
 ## Jadwal mingguan
+
+![Jadwal music show mingguan](fig:1)
 
 | Hari | Acara | Saluran |
 |---|---|---|

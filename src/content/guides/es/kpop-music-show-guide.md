@@ -1,7 +1,7 @@
 ---
 title: Cómo asistir a programas musicales de K-pop en Seúl siendo extranjero
 description: El calendario semanal de programas musicales, a cuáles pueden entrar los turistas y cómo es un día de grabación.
-updated: 2026-10-01
+updated: 2026-10-08
 order: 2
 partners: [klook]
 activities: [music-show]
@@ -10,11 +10,29 @@ sources:
   - https://koreabyme.com/how-to-attend-kpop-music-shows-in-korea-a-guide-for-foreigners/
   - https://blog.trazy.com/ultimate-guide-to-weekly-k-pop-music-shows/
   - https://blog.namanecard.com/en/the-show-kpop-return-june-2026-sbs-life-bigc/
+figures:
+  - title: "Calendario semanal de music shows"
+    items:
+      - "Mar · The Show (SBS LIFE)"
+      - "Mié · Show Champion (MBC M)"
+      - "Jue · M Countdown (Mnet)"
+      - "Vie · Music Bank (KBS2)"
+      - "Sáb · Show! Music Core (MBC)"
+      - "Dom · Inkigayo (SBS)"
+faq:
+  - q: "¿Es gratis asistir a un music show?"
+    a: "Casi siempre sí. Los pases para extranjeros, como los de M Countdown, se venden con costo en plataformas como Klook."
+  - q: "¿Puedo ir sin ser de un fan club?"
+    a: "Music Bank sortea entradas gratis para cuentas de KBS registradas como extranjeros que viven fuera de Corea, y M Countdown y The Show han ofrecido asientos para turistas. Las pregrabaciones de Inkigayo, Show! Music Core y Show Champion suelen ser solo para fan clubs."
+  - q: "¿Cuánto tiempo dura?"
+    a: "Solo la transmisión en vivo suele llevar 3–4 horas; pregrabación más directo de un grupo popular puede llevar 6–8 horas con la espera."
 ---
 
 Los programas musicales semanales son la forma más barata de ver a tu grupo en vivo: casi todos son gratis. El problema es que hay pocos lugares y la mayoría están reservados para miembros del fan club.
 
 ## El calendario semanal
+
+![Calendario semanal de music shows](fig:1)
 
 | Día | Programa | Canal |
 |---|---|---|

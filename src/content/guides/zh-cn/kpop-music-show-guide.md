@@ -1,7 +1,7 @@
 ---
 title: 外国人如何在首尔参加 K-POP 打歌节目
 description: 每周打歌节目时间表、游客真正能参加的节目，以及录制当天的流程。
-updated: 2026-10-06
+updated: 2026-10-08
 order: 2
 partners: [klook]
 activities: [music-show]
@@ -10,11 +10,29 @@ sources:
   - https://koreabyme.com/how-to-attend-kpop-music-shows-in-korea-a-guide-for-foreigners/
   - https://blog.trazy.com/ultimate-guide-to-weekly-k-pop-music-shows/
   - https://blog.namanecard.com/en/the-show-kpop-return-june-2026-sbs-life-bigc/
+figures:
+  - title: "每周打歌节目表"
+    items:
+      - "周二 · THE SHOW (SBS LIFE)"
+      - "周三 · Show Champion (MBC M)"
+      - "周四 · M COUNTDOWN (Mnet)"
+      - "周五 · Music Bank (KBS2)"
+      - "周六 · Show! 音乐中心 (MBC)"
+      - "周日 · 人气歌谣 (SBS)"
+faq:
+  - q: "看打歌节目录制要钱吗？"
+    a: "大部分免费。不过像 M COUNTDOWN 的外国人专用通行证，是在 Klook 等海外平台付费销售。"
+  - q: "不是粉丝俱乐部会员也能去看吗？"
+    a: "Music Bank 可以用登记为海外外国人的 KBS 账号参加免费抽选；M COUNTDOWN 和 THE SHOW 也曾开放游客座位。人气歌谣、Show! 音乐中心、Show Champion 的事前录制大多只限粉丝俱乐部。"
+  - q: "看一场打歌节目要多久？"
+    a: "只看直播通常 3–4 小时；人气团体的事前录制加直播，含排队大约要 6–8 小时。"
 ---
 
 每周的打歌节目是现场看本命最便宜的方式，大多是免费的。问题是座位有限，而且大多留给粉丝俱乐部会员。
 
 ## 每周时间表
+
+![每周打歌节目表](fig:1)
 
 | 星期 | 节目 | 频道 |
 |---|---|---|

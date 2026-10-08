@@ -1,13 +1,29 @@
 ---
 title: Cara ke Venue Konser K-pop di Seoul — KSPO Dome, Gocheok Sky Dome
 description: Stasiun terdekat, pintu keluar yang dipakai, dan cara menghindari kepadatan setelah konser.
-updated: 2026-10-06
+updated: 2026-10-08
 order: 4
 partners: [agoda]
 sources:
   - https://kconcertguide.com/en/venue/kspo-dome/
   - https://english.seoul.go.kr/gocheok-sky-dome/
   - https://blog.namanecard.com/en/kspo-vs-gocheok-vs-inspire-arena-venue-guide-en/
+figures:
+  - title: "Cepat pulang setelah konser"
+    items:
+      - "KSPO Dome → jalan ke Hanseong Baekje (jalur 9)"
+      - "KSPO Dome → Mongchontoseong (jalur 8) juga dekat"
+      - "Jalur 5: naik kereta arah Macheon"
+      - "Gocheok → tunggu 20–30 menit di dalam"
+      - "Gocheok → jalan 15 menit ke Gaebong (jalur 1)"
+      - "Inspire Arena → siapkan transport pulang"
+faq:
+  - q: "Stasiun terdekat ke KSPO Dome di mana?"
+    a: "Stasiun Olympic Park (jalur 5 dan 9). Keluar dari pintu 3 atau 4 lalu ikuti spanduk konser sekitar 7–10 menit."
+  - q: "Bagaimana cara ke Gocheok Sky Dome?"
+    a: "Naik jalur 1 ke Stasiun Guil, pintu keluar 2, jalan kaki beberapa menit. Jalur 1 langsung dari Stasiun Seoul tanpa transit."
+  - q: "Bagaimana menghindari keramaian setelah konser?"
+    a: "Dari KSPO Dome, jalan ke Hanseong Baekje (jalur 9) atau Mongchontoseong (jalur 8). Di Gocheok, tunggu 20–30 menit di dalam atau jalan sekitar 15 menit ke Stasiun Gaebong (jalur 1)."
 ---
 
 Sebagian besar konser K-pop di Seoul diadakan di beberapa venue saja. Datangnya mudah; yang sulit adalah pulang bersama puluhan ribu fans.
@@ -36,6 +52,8 @@ Satu-satunya stadion beratap di Seoul, dipakai untuk konser dan acara penghargaa
 Arena besar di Pulau Yeongjong, dekat Bandara Internasional Incheon. Jaraknya jauh dari pusat Seoul, jadi cek info transportasi dan shuttle resmi sebelum berangkat dan rencanakan jalan pulang — pilihan transportasi malam hari terbatas.
 
 ## Tips hari konser
+
+![Cepat pulang setelah konser](fig:1)
 
 - **Antrean merch mulai berjam-jam sebelumnya.** Kalau ingin merch resmi, datang dari pagi.
 - **Loker koin** di stasiun sekitar cepat penuh. Bawa barang seperlunya.

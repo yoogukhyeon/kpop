@@ -1,7 +1,7 @@
 ---
 title: 外国人がソウルでK-POP音楽番組を観覧する方法
 description: 毎週の音楽番組スケジュール、旅行者が実際に観覧できる番組、収録日の流れ。
-updated: 2026-10-01
+updated: 2026-10-08
 order: 2
 partners: [klook]
 activities: [music-show]
@@ -10,11 +10,29 @@ sources:
   - https://koreabyme.com/how-to-attend-kpop-music-shows-in-korea-a-guide-for-foreigners/
   - https://blog.trazy.com/ultimate-guide-to-weekly-k-pop-music-shows/
   - https://blog.namanecard.com/en/the-show-kpop-return-june-2026-sbs-life-bigc/
+figures:
+  - title: "毎週の音楽番組スケジュール"
+    items:
+      - "火 · THE SHOW (SBS LIFE)"
+      - "水 · SHOW CHAMPION (MBC M)"
+      - "木 · M COUNTDOWN (Mnet)"
+      - "金 · ミュージックバンク (KBS2)"
+      - "土 · ショー!K-POPの中心 (MBC)"
+      - "日 · 人気歌謡 (SBS)"
+faq:
+  - q: "音楽番組の観覧は無料ですか？"
+    a: "ほとんどが無料です。ただしM COUNTDOWNの外国人向けパスのように、Klookなど海外プラットフォームで有料販売されるものもあります。"
+  - q: "ファンクラブに入っていなくても観覧できますか？"
+    a: "ミュージックバンクは海外在住外国人として登録したKBSアカウントで無料抽選に応募できます。M COUNTDOWNやTHE SHOWは旅行者向けの席が出ることもあります。人気歌謡・ショー!K-POPの中心・SHOW CHAMPIONの事前収録は主にファンクラブ限定です。"
+  - q: "観覧にはどのくらい時間がかかりますか？"
+    a: "生放送だけなら通常3〜4時間、人気グループの事前収録と生放送の両方なら待ち時間を含めて6〜8時間ほどかかります。"
 ---
 
 毎週の音楽番組は、推しのステージを生で見るいちばん安い方法です。ほとんどが無料。ただし席は限られていて、多くはファンクラブ会員向けです。
 
 ## 毎週のスケジュール
+
+![毎週の音楽番組スケジュール](fig:1)
 
 | 曜日 | 番組 | チャンネル |
 |---|---|---|

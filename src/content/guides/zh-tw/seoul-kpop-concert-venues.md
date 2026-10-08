@@ -1,13 +1,29 @@
 ---
 title: 首爾 K-POP 演唱會場館交通攻略｜KSPO DOME・高尺巨蛋
 description: 最近的地鐵站、走哪個出口，以及散場後如何避開人潮。
-updated: 2026-10-06
+updated: 2026-10-08
 order: 4
 partners: [agoda]
 sources:
   - https://kconcertguide.com/en/venue/kspo-dome/
   - https://english.seoul.go.kr/gocheok-sky-dome/
   - https://blog.namanecard.com/en/kspo-vs-gocheok-vs-inspire-arena-venue-guide-en/
+figures:
+  - title: "散場後快速回家的方法"
+    items:
+      - "KSPO DOME → 步行到漢城百濟站（9 號線）"
+      - "KSPO DOME → 夢村土城站（8 號線）也很近"
+      - "5 號線要搭往馬川方向"
+      - "高尺 → 在館內等 20–30 分鐘"
+      - "高尺 → 步行 15 分鐘到開峰站（1 號線）"
+      - "INSPIRE ARENA → 事先安排回程交通"
+faq:
+  - q: "KSPO DOME 最近的地鐵站是哪一站？"
+    a: "奧林匹克公園站（5 號線、9 號線）。從 3 或 4 號出口出來，跟著演唱會指示走約 7–10 分鐘。"
+  - q: "高尺巨蛋怎麼去？"
+    a: "搭 1 號線到九一站，2 號出口步行幾分鐘。從首爾站搭 1 號線不用轉車。"
+  - q: "散場時怎麼避開人潮？"
+    a: "KSPO DOME 可以步行到漢城百濟站（9 號線）或夢村土城站（8 號線）；高尺巨蛋可以在館內等 20–30 分鐘，或步行約 15 分鐘到開峰站（1 號線）。"
 ---
 
 首爾的 K-POP 演唱會集中在幾個場館。去程不難，難的是散場時和幾萬名粉絲一起離開。
@@ -36,6 +52,8 @@ sources:
 位於仁川國際機場附近的永宗島。離首爾市區很遠，出發前請確認官方交通與接駁資訊，並先規劃好回程，深夜交通選擇很少。
 
 ## 演出日小提醒
+
+![散場後快速回家的方法](fig:1)
 
 - **周邊隊伍提早好幾小時開始。**想買官方周邊請早上就到。
 - 附近車站的**置物櫃**很快就滿，行李盡量輕便。

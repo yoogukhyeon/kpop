@@ -1,7 +1,7 @@
 ---
 title: Cách người nước ngoài xem chương trình âm nhạc K-pop ở Seoul
 description: Lịch chương trình âm nhạc hằng tuần, chương trình nào khách du lịch thực sự vào được, và một ngày ghi hình diễn ra thế nào.
-updated: 2026-10-06
+updated: 2026-10-08
 order: 2
 partners: [klook]
 activities: [music-show]
@@ -10,11 +10,29 @@ sources:
   - https://koreabyme.com/how-to-attend-kpop-music-shows-in-korea-a-guide-for-foreigners/
   - https://blog.trazy.com/ultimate-guide-to-weekly-k-pop-music-shows/
   - https://blog.namanecard.com/en/the-show-kpop-return-june-2026-sbs-life-bigc/
+figures:
+  - title: "Lịch music show hằng tuần"
+    items:
+      - "Thứ 3 · The Show (SBS LIFE)"
+      - "Thứ 4 · Show Champion (MBC M)"
+      - "Thứ 5 · M Countdown (Mnet)"
+      - "Thứ 6 · Music Bank (KBS2)"
+      - "Thứ 7 · Show! Music Core (MBC)"
+      - "Chủ nhật · Inkigayo (SBS)"
+faq:
+  - q: "Xem ghi hình music show có mất phí không?"
+    a: "Phần lớn là miễn phí. Riêng vé dành cho người nước ngoài như của M Countdown được bán có phí trên các nền tảng như Klook."
+  - q: "Không có fan club thì có xem được không?"
+    a: "Music Bank có bốc thăm miễn phí cho tài khoản KBS đăng ký là người nước ngoài sống ở nước ngoài; M Countdown và The Show từng mở ghế cho du khách. Ghi hình trước của Inkigayo, Show! Music Core và Show Champion chủ yếu chỉ dành cho fan club."
+  - q: "Xem một buổi music show mất bao lâu?"
+    a: "Chỉ xem phát sóng trực tiếp thường mất 3–4 giờ; xem cả ghi hình trước và trực tiếp của nhóm nổi tiếng có thể mất 6–8 giờ tính cả thời gian chờ."
 ---
 
 Chương trình âm nhạc hằng tuần là cách rẻ nhất để xem nhóm mình yêu thích diễn trực tiếp — hầu hết đều miễn phí. Nhưng số ghế có hạn và phần lớn dành cho thành viên fan club.
 
 ## Lịch hằng tuần
+
+![Lịch music show hằng tuần](fig:1)
 
 | Thứ | Chương trình | Kênh |
 |---|---|---|

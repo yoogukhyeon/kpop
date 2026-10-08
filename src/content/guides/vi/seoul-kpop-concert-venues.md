@@ -1,13 +1,29 @@
 ---
 title: Cách đến các địa điểm concert K-pop ở Seoul — KSPO Dome, Gocheok Sky Dome
 description: Ga tàu điện gần nhất, nên ra cửa nào và cách tránh đám đông khi tan concert.
-updated: 2026-10-06
+updated: 2026-10-08
 order: 4
 partners: [agoda]
 sources:
   - https://kconcertguide.com/en/venue/kspo-dome/
   - https://english.seoul.go.kr/gocheok-sky-dome/
   - https://blog.namanecard.com/en/kspo-vs-gocheok-vs-inspire-arena-venue-guide-en/
+figures:
+  - title: "Về nhanh sau concert"
+    items:
+      - "KSPO Dome → đi bộ tới ga Hanseong Baekje (tuyến 9)"
+      - "KSPO Dome → ga Mongchontoseong (tuyến 8) cũng gần"
+      - "Tuyến 5: đi tàu hướng Macheon"
+      - "Gocheok → đợi 20–30 phút trong địa điểm"
+      - "Gocheok → đi bộ 15 phút tới ga Gaebong (tuyến 1)"
+      - "Inspire Arena → chuẩn bị phương tiện về từ trước"
+faq:
+  - q: "Ga tàu điện gần KSPO Dome nhất là ga nào?"
+    a: "Ga Olympic Park (tuyến 5 và 9). Ra cửa 3 hoặc 4 rồi đi theo băng rôn concert khoảng 7–10 phút."
+  - q: "Đến Gocheok Sky Dome bằng cách nào?"
+    a: "Đi tuyến 1 tới ga Guil, cửa 2, đi bộ vài phút. Tuyến 1 chạy thẳng từ ga Seoul, không cần đổi tàu."
+  - q: "Làm sao tránh đông sau concert?"
+    a: "Ở KSPO Dome, hãy đi bộ tới ga Hanseong Baekje (tuyến 9) hoặc Mongchontoseong (tuyến 8). Ở Gocheok, đợi 20–30 phút trong địa điểm hoặc đi bộ khoảng 15 phút tới ga Gaebong (tuyến 1)."
 ---
 
 Phần lớn concert K-pop ở Seoul diễn ra ở vài địa điểm. Đến thì dễ; khó là ra về cùng hàng chục nghìn fan.
@@ -36,6 +52,8 @@ Sân vận động mái vòm duy nhất ở Seoul, dùng cho concert và lễ tr
 Nhà thi đấu lớn trên đảo Yeongjong, gần sân bay quốc tế Incheon. Nơi này xa trung tâm Seoul, nên hãy xem thông tin di chuyển và xe đưa đón chính thức trước khi đi và lên kế hoạch về sớm — ban đêm ít lựa chọn.
 
 ## Mẹo ngày concert
+
+![Về nhanh sau concert](fig:1)
 
 - **Hàng mua merch bắt đầu nhiều giờ trước.** Muốn mua merch chính hãng thì đến từ sáng.
 - **Tủ gửi đồ** ở các ga gần đó đầy rất nhanh. Mang đồ gọn nhẹ.

@@ -1,12 +1,28 @@
 ---
 title: Kafe Ulang Tahun K-pop di Seoul — Cara Kerjanya
 description: Apa itu kafe ulang tahun, di mana banyak ditemukan di Seoul, bagaimana freebies dan undian bekerja, serta etika yang perlu diikuti.
-updated: 2026-10-06
+updated: 2026-10-08
 order: 3
 partners: []
 sources:
   - https://blog.namanecard.com/en/seoul-kpop-birthday-cafes-2026-fan-events-hanok-seongsu/
   - https://world.nol.com/en/content/articles/7ece8791-d27a-48b9-ba17-861be4ff1d44
+figures:
+  - title: "Checklist kafe ulang tahun"
+    items:
+      - "Cek pengumuman: tanggal, jam buka, cara masuk"
+      - "1 minuman = 1 set freebies"
+      - "Datang pagi di hari ulang tahunnya"
+      - "Baca aturan lucky draw"
+      - "Minta izin sebelum memotret fans lain"
+      - "Jangan pindahkan dekorasi"
+faq:
+  - q: "Apakah kafe ulang tahun bayar tiket masuk?"
+    a: "Tidak, masuknya gratis. Biasanya setiap minuman yang dipesan dapat satu set freebies seperti cup sleeve, photocard, dan stiker."
+  - q: "Kapan kafe ulang tahun dibuka?"
+    a: "Biasanya beberapa hari sebelum dan sesudah ulang tahun idol, diumumkan di X dan Instagram sekitar 1–2 minggu sebelumnya."
+  - q: "Di mana kafe ulang tahun di Seoul?"
+    a: "Paling banyak di Mapo-gu — Hongdae, Sinchon, Hapjeong — dan di Seongsu-dong yang sering mengadakan acara besar."
 ---
 
 Kafe ulang tahun (생일카페, “saengka”) adalah acara buatan fans: mereka menyewa kafe biasa selama beberapa hari di sekitar ulang tahun idol dan mendekorasinya dengan foto, banner, dan hiasan bertema. Masuknya gratis, dan ini salah satu cara terbaik bertemu fans lain di Seoul.
@@ -23,6 +39,8 @@ Kafe ulang tahun berkumpul di beberapa kawasan:
 - **Seongsu-dong.** Banyak kafe desain dan ruang pop-up, cocok untuk acara besar yang fotogenik.
 
 ## Cara berkunjung
+
+![Checklist kafe ulang tahun](fig:1)
 
 1. **Cek pengumuman:** tanggal, jam buka, dan aturan. Kafe populer bisa ada antrean atau masuk bergiliran di hari ulang tahunnya.
 2. **Pesan minuman:** sebagian besar kafe memberi satu set freebies per minuman — cup sleeve, photocard, stiker, slogan.

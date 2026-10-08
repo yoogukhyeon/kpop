@@ -1,7 +1,7 @@
 ---
 title: วิธีเข้าชมรายการเพลง K-pop ในโซลสำหรับชาวต่างชาติ
 description: ตารางรายการเพลงรายสัปดาห์ รายการไหนที่นักท่องเที่ยวเข้าได้จริง และวันบันทึกเทปเป็นอย่างไร
-updated: 2026-10-06
+updated: 2026-10-08
 order: 2
 partners: [klook]
 activities: [music-show]
@@ -10,11 +10,29 @@ sources:
   - https://koreabyme.com/how-to-attend-kpop-music-shows-in-korea-a-guide-for-foreigners/
   - https://blog.trazy.com/ultimate-guide-to-weekly-k-pop-music-shows/
   - https://blog.namanecard.com/en/the-show-kpop-return-june-2026-sbs-life-bigc/
+figures:
+  - title: "ตารางรายการเพลงรายสัปดาห์"
+    items:
+      - "อังคาร · The Show (SBS LIFE)"
+      - "พุธ · Show Champion (MBC M)"
+      - "พฤหัสฯ · M Countdown (Mnet)"
+      - "ศุกร์ · Music Bank (KBS2)"
+      - "เสาร์ · Show! Music Core (MBC)"
+      - "อาทิตย์ · Inkigayo (SBS)"
+faq:
+  - q: "เข้าชมรายการเพลงต้องเสียเงินไหม?"
+    a: "ส่วนใหญ่ฟรี ยกเว้นบัตรสำหรับชาวต่างชาติ เช่นของ M Countdown ที่ขายผ่านแพลตฟอร์มอย่าง Klook"
+  - q: "ไม่ได้อยู่แฟนคลับเข้าชมได้ไหม?"
+    a: "Music Bank มีการจับฉลากฟรีสำหรับบัญชี KBS ที่ลงทะเบียนเป็นชาวต่างชาติที่อยู่ต่างประเทศ ส่วน M Countdown และ The Show เคยเปิดที่นั่งให้นักท่องเที่ยว แต่พรีเรคอร์ดของ Inkigayo, Show! Music Core และ Show Champion ส่วนใหญ่เปิดเฉพาะแฟนคลับ"
+  - q: "เข้าชมใช้เวลานานแค่ไหน?"
+    a: "ดูเฉพาะไลฟ์ปกติ 3–4 ชั่วโมง ถ้าดูทั้งพรีเรคอร์ดและไลฟ์ของวงดังอาจใช้ 6–8 ชั่วโมงรวมเวลารอ"
 ---
 
 รายการเพลงรายสัปดาห์คือวิธีที่ถูกที่สุดในการดูวงที่รักแบบสด ส่วนใหญ่ฟรี แต่ที่นั่งมีจำกัด และส่วนใหญ่สงวนไว้ให้สมาชิกแฟนคลับ
 
 ## ตารางรายสัปดาห์
+
+![ตารางรายการเพลงรายสัปดาห์](fig:1)
 
 | วัน | รายการ | ช่อง |
 |---|---|---|
