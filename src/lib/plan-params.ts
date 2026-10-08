@@ -27,7 +27,7 @@ export async function loadPlan(raw: Record<string, string | string[] | undefined
   const memberSlugs = q.members.filter((s) => group.members.some((m) => m.slug === s));
 
   const events = (await listEvents({ from: q.from, to, group: group.slug })).filter(
-    (e) => e.type !== "birthday-cafe" || !memberSlugs.length || e.members?.some((m) => memberSlugs.includes(m.split("/")[1])),
+    (e) => (e.type !== "birthday-cafe" && e.type !== "birthday-event") || !memberSlugs.length || e.members?.some((m) => memberSlugs.includes(m.split("/")[1])),
   );
   const plan = buildPlan({ group, memberSlugs, from: q.from, to, events, places: await listPlacesForGroup(group.slug) });
   return { group, memberSlugs, from: q.from, to, plan };

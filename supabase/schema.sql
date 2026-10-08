@@ -38,7 +38,7 @@ create table if not exists places (
 
 create table if not exists events (
   id          text primary key,
-  type        text not null check (type in ('concert', 'fanmeeting', 'music-show', 'birthday-cafe', 'popup')),
+  type        text not null check (type in ('concert', 'fanmeeting', 'music-show', 'birthday-cafe', 'birthday-event', 'popup')),
   title       text not null,
   groups      text[] not null default '{}',
   members     text[],                   -- "group/member" slugs for birthday cafes
@@ -166,5 +166,9 @@ create unique index if not exists birthday_messages_daily on birthday_messages (
 create index if not exists birthday_messages_member on birthday_messages (group_slug, member_slug, created_at desc);
 alter table birthday_messages enable row level security;
 grant all on birthday_messages to service_role;
+
+-- Widen the event type check on existing databases (birthday-event added 2026-10).
+alter table events drop constraint if exists events_type_check;
+alter table events add constraint events_type_check check (type in ('concert', 'fanmeeting', 'music-show', 'birthday-cafe', 'birthday-event', 'popup'));
 
 notify pgrst, 'reload schema';

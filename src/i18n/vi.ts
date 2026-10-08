@@ -228,7 +228,7 @@ export const vi: Dictionary = {
     songpa: "Songpa / Công viên Olympic", jung: "Jung-gu / Tòa thị chính", gangdong: "Gangdong", yeouido: "Yeouido", guro: "Guro",
   },
   eventType: {
-    concert: "Concert", fanmeeting: "Fanmeeting", "music-show": "Chương trình âm nhạc", "birthday-cafe": "Cà phê sinh nhật", popup: "Pop-up",
+    concert: "Concert", fanmeeting: "Fanmeeting", "music-show": "Chương trình âm nhạc", "birthday-cafe": "Cà phê sinh nhật", "birthday-event": "Sự kiện sinh nhật", popup: "Pop-up",
   },
   access: {
     open: "Người nước ngoài đặt trực tiếp được", verification: "Cần xác minh hộ chiếu trước",

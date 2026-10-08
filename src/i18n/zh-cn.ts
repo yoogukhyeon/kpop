@@ -228,7 +228,7 @@ export const zhCN: Dictionary = {
     songpa: "松坡・奥林匹克公园", jung: "中区・市厅", gangdong: "江东", yeouido: "汝矣岛", guro: "九老",
   },
   eventType: {
-    concert: "演唱会", fanmeeting: "粉丝见面会", "music-show": "打歌节目", "birthday-cafe": "生日咖啡馆", popup: "快闪店",
+    concert: "演唱会", fanmeeting: "粉丝见面会", "music-show": "打歌节目", "birthday-cafe": "生日咖啡馆", "birthday-event": "生日应援活动", popup: "快闪店",
   },
   access: {
     open: "外国人可直接购买", verification: "需提前完成护照认证",

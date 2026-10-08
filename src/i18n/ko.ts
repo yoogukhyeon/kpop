@@ -228,7 +228,7 @@ export const ko: Dictionary = {
     songpa: "송파·올림픽공원", jung: "중구·시청", gangdong: "강동", yeouido: "여의도", guro: "구로",
   },
   eventType: {
-    concert: "콘서트", fanmeeting: "팬미팅", "music-show": "음악방송", "birthday-cafe": "생일카페", popup: "팝업",
+    concert: "콘서트", fanmeeting: "팬미팅", "music-show": "음악방송", "birthday-cafe": "생일카페", "birthday-event": "생일 이벤트", popup: "팝업",
   },
   access: {
     open: "외국인 직접 예매 가능", verification: "사전 여권 인증 필요",

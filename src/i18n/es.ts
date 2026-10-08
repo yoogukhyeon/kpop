@@ -230,7 +230,7 @@ export const es: Dictionary = {
     songpa: "Songpa / Parque Olímpico", jung: "Jung-gu / Ayuntamiento", gangdong: "Gangdong", yeouido: "Yeouido", guro: "Guro",
   },
   eventType: {
-    concert: "Concierto", fanmeeting: "Fanmeeting", "music-show": "Programa musical", "birthday-cafe": "Café de cumpleaños", popup: "Pop-up",
+    concert: "Concierto", fanmeeting: "Fanmeeting", "music-show": "Programa musical", "birthday-cafe": "Café de cumpleaños", "birthday-event": "Evento de cumpleaños", popup: "Pop-up",
   },
   access: {
     open: "Los extranjeros pueden comprar directamente", verification: "Requiere verificar el pasaporte antes",

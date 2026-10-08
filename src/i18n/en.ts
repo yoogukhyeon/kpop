@@ -228,7 +228,7 @@ export const en = {
     songpa: "Songpa / Olympic Park", jung: "Jung-gu / City Hall", gangdong: "Gangdong", yeouido: "Yeouido", guro: "Guro",
   } satisfies Record<Area, string>,
   eventType: {
-    concert: "Concert", fanmeeting: "Fan meeting", "music-show": "Music show", "birthday-cafe": "Birthday cafe", popup: "Pop-up",
+    concert: "Concert", fanmeeting: "Fan meeting", "music-show": "Music show", "birthday-cafe": "Birthday cafe", "birthday-event": "Birthday event", popup: "Pop-up",
   } satisfies Record<EventType, string>,
   access: {
     open: "Foreigners can book directly", verification: "Passport verification needed in advance",

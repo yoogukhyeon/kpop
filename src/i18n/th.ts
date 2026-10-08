@@ -228,7 +228,7 @@ export const th: Dictionary = {
     songpa: "ซงพา / สวนโอลิมปิก", jung: "จุงกู / ศาลาว่าการ", gangdong: "คังดง", yeouido: "ยออีโด", guro: "คูโร",
   },
   eventType: {
-    concert: "คอนเสิร์ต", fanmeeting: "แฟนมีตติ้ง", "music-show": "รายการเพลง", "birthday-cafe": "คาเฟ่วันเกิด", popup: "ป๊อปอัพ",
+    concert: "คอนเสิร์ต", fanmeeting: "แฟนมีตติ้ง", "music-show": "รายการเพลง", "birthday-cafe": "คาเฟ่วันเกิด", "birthday-event": "อีเวนต์วันเกิด", popup: "ป๊อปอัพ",
   },
   access: {
     open: "ชาวต่างชาติจองได้เอง", verification: "ต้องยืนยันพาสปอร์ตล่วงหน้า",

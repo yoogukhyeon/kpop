@@ -50,7 +50,7 @@ export default async function PlanPage({ params, searchParams }: Props) {
   ]);
   // Other groups' events while the fan is in Seoul (pop-ups are open to everyone).
   const inPlan = new Set(plan.days.flatMap((d) => d.events.map((e) => e.id)));
-  const alsoOn = seoulEvents.filter((e) => !inPlan.has(e.id) && e.type !== "birthday-cafe").slice(0, 6);
+  const alsoOn = seoulEvents.filter((e) => !inPlan.has(e.id) && e.type !== "birthday-cafe" && e.type !== "birthday-event").slice(0, 6);
   const accentOf = new Map(groups.map((g) => [g.slug, g.accent]));
   const today = seoulToday();
   // Products tied to a weekday (music show packages) only appear in the

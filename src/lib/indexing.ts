@@ -13,7 +13,7 @@ export const isGroupIndexable = (g: Group) => g.members.length > 0;
 /** Member pages are thin (a birthday and boilerplate) until a real birthday cafe is listed for them. */
 export async function isMemberIndexable(g: Group, m: Member): Promise<boolean> {
   const events = await listEvents({ from: seoulToday(), group: g.slug });
-  return events.some((e) => e.type === "birthday-cafe" && e.members?.includes(`${g.slug}/${m.slug}`));
+  return events.some((e) => (e.type === "birthday-cafe" || e.type === "birthday-event") && e.members?.includes(`${g.slug}/${m.slug}`));
 }
 
 export const NOINDEX = { index: false, follow: true } as const;

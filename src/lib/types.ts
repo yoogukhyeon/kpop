@@ -49,7 +49,8 @@ export interface Place {
   verifiedAt: string | null;
 }
 
-export type EventType = "concert" | "fanmeeting" | "music-show" | "birthday-cafe" | "popup";
+/** birthday-event: fan-funded birthday ads and support events (screens, wraps, banners). */
+export type EventType = "concert" | "fanmeeting" | "music-show" | "birthday-cafe" | "birthday-event" | "popup";
 
 export type ForeignerAccess = "open" | "verification" | "fanclub" | "korean-id-only" | "unknown";
 

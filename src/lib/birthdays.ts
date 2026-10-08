@@ -29,13 +29,16 @@ export function nextOccurrence(monthDay: string, today: string): string {
   return thisYear >= today ? thisYear : `${Number(today.slice(0, 4)) + 1}-${monthDay}`;
 }
 
-/** Birthday cafes listed for a member around a given birthday date (±5 days). */
-export function cafesFor(events: KEvent[], b: Birthday, date: string): KEvent[] {
+/** Events of `type` listed for a member around a given birthday date (±5 days). */
+export function birthdayListings(events: KEvent[], b: Birthday, date: string, type: "birthday-cafe" | "birthday-event"): KEvent[] {
   const key = `${b.group.slug}/${b.member.slug}`;
   const from = shift(date, -5);
   const to = shift(date, 5);
-  return events.filter((e) => e.type === "birthday-cafe" && e.members?.includes(key) && e.endDate >= from && e.startDate <= to);
+  return events.filter((e) => e.type === type && e.members?.includes(key) && e.endDate >= from && e.startDate <= to);
 }
+
+/** Birthday cafes listed for a member around a given birthday date (±5 days). */
+export const cafesFor = (events: KEvent[], b: Birthday, date: string) => birthdayListings(events, b, date, "birthday-cafe");
 
 /** Trip plan link centred on the birthday. */
 export const planHref = (locale: string, b: Birthday, date: string) =>

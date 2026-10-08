@@ -228,7 +228,7 @@ export const id: Dictionary = {
     songpa: "Songpa / Taman Olimpiade", jung: "Jung-gu / Balai Kota", gangdong: "Gangdong", yeouido: "Yeouido", guro: "Guro",
   },
   eventType: {
-    concert: "Konser", fanmeeting: "Fanmeeting", "music-show": "Acara musik", "birthday-cafe": "Kafe ulang tahun", popup: "Pop-up",
+    concert: "Konser", fanmeeting: "Fanmeeting", "music-show": "Acara musik", "birthday-cafe": "Kafe ulang tahun", "birthday-event": "Acara ulang tahun", popup: "Pop-up",
   },
   access: {
     open: "Orang asing bisa pesan langsung", verification: "Perlu verifikasi paspor dulu",

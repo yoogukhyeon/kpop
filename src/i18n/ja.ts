@@ -228,7 +228,7 @@ export const ja: Dictionary = {
     songpa: "松坡・オリンピック公園", jung: "中区・市庁", gangdong: "江東", yeouido: "汝矣島", guro: "九老",
   },
   eventType: {
-    concert: "コンサート", fanmeeting: "ファンミーティング", "music-show": "音楽番組", "birthday-cafe": "センイルカフェ", popup: "ポップアップ",
+    concert: "コンサート", fanmeeting: "ファンミーティング", "music-show": "音楽番組", "birthday-cafe": "センイルカフェ", "birthday-event": "誕生日イベント", popup: "ポップアップ",
   },
   access: {
     open: "外国人も直接予約可能", verification: "事前のパスポート認証が必要",

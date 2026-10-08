@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { cafesFor, nextOccurrence, planHref, type Birthday } from "@/lib/birthdays";
+import { birthdayListings, cafesFor, nextOccurrence, planHref, type Birthday } from "@/lib/birthdays";
 import { ink, pastel } from "@/lib/color";
 import { formatDate, getDictionary, type Locale } from "@/lib/i18n";
 import type { KEvent } from "@/lib/types";
@@ -12,6 +12,7 @@ export function BirthdayList({ items, events, locale, today }: { items: Birthday
       {items.map((b) => {
         const date = nextOccurrence(b.monthDay, today);
         const cafes = cafesFor(events, b, date);
+        const fanEvents = birthdayListings(events, b, date, "birthday-event");
         const days = Math.round((Date.parse(date) - Date.parse(today)) / 86_400_000);
         return (
           <li key={`${b.group.slug}/${b.member.slug}`} className="card flex items-center gap-4 p-4">
@@ -32,7 +33,16 @@ export function BirthdayList({ items, events, locale, today }: { items: Birthday
                 )}
               </p>
               <Link href={`/${locale}/groups/${b.group.slug}`} className="inline-flex min-h-6 w-fit items-center text-sm text-muted hover:text-text">{b.group.name}</Link>
-              {cafes.length > 0 && <span className="chip-pink w-fit">🎂 {t.birthdays.cafes(cafes.length)}</span>}
+              {(cafes.length > 0 || fanEvents.length > 0) && (
+                <span className="flex flex-wrap gap-1">
+                  {cafes.length > 0 && <span className="chip-pink w-fit">🎂 {t.birthdays.cafes(cafes.length)}</span>}
+                  {fanEvents.length > 0 && (
+                    <Link href={`/${locale}/groups/${b.group.slug}/${b.member.slug}`} className="chip-pink w-fit hover:underline">
+                      🎉 {t.eventType["birthday-event"]} {fanEvents.length}
+                    </Link>
+                  )}
+                </span>
+              )}
               <Link href={`/${locale}/groups/${b.group.slug}/${b.member.slug}#messages`} className="inline-flex min-h-7 w-fit items-center text-xs font-bold text-pink hover:underline">
                 💌 {t.gb.cta}
               </Link>
