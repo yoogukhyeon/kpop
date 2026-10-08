@@ -11,8 +11,16 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return { title: t.submit.title, description: t.meta.submitDesc, alternates: alternates(locale, "/submit") };
 }
 
-export default async function SubmitPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function SubmitPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ locale: string }>;
+  searchParams: Promise<{ member?: string }>;
+}) {
   const { locale } = await params;
+  // ?member=group/member preselects the member (links shared with cafe hosts).
+  const { member } = await searchParams;
   if (!isLocale(locale)) notFound();
   const t = getDictionary(locale);
   const groups = await listGroups();
@@ -51,6 +59,7 @@ export default async function SubmitPage({ params }: { params: Promise<{ locale:
         <SubmitCafeForm
           labels={t.submit}
           steps={t.ux.submitSteps}
+          defaultMember={member}
           consent={t.legal.consent}
           groups={groups.map((g) => ({ slug: g.slug, name: g.name, members: g.members.map((m) => ({ slug: m.slug, stageName: m.stageName })) }))}
         />

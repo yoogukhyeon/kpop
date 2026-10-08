@@ -17,11 +17,13 @@ export function SubmitCafeForm({
   labels,
   steps,
   consent,
+  defaultMember,
 }: {
   groups: GroupOption[];
   labels: Dictionary["submit"];
   steps: string[];
   consent: string;
+  defaultMember?: string;
 }) {
   const [state, action, pending] = useActionState<SubmitState, FormData>(submitCafe, { ok: false });
 
@@ -46,7 +48,12 @@ export function SubmitCafeForm({
         <Step n={1} title={steps[0]}>
           <label className="grid gap-1.5">
             <span className="text-sm font-bold">{labels.member}</span>
-            <select name="member" className="input font-semibold" required defaultValue="">
+            <select
+              name="member"
+              className="input font-semibold"
+              required
+              defaultValue={groups.some((g) => g.members.some((m) => `${g.slug}/${m.slug}` === defaultMember)) ? defaultMember : ""}
+            >
               <option value="" disabled>—</option>
               {groups.filter((g) => g.members.length).map((g) => (
                 <optgroup key={g.slug} label={g.name}>
