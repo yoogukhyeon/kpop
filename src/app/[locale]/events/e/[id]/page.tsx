@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ActivityCard } from "@/components/ActivityCard";
+import { DownloadButton } from "@/components/DownloadButton";
 import { BreadcrumbJsonLd, JsonLd } from "@/components/JsonLd";
 import { getEvent, getGroup, listActivities, listAllEvents } from "@/lib/data";
 import { alternates, formatDate, getDictionary, isLocale, locales } from "@/lib/i18n";
@@ -136,21 +137,30 @@ export default async function EventPage({ params }: Props) {
       </article>
 
       <aside className="grid h-fit gap-4 lg:sticky lg:top-24">
-        <div className="card grid gap-3">
-          <h2 className="font-bold">{d.share}</h2>
-          {/* eslint-disable-next-line @next/next/no-img-element -- generated image */}
-          <img src={`/${locale}/events/e/${e.id}/card?format=post`} alt="" width={1080} height={1350} className="mx-auto w-48 rounded-3xl border border-line" />
-          <p className="text-xs text-muted">{d.promo}</p>
-          <ul className="grid grid-cols-3 gap-1.5 text-xs font-bold">
+        <div className="relative grid gap-4 overflow-hidden rounded-[2rem] border border-line p-5" style={{ background: "linear-gradient(160deg, #fff3f8 0%, #f3eeff 100%)" }}>
+          <span aria-hidden className="pointer-events-none absolute right-4 top-3 text-2xl">💌</span>
+          <h2 className="text-lg font-extrabold">{d.share}</h2>
+          <DownloadButton url={`/${locale}/events/e/${e.id}/card?format=story`} fileName={`${e.id}-${locale}.png`} className="group relative mx-auto grid w-56 place-items-center">
+            {/* eslint-disable-next-line @next/next/no-img-element -- generated image */}
+            <img
+              src={`/${locale}/events/e/${e.id}/card?format=post`}
+              alt=""
+              width={1080}
+              height={1350}
+              className="w-full rotate-[-2deg] rounded-3xl shadow-[0_14px_30px_rgba(255,111,170,0.25)] transition group-hover:rotate-0 group-hover:scale-[1.03]"
+            />
+          </DownloadButton>
+          <p className="text-xs leading-relaxed text-muted">{d.promo}</p>
+          <ul className="grid grid-cols-3 gap-1.5">
             {locales.map((l) => (
               <li key={l}>
-                <a
-                  href={`/${l}/events/e/${e.id}/card?format=story`}
-                  download={`${e.id}-${l}.png`}
-                  className="inline-flex min-h-9 w-full items-center justify-center rounded-full border-2 border-line px-2 hover:border-brand hover:text-brand"
+                <DownloadButton
+                  url={`/${l}/events/e/${e.id}/card?format=story`}
+                  fileName={`${e.id}-${l}.png`}
+                  className="flex min-h-10 w-full items-center justify-center gap-1 rounded-full bg-white px-1.5 text-center text-[11px] font-bold leading-tight shadow-[0_2px_8px_rgba(124,92,255,0.1)] transition hover:-translate-y-0.5 hover:bg-brand hover:text-white"
                 >
                   {getDictionary(l).langName}
-                </a>
+                </DownloadButton>
               </li>
             ))}
           </ul>

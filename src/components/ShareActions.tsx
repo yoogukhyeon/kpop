@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { DownloadButton } from "@/components/DownloadButton";
 
 export function ShareActions({
   cardUrl,
@@ -27,7 +28,7 @@ export function ShareActions({
 
   return (
     <div className="flex flex-wrap gap-2">
-      <a className="btn" href={cardUrl} download={fileName}>{labels.download}</a>
+      <DownloadButton className="btn" url={cardUrl} fileName={fileName}>{labels.download}</DownloadButton>
       <button type="button" className="btn-ghost" onClick={copy}>{copied ? labels.copied : labels.copy}</button>
     </div>
   );
