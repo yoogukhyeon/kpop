@@ -11,6 +11,7 @@ const publishableKey = process.env.SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_
 const secretKey = process.env.SUPABASE_SECRET_KEY;
 
 export const supabaseConfigured = () => Boolean(url && publishableKey);
+export const adminConfigured = () => Boolean(url && secretKey);
 
 /** Cache tag on every public DB read; the admin "refresh" button revalidates it. */
 export const DB_CACHE_TAG = "db";

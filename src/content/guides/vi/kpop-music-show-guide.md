@@ -1,11 +1,13 @@
 ---
 title: Cách người nước ngoài xem chương trình âm nhạc K-pop ở Seoul
 description: Lịch chương trình âm nhạc hằng tuần, chương trình nào khách du lịch thực sự vào được, và một ngày ghi hình diễn ra thế nào.
-updated: 2026-10-08
+updated: 2026-10-18
 order: 2
 partners: [klook]
 activities: [music-show]
 sources:
+  - https://www.klook.com/en-US/activity/91793-kpop-tour/
+  - https://www.kkday.com/en/product/265931
   - https://korearoute.com/guides/kpop-music-show-guide
   - https://koreabyme.com/how-to-attend-kpop-music-shows-in-korea-a-guide-for-foreigners/
   - https://blog.trazy.com/ultimate-guide-to-weekly-k-pop-music-shows/
@@ -21,9 +23,9 @@ figures:
       - "Chủ nhật · Inkigayo (SBS)"
 faq:
   - q: "Xem ghi hình music show có mất phí không?"
-    a: "Phần lớn là miễn phí. Riêng vé dành cho người nước ngoài như của M Countdown được bán có phí trên các nền tảng như Klook."
+    a: "Kiểm tra thông báo chính thức của nghệ sĩ và gói cho ngày cụ thể tại nhà bán. Gói du khách không bảo đảm nhóm bạn thích xuất hiện, loại ghế hoặc quyền ghi hình trước dành cho fan club."
   - q: "Không có fan club thì có xem được không?"
-    a: "Music Bank có bốc thăm miễn phí cho tài khoản KBS đăng ký là người nước ngoài sống ở nước ngoài; M Countdown và The Show từng mở ghế cho du khách. Ghi hình trước của Inkigayo, Show! Music Core và Show Champion chủ yếu chỉ dành cho fan club."
+    a: "Kiểm tra thông báo chính thức của nghệ sĩ và gói cho ngày cụ thể tại nhà bán. Gói du khách không bảo đảm nhóm bạn thích xuất hiện, loại ghế hoặc quyền ghi hình trước dành cho fan club."
   - q: "Xem một buổi music show mất bao lâu?"
     a: "Chỉ xem phát sóng trực tiếp thường mất 3–4 giờ; xem cả ghi hình trước và trực tiếp của nhóm nổi tiếng có thể mất 6–8 giờ tính cả thời gian chờ."
 ---
@@ -47,13 +49,11 @@ Giờ phát sóng và địa điểm có thể thay đổi; hãy xem trang chín
 
 ## Khách du lịch vào được chương trình nào?
 
-**M Countdown** thường dễ vào nhất với người nước ngoài. Từ năm 2026, Mnet bán vé trực tiếp dành riêng cho người nước ngoài qua các nền tảng như Klook, nên bạn không cần là thành viên fan club.
+Kiểm tra thông báo chính thức của nghệ sĩ và gói cho ngày cụ thể tại nhà bán. Gói du khách không bảo đảm nhóm bạn thích xuất hiện, loại ghế hoặc quyền ghi hình trước dành cho fan club.
 
 **The Show** trước đây cũng từng mở suất cho khách du lịch trên Klook. Hãy kiểm tra còn chỗ vào ngày bạn đi không.
 
-**Music Bank** có bốc thăm khán giả miễn phí. Bạn cần tài khoản KBS đăng ký là “người nước ngoài sống ở nước ngoài”, xác minh bằng bản sao hộ chiếu, rồi đăng ký cho một ngày ghi hình cụ thể.
 
-**Inkigayo, Show! Music Core và Show Champion** chủ yếu lấy khán giả qua fan club. Đăng ký thường chỉ được thông báo trên fan cafe hoặc Weverse vài ngày trước và hay yêu cầu membership đã xác minh. Khách du lịch khó vào.
 
 ## Ghi hình trước và phát sóng trực tiếp
 

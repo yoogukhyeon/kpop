@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { track } from "@/lib/track";
 
 /**
  * Downloads a generated image. Cards render on the server and can take a few
@@ -30,6 +31,7 @@ export function DownloadButton({ url, fileName, className, children }: { url: st
       const a = Object.assign(document.createElement("a"), { href, download: fileName });
       document.body.append(a);
       a.click();
+      track("card_download", { placement: "download" });
       a.remove();
       setTimeout(() => URL.revokeObjectURL(href), 10_000);
     } catch {

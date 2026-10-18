@@ -10,6 +10,7 @@ export type Area =
   | "mapo"
   | "songpa"
   | "jung"
+  | "jongno"
   | "gangdong"
   | "yeouido"
   | "guro";
@@ -37,6 +38,23 @@ export interface Group {
 
 export type PlaceType = "agency" | "venue" | "broadcast" | "landmark" | "store" | "experience";
 
+export type ResearchedText = { en: string; ko: string; ja: string } & Partial<Record<Locale, string>>;
+export interface CatalogSource {
+  label: string;
+  url: string;
+  kind: "operator" | "organizer" | "tourism" | "news";
+}
+
+export interface VisitInfo {
+  transit: ResearchedText;
+  hours: ResearchedText;
+  admission: ResearchedText;
+  access: ResearchedText;
+  /** Editorial planning estimate, never an operator's promised visit length. */
+  suggestedMinutes: number;
+  closedWeekdays?: number[];
+}
+
 export interface Place {
   id: string;
   name: string;
@@ -47,6 +65,8 @@ export interface Place {
   address?: string;
   note: Record<Locale, string>;
   verifiedAt: string | null;
+  sources?: CatalogSource[];
+  visit?: VisitInfo;
 }
 
 /** birthday-event: fan-funded birthday ads and support events (screens, wraps, banners). */
@@ -69,6 +89,14 @@ export interface KEvent {
   ticketing?: { platform: string; url?: string; foreignerAccess: ForeignerAccess };
   sourceUrl: string;
   verifiedAt: string | null;
+  editorial?: {
+    summary: ResearchedText;
+    entry: ResearchedText;
+    hours?: string;
+    sourceKind: CatalogSource["kind"];
+    status: "scheduled" | "cancelled" | "postponed";
+    reviewDue: string;
+  };
 }
 
 export type ActivityCategory = "tour" | "experience" | "ticket";

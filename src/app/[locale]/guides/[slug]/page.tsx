@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { ActivityCard } from "@/components/ActivityCard";
+import { ActivityComparison } from "@/components/ActivityComparison";
 import { KlookWidget } from "@/components/KlookWidget";
 import { BreadcrumbJsonLd, JsonLd } from "@/components/JsonLd";
 import { listActivities } from "@/lib/data";
 import { getGuide, guideLocales, listGuides, listGuidesForLists } from "@/lib/guides";
 import { alternates, formatDate, getDictionary, isLocale, locales, ogBase } from "@/lib/i18n";
-import { KLOOK_WIDGETS, partnerLinks } from "@/lib/partners";
+import { KLOOK_WIDGETS } from "@/lib/partners";
+import { commerceCopy } from "@/lib/commerce-copy";
 import { site, seoTitle } from "@/lib/site";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
@@ -25,7 +26,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: seoTitle(guide.title),
     description: guide.description,
-    alternates: alternates(locale, `/guides/${slug}`, await guideLocales(slug)),
+    alternates: guide.draft ? { canonical: `/${locale}/guides/${slug}` } : alternates(locale, `/guides/${slug}`, await guideLocales(slug)),
+    robots: guide.draft ? { index: false, follow: true } : undefined,
     openGraph: {
       ...ogBase(locale),
       type: "article",
@@ -47,7 +49,7 @@ export default async function GuidePage({ params }: Props) {
     notFound();
   }
   const t = getDictionary(locale);
-  const partners = partnerLinks(guide.partners, locale);
+  const c = commerceCopy(locale);
   const others = (await listGuidesForLists(locale)).filter((g) => g.slug !== slug);
   const activities = guide.activities.length ? await listActivities({ tags: guide.activities, limit: 4 }) : [];
 
@@ -69,7 +71,7 @@ export default async function GuidePage({ params }: Props) {
           dateModified: guide.updated,
           inLanguage: locale,
           mainEntityOfPage: `${site.url}/${locale}/guides/${slug}`,
-          image: [`${site.url}/${locale}/guides/${slug}/og`, `${site.url}/${locale}/guides/${slug}/fig/0`],
+          image: [`${site.url}/${locale}/guides/${slug}/og`, ...(guide.headings.length > 1 ? [`${site.url}/${locale}/guides/${slug}/fig/0`] : []), ...guide.figures.map((_, index) => `${site.url}/${locale}/guides/${slug}/fig/${index + 1}`)],
           author: { "@id": `${site.url}/#organization` },
           publisher: { "@id": `${site.url}/#organization` },
           ...(guide.sources.length ? { citation: guide.sources } : {}),
@@ -90,6 +92,7 @@ export default async function GuidePage({ params }: Props) {
           🗓️ {t.guides.updated}: {formatDate(guide.updated, locale, { year: "numeric", month: "long", day: "numeric" })} · ⏱ {t.seo.readMin(guide.readMinutes)}
         </p>
       </header>
+      {guide.draft && <p className="rounded-3xl bg-subtle p-4 text-sm text-muted">{t.plan.unverified}</p>}
 
       <aside className="rounded-3xl bg-gradient-to-br from-pink via-brand to-[#7ad7ff] p-[2px]">
         <div className="rounded-[calc(1.5rem-2px)] bg-surface p-5">
@@ -97,6 +100,8 @@ export default async function GuidePage({ params }: Props) {
           <p className="mt-1.5 font-semibold leading-relaxed">{guide.description}</p>
         </div>
       </aside>
+
+      {!guide.draft && <ActivityComparison items={activities} locale={locale} />}
 
       {guide.headings.length > 1 && (
         <figure className="grid gap-3">
@@ -151,35 +156,10 @@ export default async function GuidePage({ params }: Props) {
         </section>
       )}
 
-      {activities.length > 0 && (
-        <section className="grid gap-3">
-          <h2 className="section-title">🎟️ {t.activities.recommended}</h2>
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {activities.map((a) => (
-              <li key={a.id}><ActivityCard activity={a} locale={locale} compact /></li>
-            ))}
-          </ul>
-          <p className="text-xs text-muted">{t.activities.note}</p>
-        </section>
-      )}
-
       {/* Travel-essentials widget on guides about the trip itself (those recommending Klook). */}
-      {guide.partners.includes("klook") && <KlookWidget adid={KLOOK_WIDGETS.essentials} title={t.activities.travelEssentials} />}
+      {!guide.draft && slug === "seoul-essentials-kpop-trip" && guide.partners.includes("klook") && <KlookWidget adid={KLOOK_WIDGETS.essentials} title={t.activities.travelEssentials} />}
 
-      {partners.length > 0 && (
-        <aside className="tap-links card grid gap-2">
-          <h2 className="font-bold">{t.partners.title}</h2>
-          <ul className="grid gap-1.5 text-sm">
-            {partners.map((p) => (
-              <li key={p.id}>
-                <a href={p.href} target="_blank" rel="sponsored noopener" className="font-semibold text-brand hover:underline">{p.name}</a>
-                <span className="text-muted"> — {p.label}</span>
-              </li>
-            ))}
-          </ul>
-          <p className="text-xs text-muted">{t.partners.disclosure}</p>
-        </aside>
-      )}
+      <aside className="card grid gap-2 text-sm text-muted"><p>{c.researched}</p><Link href={`/${locale}/editorial`} className="font-bold text-brand underline">{c.editorial}</Link></aside>
 
       {guide.sources.length > 0 && (
         <section className="tap-links grid gap-1 text-xs text-muted">

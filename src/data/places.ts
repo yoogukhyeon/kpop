@@ -1,11 +1,12 @@
 import type { Place } from "@/lib/types";
+import { researchedNewPlaces, researchedPlaceUpdates } from "./researched-places";
 
 // SEED DATA — addresses and opening status must be verified before launch.
 // Agency buildings are viewed from outside only; fans should not enter or wait for artists.
 
 const HYBE_GROUPS = ["bts", "txt", "seventeen", "enhypen", "le-sserafim", "newjeans", "boynextdoor", "tws", "illit", "andteam"];
 
-export const places: Place[] = [
+const originalPlaces: Place[] = [
   {
     id: "hybe-yongsan", name: "HYBE Yongsan Building", area: "yongsan", type: "agency", groups: HYBE_GROUPS,
     address: "42 Hangang-daero, Yongsan-gu, Seoul",
@@ -216,4 +217,9 @@ export const places: Place[] = [
     },
     verifiedAt: null,
   },
+];
+
+export const places: Place[] = [
+  ...originalPlaces.map((place) => ({ ...place, ...researchedPlaceUpdates[place.id] })),
+  ...researchedNewPlaces,
 ];

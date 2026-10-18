@@ -12,7 +12,7 @@ export const cafeSubmission = z
     startDate: date,
     endDate: date,
     contact: z.string().trim().min(2).max(120),
-    sourceUrl: z.url().max(500),
+    sourceUrl: z.url().max(500).refine((value) => new URL(value).protocol === "https:", { message: "Use an HTTPS announcement link" }),
   })
   .refine((v) => v.endDate >= v.startDate, { path: ["endDate"], message: "End date must be after start date" });
 

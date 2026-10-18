@@ -2,6 +2,8 @@ import { approveSubmission, moderateMessage, refreshSiteData, rejectSubmission }
 import { listGroups } from "@/lib/data";
 import { getDictionary } from "@/lib/i18n";
 import { adminDb } from "@/lib/supabase";
+import { MetricsDashboard } from "@/components/MetricsDashboard";
+import { CatalogReview } from "@/components/CatalogReview";
 
 export const dynamic = "force-dynamic";
 
@@ -45,6 +47,8 @@ export default async function AdminPage() {
 
   return (
     <div className="grid gap-8">
+      <MetricsDashboard />
+      <CatalogReview />
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-extrabold">생일카페 등록 검토</h1>
         <form action={refreshSiteData}>
@@ -73,6 +77,7 @@ export default async function AdminPage() {
                   <option value="" disabled>지역 선택</option>
                   {Object.entries(areas).map(([k, v]) => <option key={k} value={k}>{v}</option>)}
                 </select>
+                <label className="flex items-start gap-2 sm:col-span-3"><input type="checkbox" name="sourceChecked" required /><span>주최자·카페 원문에서 날짜·주소·입장 조건과 취소 여부를 확인했습니다.</span></label>
                 <button className="btn py-2">승인·게시</button>
               </form>
               <form action={rejectSubmission}>

@@ -1,10 +1,11 @@
 import type { KEvent } from "@/lib/types";
+import { eventResearchUpdates, researchedNewEvents } from "./researched-events";
 
 // Only events with a source are listed. Prefer official notices over news/blogs,
 // and replace secondary sources with the official one during verification.
 // verifiedAt = date the date/venue was confirmed in a reputable news report or official notice.
 
-export const events: KEvent[] = [
+const originalEvents: KEvent[] = [
   {
     id: "bts-jimin-birthday-hybe-busstop-2026",
     type: "birthday-event",
@@ -159,4 +160,9 @@ export const events: KEvent[] = [
     sourceUrl: "https://en.fannstar.tf.co.kr/fnnews/read/355579",
     verifiedAt: null,
   },
+];
+
+export const events: KEvent[] = [
+  ...originalEvents.map((event) => ({ ...event, ...eventResearchUpdates[event.id] })),
+  ...researchedNewEvents,
 ];

@@ -1,4 +1,5 @@
 ---
+draft: true
 title: Visiting K-pop Agency Buildings in Seoul — HYBE, SM, JYP and YG
 description: Which neighbourhoods the big four agencies are in, what you can actually see there, and the etiquette that keeps these spots open to fans.
 updated: 2026-10-05

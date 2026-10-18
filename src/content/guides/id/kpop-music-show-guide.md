@@ -1,11 +1,13 @@
 ---
 title: Cara Menonton Acara Musik K-pop di Seoul untuk Orang Asing
 description: Jadwal acara musik mingguan, acara mana yang benar-benar bisa dimasuki turis, dan seperti apa hari rekaman.
-updated: 2026-10-08
+updated: 2026-10-18
 order: 2
 partners: [klook]
 activities: [music-show]
 sources:
+  - https://www.klook.com/en-US/activity/91793-kpop-tour/
+  - https://www.kkday.com/en/product/265931
   - https://korearoute.com/guides/kpop-music-show-guide
   - https://koreabyme.com/how-to-attend-kpop-music-shows-in-korea-a-guide-for-foreigners/
   - https://blog.trazy.com/ultimate-guide-to-weekly-k-pop-music-shows/
@@ -21,9 +23,9 @@ figures:
       - "Minggu · Inkigayo (SBS)"
 faq:
   - q: "Apakah nonton rekaman music show gratis?"
-    a: "Sebagian besar gratis. Tiket khusus turis asing seperti milik M Countdown dijual berbayar di platform seperti Klook."
+    a: "Periksa pengumuman resmi artis dan paket penjual untuk tanggal tertentu. Paket wisata tidak menjamin penampilan grup pilihanmu, jenis kursi, atau akses pre-recording fan club."
   - q: "Bisa nonton tanpa jadi anggota fan club?"
-    a: "Music Bank punya undian gratis untuk akun KBS yang terdaftar sebagai warga asing di luar negeri, dan M Countdown serta The Show pernah membuka kursi untuk turis. Pre-recording Inkigayo, Show! Music Core dan Show Champion umumnya khusus fan club."
+    a: "Periksa pengumuman resmi artis dan paket penjual untuk tanggal tertentu. Paket wisata tidak menjamin penampilan grup pilihanmu, jenis kursi, atau akses pre-recording fan club."
   - q: "Berapa lama nonton music show?"
     a: "Siaran langsung saja biasanya 3–4 jam. Pre-recording plus siaran langsung untuk grup populer bisa 6–8 jam termasuk antre."
 ---
@@ -47,13 +49,11 @@ Jam tayang dan lokasi bisa berubah; cek halaman resmi untuk minggu kamu berangka
 
 ## Acara mana yang bisa dimasuki turis?
 
-**M Countdown** biasanya paling ramah untuk orang asing. Sejak 2026, Mnet menjual live pass khusus orang asing lewat platform seperti Klook, jadi kamu tidak perlu membership fan club.
+Periksa pengumuman resmi artis dan paket penjual untuk tanggal tertentu. Paket wisata tidak menjamin penampilan grup pilihanmu, jenis kursi, atau akses pre-recording fan club.
 
 **The Show** juga pernah membuka slot untuk turis di Klook. Cek ketersediaan di tanggalmu.
 
-**Music Bank** punya undian penonton gratis. Kamu perlu akun KBS yang terdaftar sebagai “orang asing yang tinggal di luar negeri”, diverifikasi dengan salinan paspor, lalu mendaftar untuk tanggal rekaman tertentu.
 
-**Inkigayo, Show! Music Core, dan Show Champion** sebagian besar mengisi kursi lewat fan club. Pendaftaran biasanya diumumkan di fan cafe atau Weverse hanya beberapa hari sebelumnya dan sering butuh membership terverifikasi. Sulit untuk turis.
 
 ## Pra-rekaman vs siaran langsung
 

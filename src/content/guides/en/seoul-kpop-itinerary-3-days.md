@@ -1,4 +1,5 @@
 ---
+draft: true
 title: 3 Days in Seoul for K-pop Fans — A Sample Itinerary
 description: A neighbourhood-by-neighbourhood 3-day plan covering agency buildings, pop-ups, K-Star Road, Hongdae and a music show, plus how to adapt it to your bias.
 updated: 2026-10-08

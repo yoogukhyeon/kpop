@@ -1,11 +1,13 @@
 ---
 title: Cómo asistir a programas musicales de K-pop en Seúl siendo extranjero
 description: El calendario semanal de programas musicales, a cuáles pueden entrar los turistas y cómo es un día de grabación.
-updated: 2026-10-08
+updated: 2026-10-18
 order: 2
 partners: [klook]
 activities: [music-show]
 sources:
+  - https://www.klook.com/en-US/activity/91793-kpop-tour/
+  - https://www.kkday.com/en/product/265931
   - https://korearoute.com/guides/kpop-music-show-guide
   - https://koreabyme.com/how-to-attend-kpop-music-shows-in-korea-a-guide-for-foreigners/
   - https://blog.trazy.com/ultimate-guide-to-weekly-k-pop-music-shows/
@@ -21,9 +23,9 @@ figures:
       - "Dom · Inkigayo (SBS)"
 faq:
   - q: "¿Es gratis asistir a un music show?"
-    a: "Casi siempre sí. Los pases para extranjeros, como los de M Countdown, se venden con costo en plataformas como Klook."
+    a: "Consulta el aviso oficial del artista y el paquete del vendedor para tu fecha. Un paquete para visitantes no garantiza la aparición de tu grupo, el tipo de asiento ni acceso a pregrabaciones del fan club."
   - q: "¿Puedo ir sin ser de un fan club?"
-    a: "Music Bank sortea entradas gratis para cuentas de KBS registradas como extranjeros que viven fuera de Corea, y M Countdown y The Show han ofrecido asientos para turistas. Las pregrabaciones de Inkigayo, Show! Music Core y Show Champion suelen ser solo para fan clubs."
+    a: "Consulta el aviso oficial del artista y el paquete del vendedor para tu fecha. Un paquete para visitantes no garantiza la aparición de tu grupo, el tipo de asiento ni acceso a pregrabaciones del fan club."
   - q: "¿Cuánto tiempo dura?"
     a: "Solo la transmisión en vivo suele llevar 3–4 horas; pregrabación más directo de un grupo popular puede llevar 6–8 horas con la espera."
 ---
@@ -47,13 +49,11 @@ Los horarios y lugares cambian; revisa la página oficial de cada programa para 
 
 ## ¿A qué programas pueden entrar los turistas?
 
-**M Countdown** suele ser el más accesible para extranjeros. En 2026 Mnet empezó a vender pases en vivo exclusivos para extranjeros en plataformas como Klook, así que no necesitas membresía de fan club.
+Consulta el aviso oficial del artista y el paquete del vendedor para tu fecha. Un paquete para visitantes no garantiza la aparición de tu grupo, el tipo de asiento ni acceso a pregrabaciones del fan club.
 
 **The Show** también ofreció lugares para visitantes en Klook en el pasado. Revisa la disponibilidad para tus fechas.
 
-**Music Bank** hace un sorteo gratuito de público. Necesitas una cuenta de KBS registrada como extranjero que vive en el exterior, verificada con una copia del pasaporte, y luego te inscribes para una fecha de grabación concreta.
 
-**Inkigayo, Show! Music Core y Show Champion** llenan la mayoría de los asientos a través de los fan clubs. Las inscripciones se anuncian en el fan café o en Weverse, a menudo pocos días antes, y suelen pedir membresía verificada. Son difíciles para turistas.
 
 ## Pregrabación vs. transmisión en vivo
 

@@ -6,6 +6,8 @@ import { groups as seedGroups } from "@/data/groups";
 import { places as seedPlaces } from "@/data/places";
 import { publicDb, supabaseConfigured } from "@/lib/supabase";
 import type { Activity, ActivityCategory, Group, KEvent, Place } from "@/lib/types";
+import { isActionableEvent, isReviewedPlace } from "@/lib/catalog-quality";
+import { seoulToday } from "@/lib/site";
 
 // Data access layer. Pages call only these functions. With Supabase configured
 // the database is the source of truth; without it (local dev with no keys) the
@@ -44,6 +46,8 @@ const toPlace = (r: Row): Place => ({
   address: (r.address as string | null) ?? undefined,
   note: r.note as Place["note"],
   verifiedAt: (r.verified_at as string | null) ?? null,
+  sources: (r.sources as Place["sources"]) ?? [],
+  visit: (r.visit as Place["visit"]) ?? undefined,
 });
 
 export const toEvent = (r: Row): KEvent => ({
@@ -59,6 +63,7 @@ export const toEvent = (r: Row): KEvent => ({
   ticketing: (r.ticketing as KEvent["ticketing"] | null) ?? undefined,
   sourceUrl: r.source_url as string,
   verifiedAt: (r.verified_at as string | null) ?? null,
+  editorial: (r.editorial as KEvent["editorial"]) ?? undefined,
 });
 
 export const listGroups = cache(async (): Promise<Group[]> => {
@@ -74,13 +79,13 @@ export async function getGroup(slug: string): Promise<Group | undefined> {
   return (await listGroups()).find((g) => g.slug === slug);
 }
 
-const listPlaces = cache(async (): Promise<Place[]> => {
+export const listPlaces = cache(async (): Promise<Place[]> => {
   if (!supabaseConfigured()) return seedPlaces;
   return check<Row[]>(await publicDb().from("places").select("*").order("id"), "places").map(toPlace);
 });
 
 export async function listPlacesForGroup(slug: string | null): Promise<Place[]> {
-  return (await listPlaces()).filter((p) => p.groups.length === 0 || (slug !== null && p.groups.includes(slug)));
+  return (await listPlaces()).filter((p) => isReviewedPlace(p, seoulToday()) && (p.groups.length === 0 || (slug !== null && p.groups.includes(slug))));
 }
 
 // One query for all published events (a small table), filtered in memory: every
@@ -93,6 +98,7 @@ const allEvents = cache(async (): Promise<KEvent[]> => {
 /** Published events overlapping [from, to] (inclusive, YYYY-MM-DD). */
 export async function listEvents(opts: { from?: string; to?: string; group?: string } = {}): Promise<KEvent[]> {
   return (await allEvents())
+    .filter((e) => isActionableEvent(e, seoulToday()))
     .filter((e) => (!opts.from || e.endDate >= opts.from) && (!opts.to || e.startDate <= opts.to))
     .filter((e) => !opts.group || e.groups.includes(opts.group));
 }

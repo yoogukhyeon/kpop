@@ -11,6 +11,7 @@ import { ink, pastelGradient } from "@/lib/color";
 import { mapsUrl, seoulToday } from "@/lib/site";
 import { AlertSignup } from "@/components/AlertSignup";
 import type { KEvent } from "@/lib/types";
+import { commerceCopy } from "@/lib/commerce-copy";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -53,16 +54,22 @@ export default async function PlanPage({ params, searchParams }: Props) {
   const alsoOn = seoulEvents.filter((e) => !inPlan.has(e.id) && e.type !== "birthday-cafe" && e.type !== "birthday-event").slice(0, 6);
   const accentOf = new Map(groups.map((g) => [g.slug, g.accent]));
   const today = seoulToday();
+  const c = commerceCopy(locale);
   // Products tied to a weekday (music show packages) only appear in the
   // weekday-matched ticket slot, never as a free-day idea.
   const bookable = anyDay.filter((a) => !a.weekdays?.length);
+  const ticketsOn = (date: string) => {
+    const weekday = new Date(`${date}T00:00:00Z`).getUTCDay();
+    return showTickets.filter((a) => a.weekdays?.includes(weekday)).slice(0, 1);
+  };
 
   // Free days (no event) get one bookable idea: same neighbourhood as the day's
   // spots if possible, the bias group's own products first, never repeated.
   const ideas = new Map<string, (typeof bookable)[number]>();
   const used = new Set<string>();
   for (const day of plan.days) {
-    if (day.events.length) continue;
+    // A broadcast package is already the main activity. Don't add a full-day tour to it.
+    if (day.events.length || ticketsOn(day.date).length) continue;
     const dayAreas = new Set(day.areas.map((a) => a.area));
     const pick =
       bookable.find((a) => !used.has(a.id) && a.area && dayAreas.has(a.area)) ?? bookable.find((a) => !used.has(a.id));
@@ -71,11 +78,6 @@ export default async function PlanPage({ params, searchParams }: Props) {
     ideas.set(day.date, pick);
   }
   const recommended = bookable.filter((a) => !used.has(a.id)).slice(0, 3);
-  // Music show tickets for a given date, matched on the weekday the show records.
-  const ticketsOn = (date: string) => {
-    const weekday = new Date(`${date}T00:00:00Z`).getUTCDay();
-    return showTickets.filter((a) => a.weekdays?.includes(weekday)).slice(0, 1);
-  };
 
   return (
     <div className="grid gap-8">
@@ -133,15 +135,15 @@ export default async function PlanPage({ params, searchParams }: Props) {
 
               {ticketsOn(day.date).map((a) => (
                 <div key={a.id} className="grid gap-1.5">
-                  <p className="text-xs font-bold text-muted">🎫 {t.activities.onThisDay}</p>
-                  <ActivityCard activity={a} locale={locale} compact />
+                  <p className="text-xs text-muted">🎫 {c.scheduleNote}</p>
+                  <ActivityCard activity={a} locale={locale} placement="plan" compact />
                 </div>
               ))}
 
               {ideas.get(day.date) && (
                 <div className="grid gap-1.5">
                   <p className="text-xs font-bold text-muted">💡 {t.activities.freeDayIdea}</p>
-                  <ActivityCard activity={ideas.get(day.date)!} locale={locale} compact />
+                  <ActivityCard activity={ideas.get(day.date)!} locale={locale} placement="plan" compact />
                 </div>
               )}
 
@@ -209,7 +211,7 @@ export default async function PlanPage({ params, searchParams }: Props) {
             <div className="card grid gap-3">
               <h2 className="font-bold">🎟️ {t.activities.recommended}</h2>
               {recommended.map((a) => (
-                <ActivityCard key={a.id} activity={a} locale={locale} compact />
+                <ActivityCard key={a.id} activity={a} locale={locale} placement="plan" compact />
               ))}
               <p className="text-xs text-muted">{t.activities.note}</p>
             </div>

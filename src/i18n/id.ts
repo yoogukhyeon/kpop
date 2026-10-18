@@ -119,7 +119,7 @@ export const id: Dictionary = {
     faq: [
       { q: "Bisa masuk ke gedung agensi?", a: "Sebagian besar gedung agensi adalah kantor dan tertutup untuk umum. Foto dari luar; beberapa agensi punya toko atau pameran terpisah — cek halaman resminya." },
       { q: "Kapan kafe ulang tahun buka?", a: "Biasanya beberapa hari sebelum dan sesudah ulang tahun. Tanggal pastinya diumumkan penyelenggara di X atau Instagram, sering hanya 1–2 minggu sebelumnya." },
-      { q: "Bisa nonton grupnya di acara musik?", a: "Bisa jadi. M Countdown menjual pass untuk orang asing, sementara acara lain umumnya memprioritaskan anggota fan club. Lihat panduan acara musik kami." },
+      { q: "Bisa nonton grupnya di acara musik?", a: "Periksa pengumuman resmi artis dan paket penjual untuk tanggal tertentu. Paket wisata tidak menjamin penampilan grup pilihanmu, jenis kursi, atau akses pre-recording fan club." },
     ],
     related: "Grup lainnya",
   },
@@ -224,6 +224,7 @@ export const id: Dictionary = {
   },
   footer: "Panduan buatan fans. Tidak berafiliasi dengan artis atau agensi mana pun. Detail acara bisa berubah — selalu cek pengumuman resmi.",
   area: {
+    jongno: "Jongno",
     yongsan: "Yongsan", seongsu: "Seongsu", gangnam: "Gangnam / Apgujeong", mapo: "Mapo / Hongdae / Sangam",
     songpa: "Songpa / Taman Olimpiade", jung: "Jung-gu / Balai Kota", gangdong: "Gangdong", yeouido: "Yeouido", guro: "Guro",
   },
@@ -231,7 +232,7 @@ export const id: Dictionary = {
     concert: "Konser", fanmeeting: "Fanmeeting", "music-show": "Acara musik", "birthday-cafe": "Kafe ulang tahun", "birthday-event": "Acara ulang tahun", popup: "Pop-up",
   },
   access: {
-    open: "Orang asing bisa pesan langsung", verification: "Perlu verifikasi paspor dulu",
+    open: "Orang asing bisa pesan langsung", verification: "Ada persyaratan verifikasi akun atau identitas",
     fanclub: "Perlu keanggotaan fan club", "korean-id-only": "Hanya ID Korea", unknown: "Belum dicek",
   },
 };

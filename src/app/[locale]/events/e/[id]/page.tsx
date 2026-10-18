@@ -8,6 +8,11 @@ import { getEvent, getGroup, listActivities, listAllEvents } from "@/lib/data";
 import { alternates, formatDate, getDictionary, isLocale, locales, ogBase } from "@/lib/i18n";
 import { NOINDEX } from "@/lib/indexing";
 import { mapsUrl, seoTitle, site } from "@/lib/site";
+import { seoulToday } from "@/lib/site";
+import { commerceCopy } from "@/lib/commerce-copy";
+import { eventBookingLinks } from "@/lib/event-booking";
+import { eventIndexableLocales, isReviewedEvent, eventReviewReason, researchText } from "@/lib/catalog-quality";
+import { researchCopy } from "@/lib/research-copy";
 
 // One page per event: shareable link, Event structured data, a trip CTA and
 // downloadable promo cards in every language (for birthday cafe hosts).
@@ -34,12 +39,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : `${formatDate(e.startDate, locale, { month: "long", day: "numeric", year: "numeric" })} – ${formatDate(e.endDate, locale, { month: "long", day: "numeric" })}`;
   const desc = t.seo.eventDesc(e.title, t.eventType[e.type], when, e.venue, t.area[e.area]);
   const card = `/${locale}/events/e/${e.id}/card`;
+  const published = eventIndexableLocales(e, seoulToday());
   return {
     title: seoTitle(e.title),
     description: desc,
-    alternates: alternates(locale, `/events/e/${e.id}`),
+    alternates: alternates(locale, `/events/e/${e.id}`, published),
     // Unverified listings stay out of the index until checked.
-    robots: e.verifiedAt ? undefined : NOINDEX,
+    robots: published.includes(locale) ? undefined : NOINDEX,
     openGraph: { ...ogBase(locale), title: e.title, description: desc, images: [{ url: card, width: 1200, height: 630 }] },
     twitter: { card: "summary_large_image", title: e.title, images: [card] },
   };
@@ -52,6 +58,11 @@ export default async function EventPage({ params }: Props) {
   if (!e) notFound();
   const t = getDictionary(locale);
   const d = t.eventDetail;
+  const c = commerceCopy(locale);
+  const ended = e.endDate < seoulToday();
+  const reviewReason = eventReviewReason(e, seoulToday());
+  const r = researchCopy(locale);
+  const bookingLinks = ended || reviewReason ? [] : eventBookingLinks(e);
   const groups = (await Promise.all(e.groups.map(getGroup))).filter((g) => g !== undefined);
   const activities = (await listActivities({ group: groups[0]?.slug, tags: ["fan-tour", "dance"] })).filter((a) => !a.weekdays?.length).slice(0, 2);
   const memberSlugs = (e.members ?? []).map((m) => m.split("/")[1]);
@@ -74,7 +85,7 @@ export default async function EventPage({ params }: Props) {
           [e.title, `${site.url}/${locale}/events/e/${e.id}`],
         ]}
       />
-      {e.verifiedAt && (
+      {isReviewedEvent(e, seoulToday()) && e.editorial?.status === "scheduled" && (
         <JsonLd
           data={{
             "@context": "https://schema.org",
@@ -85,13 +96,15 @@ export default async function EventPage({ params }: Props) {
             eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
             eventStatus: "https://schema.org/EventScheduled",
             location: { "@type": "Place", name: e.venue, address: { "@type": "PostalAddress", addressLocality: "Seoul", addressCountry: "KR" } },
-            performer: groups.map((g) => ({ "@type": "MusicGroup", name: g.name })),
+            [e.type === "concert" || e.type === "fanmeeting" ? "performer" : "about"]: groups.map((g) => ({ "@type": "MusicGroup", name: g.name })),
             image: `${site.url}/${locale}/events/e/${e.id}/card`,
             url: `${site.url}/${locale}/events/e/${e.id}`,
           }}
         />
       )}
       <article className="grid content-start gap-6">
+        {ended && <p className="rounded-3xl bg-subtle p-4 text-sm font-semibold">{c.ended}</p>}
+        {(e.editorial?.status === "cancelled" || e.editorial?.status === "postponed" || (!ended && reviewReason)) && <p className="rounded-3xl bg-subtle p-4 text-sm font-semibold">{e.editorial?.status === "cancelled" ? r.cancelled : e.editorial?.status === "postponed" ? r.postponed : r.review}</p>}
         <Link href={`/${locale}/events`} className="inline-flex min-h-10 w-fit items-center text-sm text-brand hover:underline">← {t.events.title}</Link>
         <header className="grid gap-3">
           <span className="chip-pink w-fit">{t.eventType[e.type]}</span>
@@ -102,6 +115,13 @@ export default async function EventPage({ params }: Props) {
             ))}
           </div>
         </header>
+        {e.editorial && <section lang={e.editorial.summary[locale] ? locale : "en"} className="grid gap-3 leading-relaxed">
+          <p>{researchText(e.editorial.summary, locale)}</p>
+          <h2 className="font-bold">{r.booking}</h2>
+          <p className="text-muted">{researchText(e.editorial.entry, locale)}</p>
+          {e.editorial.hours && <p className="text-sm font-semibold">{r.hours}: {e.editorial.hours}</p>}
+          <p className="text-xs text-muted">{r.checked}: {e.verifiedAt} · {r.due}: {e.editorial.reviewDue}</p>
+        </section>}
         <dl className="card grid gap-3 text-sm">
           <div className="grid gap-0.5">
             <dt className="font-bold text-muted">📅 {d.when}</dt>
@@ -126,14 +146,19 @@ export default async function EventPage({ params }: Props) {
           {!e.verifiedAt && <p className="text-xs text-warn">⚠ {t.plan.unverified}</p>}
           <a href={e.sourceUrl} target="_blank" rel="noopener" className="w-fit text-xs font-bold text-brand hover:underline">{t.plan.source} ↗</a>
         </dl>
-        <Link href={planHref} className="btn w-fit">{d.plan}</Link>
+        {bookingLinks.length > 0 && <section className="card grid gap-3 border-brand/30">
+          <h2 className="font-extrabold">🎫 {c.booking}</h2>
+          <p className="text-sm text-muted">{c.bookingNote}</p>
+          <div className="flex flex-wrap gap-2">{bookingLinks.map((link) => <a key={link.url} href={link.url} target="_blank" rel="noopener" className="btn">{link.name} ↗</a>)}</div>
+        </section>}
+        {!ended && !reviewReason && <Link href={planHref} className="btn w-fit">{d.plan}</Link>}
 
         {activities.length > 0 && (
           <section className="grid gap-3">
-            <h2 className="section-title">🎟️ {t.activities.recommended}</h2>
+            <h2 className="section-title">🎟️ {c.otherActivities}</h2>
             <ul className="grid gap-3 sm:grid-cols-2">
               {activities.map((a) => (
-                <li key={a.id}><ActivityCard activity={a} locale={locale} compact /></li>
+                <li key={a.id}><ActivityCard activity={a} locale={locale} placement="event" compact /></li>
               ))}
             </ul>
           </section>

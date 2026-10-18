@@ -11,6 +11,11 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Markdown paths are composed at runtime. Include their originals in ISR
+  // functions as well as the build, so revalidation cannot drop pages/alternates.
+  outputFileTracingIncludes: {
+    "/*": ["./src/content/**/*.md"],
+  },
   // Middleware handles trailing slashes itself so legacy URLs get a direct 410.
   skipTrailingSlashRedirect: true,
   async headers() {

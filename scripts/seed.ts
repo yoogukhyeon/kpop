@@ -37,7 +37,7 @@ async function main() {
   await upsert(
     "places",
     places.map((p) => ({
-      id: p.id, name: p.name, area: p.area, type: p.type, groups: p.groups, address: p.address ?? null, note: p.note, verified_at: p.verifiedAt,
+      id: p.id, name: p.name, area: p.area, type: p.type, groups: p.groups, address: p.address ?? null, note: p.note, verified_at: p.verifiedAt, sources: p.sources ?? [], visit: p.visit ?? null,
     })),
     "id",
   );
@@ -45,7 +45,7 @@ async function main() {
     "events",
     events.map((e) => ({
       id: e.id, type: e.type, title: e.title, groups: e.groups, members: e.members ?? null, start_date: e.startDate, end_date: e.endDate,
-      venue: e.venue, area: e.area, ticketing: e.ticketing ?? null, source_url: e.sourceUrl, verified_at: e.verifiedAt,
+      venue: e.venue, area: e.area, ticketing: e.ticketing ?? null, source_url: e.sourceUrl, verified_at: e.verifiedAt, editorial: e.editorial ?? null,
     })),
     "id",
   );

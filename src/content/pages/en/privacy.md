@@ -1,7 +1,7 @@
 ---
 title: Privacy Policy
 description: What personal information SideQuest Day collects, why, and how to have it deleted.
-updated: 2026-10-06
+updated: 2026-10-18
 ---
 
 This policy explains what information SideQuest Day ("we") handles when you use this website, and your choices. Contact: **{{email}}**
@@ -20,6 +20,8 @@ This policy explains what information SideQuest Day ("we") handles when you use 
 
 **When you leave a birthday message**, we store your nickname, message, chosen card and sticker, a password (as an irreversible hash) and your IP address (only as an irreversible hash, to allow one message per member per day).
 
+**Aggregate site statistics:** we count page views, generated plans, booking-link clicks and card downloads by day, language, page path, product and broad traffic source. These counters do not store IP addresses, visitor IDs, full referrers, email addresses or URL query strings. They do not use analytics cookies. We respect browser Do Not Track and Global Privacy Control signals for this measurement.
+
 **Technical data:** like most websites, our hosting provider automatically processes basic request data (such as IP address, browser type and the page requested) to deliver the site and protect it from abuse.
 
 We don't set analytics or advertising cookies ourselves. Some pages show a **Klook booking widget**; it loads from Klook's servers and Klook may set its own cookies to show prices in your currency and to record bookings referred by SideQuest Day. The widget only loads when you scroll to it. See [Klook's privacy policy](https://www.klook.com/policy/) for details.
@@ -28,9 +30,9 @@ We don't set analytics or advertising cookies ourselves. Some pages show a **Klo
 
 - To review birthday cafe listings and contact the host if something needs checking.
 - To publish approved listings (cafe name, address, dates and announcement link). **Your contact handle or email is never published.**
-- To email you about new events and birthday cafes for the group or member you chose (bias alerts). Every alert email includes an unsubscribe link.
+- To keep your preferences on an update waitlist. Automated email alerts have not launched; you can request removal by email.
 - To show birthday messages, let authors edit or delete them, and prevent spam and abuse.
-- To run and secure the website.
+- To understand aggregate content and booking-link use, and to run and secure the website.
 
 ## How long we keep it
 

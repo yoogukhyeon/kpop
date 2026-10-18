@@ -3,11 +3,13 @@ import { listAllEvents, listEvents, listGroups } from "@/lib/data";
 import { guideLocales, listGuides } from "@/lib/guides";
 import { defaultLocale, locales, type Locale } from "@/lib/i18n";
 import { PAGE_SLUGS, getPage, pageLocales } from "@/lib/pages";
-import { isGroupIndexable, isMemberIndexable } from "@/lib/indexing";
+import { groupIndexableLocales, isMemberIndexable } from "@/lib/indexing";
+import { eventIndexableLocales } from "@/lib/catalog-quality";
 import { monthRange, upcomingMonths } from "@/lib/months";
 import { seoulToday, site } from "@/lib/site";
 
 type Entry = MetadataRoute.Sitemap[number];
+export const revalidate = 86400;
 
 /** One entry per locale, each listing every language version (hreflang in the sitemap). */
 function localized(path: string, only: readonly Locale[], extra: Omit<Entry, "url"> = {}): Entry[] {
@@ -28,7 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...localized("", locales, { changeFrequency: "weekly", priority: 1 }),
     ...localized("/groups", locales, { changeFrequency: "weekly" }),
     // Event pages: verified listings only (unverified ones are noindex).
-    ...(await listAllEvents()).filter((e) => e.verifiedAt).flatMap((e) => localized(`/events/e/${e.id}`, locales, { changeFrequency: "weekly", priority: 0.6 })),
+    ...(await listAllEvents()).flatMap((e) => localized(`/events/e/${e.id}`, eventIndexableLocales(e, seoulToday()), { changeFrequency: "weekly", priority: 0.6, ...(e.verifiedAt ? { lastModified: e.verifiedAt } : {}) })),
     ...localized("/birthdays", locales, { changeFrequency: "daily", priority: 0.8 }),
     ...["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"].flatMap((mm) => localized(`/birthdays/${mm}`, locales, { changeFrequency: "weekly", priority: 0.7 })),
     ...localized("/events", locales, { changeFrequency: "daily" }),
@@ -38,15 +40,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...["", "/tour", "/experience", "/ticket"].flatMap((c) => localized(`/activities${c}`, locales, { changeFrequency: "weekly", priority: 0.7 })),
     ...(await Promise.all(
       guideSlugs.map(async (slug) => {
-        const updated = (await listGuides("en")).find((g) => g.slug === slug)?.updated;
-        return localized(`/guides/${slug}`, await guideLocales(slug), {
-          changeFrequency: "monthly",
-          priority: 0.8,
-          ...(updated ? { lastModified: updated } : {}),
-        });
+        const available = await guideLocales(slug);
+        const dates = new Map((await Promise.all(available.map(async (locale) => [locale, (await listGuides(locale)).find((g) => g.slug === slug)?.updated] as const))));
+        return localized(`/guides/${slug}`, available, { changeFrequency: "monthly", priority: 0.8 })
+          .map((entry, i) => ({ ...entry, ...(dates.get(available[i]) ? { lastModified: dates.get(available[i]) } : {}) }));
       }),
     )).flat(),
     ...localized("/submit", locales, { changeFrequency: "monthly" }),
+    ...localized("/editorial", locales, { changeFrequency: "yearly" }),
     ...(await Promise.all(
       PAGE_SLUGS.map(async (slug) =>
         localized(`/${slug}`, await pageLocales(slug), {
@@ -57,7 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ),
     )).flat(),
     // Only indexable hubs and member pages (see lib/indexing.ts).
-    ...groups.filter(isGroupIndexable).flatMap((g) => localized(`/groups/${g.slug}`, locales, { changeFrequency: "weekly", priority: 0.8 })),
+    ...(await Promise.all(groups.map(async (g) => localized(`/groups/${g.slug}`, await groupIndexableLocales(g), { changeFrequency: "weekly", priority: 0.8 })))).flat(),
     ...(await Promise.all(
       groups.flatMap((g) => g.members.map(async (m) => ((await isMemberIndexable(g, m)) ? localized(`/groups/${g.slug}/${m.slug}`, locales, { changeFrequency: "weekly" }) : []))),
     )).flat(),

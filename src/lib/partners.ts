@@ -1,4 +1,5 @@
 import type { Locale } from "@/lib/i18n";
+import { buildPartnerUrl } from "@/lib/partner-url";
 
 // Affiliate partners. Each partner stays hidden until its tracking query is set
 // in the environment (e.g. PARTNER_KLOOK_QUERY="aid=12345"), so nothing shows
@@ -98,13 +99,10 @@ export function partnerLinks(ids: string[], locale: Locale): PartnerLink[] {
 }
 
 /** Partner product URL with affiliate tracking appended when the program is configured. */
-export function partnerHref(partnerId: string, url: string): string {
+export function partnerHref(partnerId: string, url: string, locale?: Locale): string | null {
   const p = partners[partnerId];
   const query = p && process.env[p.envKey];
-  if (!query) return url;
-  const u = new URL(url);
-  new URLSearchParams(query).forEach((v, k) => u.searchParams.set(k, v));
-  return u.toString();
+  return buildPartnerUrl(partnerId, url, query, locale);
 }
 
 export const partnerName = (partnerId: string) => partners[partnerId]?.name ?? partnerId;

@@ -1,11 +1,13 @@
 ---
 title: 外國人如何在首爾參加 K-POP 打歌節目
 description: 每週打歌節目時間表、旅客真正能參加的節目，以及錄影當天的流程。
-updated: 2026-10-08
+updated: 2026-10-18
 order: 2
 partners: [klook]
 activities: [music-show]
 sources:
+  - https://www.klook.com/en-US/activity/91793-kpop-tour/
+  - https://www.kkday.com/en/product/265931
   - https://korearoute.com/guides/kpop-music-show-guide
   - https://koreabyme.com/how-to-attend-kpop-music-shows-in-korea-a-guide-for-foreigners/
   - https://blog.trazy.com/ultimate-guide-to-weekly-k-pop-music-shows/
@@ -21,9 +23,9 @@ figures:
       - "週日 · 人氣歌謠 (SBS)"
 faq:
   - q: "看打歌節目錄影要錢嗎？"
-    a: "大部分免費。不過像 M COUNTDOWN 的外國人專用通行證，是在 Klook 等海外平台付費販售。"
+    a: "請查看藝人官方公告與銷售方該日期的方案。旅客套裝不保證指定團體出場、座位類型或粉絲俱樂部事前錄影資格。"
   - q: "不是粉絲俱樂部會員也能去看嗎？"
-    a: "Music Bank 可以用登記為海外外國人的 KBS 帳號參加免費抽選；M COUNTDOWN 和 THE SHOW 也曾開放旅客座位。人氣歌謠、Show! 音樂中心、Show Champion 的事前錄影大多只限粉絲俱樂部。"
+    a: "請查看藝人官方公告與銷售方該日期的方案。旅客套裝不保證指定團體出場、座位類型或粉絲俱樂部事前錄影資格。"
   - q: "看一場打歌節目要多久？"
     a: "只看直播通常 3–4 小時；人氣團體的事前錄影加直播，含排隊大約要 6–8 小時。"
 ---
@@ -47,11 +49,10 @@ faq:
 
 ## 旅客能參加哪些節目？
 
-**M COUNTDOWN** 通常是外國人最容易參加的節目。2026 年起，Mnet 在 Klook 等海外平台販售外國人專用的現場通行證，不需要粉絲俱樂部會員。
+請查看藝人官方公告與銷售方該日期的方案。旅客套裝不保證指定團體出場、座位類型或粉絲俱樂部事前錄影資格。
 
 **THE SHOW** 過去也在 Klook 開放旅客名額，請確認你的日期是否有空位。
 
-**Music Bank** 有免費的觀眾抽籤。你需要以「居住海外的外國人」註冊 KBS 帳號，上傳護照影本完成認證，再申請特定錄影日期。
 
 **人氣歌謠、Show! 音樂中心、SHOW CHAMPION** 大多透過粉絲俱樂部招募觀眾。報名通常在幾天前才於粉絲咖啡或 Weverse 公告，而且多半需要認證會員，旅客比較難參加。
 

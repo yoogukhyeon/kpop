@@ -1,4 +1,5 @@
 ---
+draft: true
 title: K-pop Fan Etiquette in Korea — Do's and Don'ts for Visiting Fans
 description: How fan culture works in Korea, from music shows and concerts to birthday cafes and agency buildings — and the behaviour that gets fans banned.
 updated: 2026-10-05

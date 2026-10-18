@@ -112,7 +112,7 @@ export default async function Home({
           </div>
           <ul className="grid gap-4 sm:grid-cols-3">
             {featured.map((a) => (
-              <li key={a.id}><ActivityCard activity={a} locale={locale} /></li>
+              <li key={a.id}><ActivityCard activity={a} locale={locale} placement="home" /></li>
             ))}
           </ul>
           <p className="text-xs text-muted">{t.activities.note}</p>

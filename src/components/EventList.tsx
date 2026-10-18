@@ -4,6 +4,7 @@ import { getGroup } from "@/lib/data";
 import { getDictionary, type Locale } from "@/lib/i18n";
 import { seoulToday, site } from "@/lib/site";
 import type { KEvent } from "@/lib/types";
+import { isReviewedEvent } from "@/lib/catalog-quality";
 
 /** Event cards plus schema.org Event data — only for verified events, so search engines never get unchecked details. */
 export async function EventList({ events, locale }: { events: KEvent[]; locale: Locale }) {
@@ -14,7 +15,7 @@ export async function EventList({ events, locale }: { events: KEvent[]; locale: 
   if (!events.length) return <p className="rounded-3xl bg-subtle p-5 text-sm text-muted">{t.events.empty}</p>;
 
   const today = seoulToday();
-  const verified = events.filter((e) => e.verifiedAt);
+  const verified = events.filter((e) => isReviewedEvent(e, today));
   return (
     <>
       {verified.length > 0 && (
@@ -29,7 +30,7 @@ export async function EventList({ events, locale }: { events: KEvent[]; locale: 
               eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
               eventStatus: "https://schema.org/EventScheduled",
               location: { "@type": "Place", name: e.venue, address: { "@type": "PostalAddress", addressLocality: "Seoul", addressCountry: "KR" } },
-              performer: e.groups.map((g) => ({ "@type": "MusicGroup", name: groups.get(g)?.name ?? g })),
+              [e.type === "concert" || e.type === "fanmeeting" ? "performer" : "about"]: e.groups.map((g) => ({ "@type": "MusicGroup", name: groups.get(g)?.name ?? g })),
               url: `${site.url}/${locale}/events/e/${e.id}`,
             })),
           }}

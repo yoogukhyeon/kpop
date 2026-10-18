@@ -119,7 +119,7 @@ export const en = {
     faq: [
       { q: "Can I go inside the agency building?", a: "Most agency buildings are offices and closed to the public. Take photos from outside; some agencies run separate stores or exhibitions — check their official pages." },
       { q: "When are birthday cafes open?", a: "Usually a few days before and after the birthday. Exact dates are announced by fan hosts on X or Instagram, often only 1–2 weeks ahead." },
-      { q: "Can I see the group on a music show?", a: "Possibly. M Countdown sells foreigner passes, while most other shows prioritise fan club members. See our music show guide." },
+      { q: "Can I see the group on a music show?", a: "Check the artist notice and the seller’s date-specific package. A visitor package does not guarantee your group’s appearance, a seat type or fan-club pre-recording access." },
     ],
     related: "More groups",
   },
@@ -224,6 +224,7 @@ export const en = {
   },
   footer: "Fan-made guide. Not affiliated with any artist or agency. Event details can change — always check the official notice.",
   area: {
+    jongno: "Jongno",
     yongsan: "Yongsan", seongsu: "Seongsu", gangnam: "Gangnam / Apgujeong", mapo: "Mapo / Hongdae / Sangam",
     songpa: "Songpa / Olympic Park", jung: "Jung-gu / City Hall", gangdong: "Gangdong", yeouido: "Yeouido", guro: "Guro",
   } satisfies Record<Area, string>,
@@ -231,7 +232,7 @@ export const en = {
     concert: "Concert", fanmeeting: "Fan meeting", "music-show": "Music show", "birthday-cafe": "Birthday cafe", "birthday-event": "Birthday event", popup: "Pop-up",
   } satisfies Record<EventType, string>,
   access: {
-    open: "Foreigners can book directly", verification: "Passport verification needed in advance",
+    open: "Foreigners can book directly", verification: "Account or identity verification conditions apply",
     fanclub: "Fan club membership needed", "korean-id-only": "Korean ID only", unknown: "Not checked yet",
   } satisfies Record<ForeignerAccess, string>,
 };

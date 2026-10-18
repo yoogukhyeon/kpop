@@ -1,4 +1,5 @@
 ---
+draft: true
 title: Hongdae for K-pop Fans — Busking, Birthday Cafes and Shopping
 description: Why Hongdae is the K-pop fan's neighbourhood, how to get there from Incheon Airport, and how to spend a day there.
 updated: 2026-10-08

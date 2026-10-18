@@ -8,14 +8,18 @@ import { MemberCard } from "@/components/MemberCard";
 import { ink, pastel } from "@/lib/color";
 import { GroupCard } from "@/components/GroupCard";
 import { JsonLd } from "@/components/JsonLd";
-import { isGroupIndexable, NOINDEX } from "@/lib/indexing";
+import { groupIndexableLocales, NOINDEX } from "@/lib/indexing";
 import { MobileCta } from "@/components/MobileCta";
 import { PlanBox } from "@/components/PlanBox";
-import { getGroup, listActivities, listEvents, listGroups, listPlacesForGroup } from "@/lib/data";
+import { getGroup, listActivities, listEvents, listGroups, listPlaces, listPlacesForGroup } from "@/lib/data";
 import { alternates, getDictionary, isLocale, locales } from "@/lib/i18n";
-import { mapsUrl, seoulToday, site, seoTitle } from "@/lib/site";
+import { seoulToday, site, seoTitle } from "@/lib/site";
 import { AlertSignup } from "@/components/AlertSignup";
 import type { Area, Place } from "@/lib/types";
+import { groupResearch } from "@/data/group-research";
+import { GroupResearch } from "@/components/GroupResearch";
+import { PlaceDetails } from "@/components/PlaceDetails";
+import { isResearchLocale, isReviewedPlace } from "@/lib/catalog-quality";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -36,11 +40,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const g = await getGroup(slug);
   if (!g || !isLocale(locale)) return {};
   const t = getDictionary(locale);
+  const published = await groupIndexableLocales(g);
   return {
     title: seoTitle(t.meta.groupTitle(g.name)),
     description: t.meta.groupDesc(g.name, g.agency, g.fandom),
-    alternates: alternates(locale, `/groups/${g.slug}`),
-    robots: isGroupIndexable(g) ? undefined : NOINDEX,
+    alternates: alternates(locale, `/groups/${g.slug}`, published),
+    robots: published.includes(locale) ? undefined : NOINDEX,
   };
 }
 
@@ -52,16 +57,18 @@ export default async function GroupPage({ params }: Props) {
   const t = getDictionary(locale);
   const d = t.detail;
   const today = seoulToday();
-  const [allPlaces, upcoming, groups, activities] = await Promise.all([
+  const [allPlaces, upcoming, groups, activities, catalogPlaces] = await Promise.all([
     listPlacesForGroup(g.slug),
     listEvents({ from: today, group: g.slug }),
     listGroups(),
     listActivities({ group: g.slug, tags: ["fan-tour", "dance", "music-show"], limit: 4 }),
+    listPlaces(),
   ]);
+  const research = groupResearch[g.slug];
 
   // Route: the group's own places first, then spots every fan visits, grouped by area.
-  const route = allPlaces
-    .filter((p) => SIGHTSEEING.has(p.type))
+  const selectedPlaces = research ? research.placeIds.flatMap((id) => catalogPlaces.filter((p) => p.id === id && isReviewedPlace(p, today))) : allPlaces.filter((p) => SIGHTSEEING.has(p.type));
+  const route = selectedPlaces
     .sort((a, b) => Number(b.groups.includes(g.slug)) - Number(a.groups.includes(g.slug)));
   const byArea = new Map<Area, Place[]>();
   for (const p of route) byArea.set(p.area, [...(byArea.get(p.area) ?? []), p]);
@@ -100,7 +107,7 @@ export default async function GroupPage({ params }: Props) {
             "@type": "ListItem",
             position: i + 1,
             item: {
-              "@type": "TouristAttraction",
+              "@type": p.type === "agency" ? "Place" : p.type === "store" ? "Store" : p.type === "venue" ? "PerformingArtsTheater" : "TouristAttraction",
               name: p.name,
               description: p.note[locale],
               ...(p.address ? { address: { "@type": "PostalAddress", streetAddress: p.address, addressLocality: "Seoul", addressCountry: "KR" } } : {}),
@@ -166,6 +173,8 @@ export default async function GroupPage({ params }: Props) {
             <p className="leading-relaxed text-muted">{d.overview(g.name, g.fandom, route.length)}</p>
           </section>
 
+          {research && isResearchLocale(locale) && <GroupResearch research={research} locale={locale} />}
+
           {/* Sticky section tabs */}
           <nav className="sticky top-16 z-30 -mx-4 -mt-6 flex gap-6 overflow-x-auto border-b border-line bg-surface/95 px-4 text-[15px] font-bold text-muted backdrop-blur sm:mx-0 sm:px-0">
             {tabs.map(([id, label]) => (
@@ -190,19 +199,7 @@ export default async function GroupPage({ params }: Props) {
                   <div className="grid gap-2 pb-7">
                     <p className="pt-1 font-bold">{t.area[area]}</p>
                     {places.map((p) => (
-                      <a
-                        key={p.id}
-                        href={mapsUrl(p.address ?? p.name)}
-                        target="_blank"
-                        rel="noopener"
-                        className="grid gap-1 rounded-3xl bg-subtle p-4 transition hover:bg-brand-soft"
-                      >
-                        <span className="flex flex-wrap items-center gap-1.5 font-semibold">
-                          {p.name}
-                          {p.groups.includes(g.slug) && <span className="chip-pink">{g.name}</span>}
-                        </span>
-                        <span className="text-sm text-muted">{p.note[locale]}</span>
-                      </a>
+                      <PlaceDetails key={p.id} place={p} locale={locale} group={g.slug} />
                     ))}
                   </div>
                 </li>
@@ -228,7 +225,7 @@ export default async function GroupPage({ params }: Props) {
               <h2 className="section-title">🎟️ {t.activities.recommended}</h2>
               <ul className="grid gap-3 sm:grid-cols-2">
                 {activities.map((a) => (
-                  <li key={a.id}><ActivityCard activity={a} locale={locale} compact /></li>
+                  <li key={a.id}><ActivityCard activity={a} locale={locale} placement="group" compact /></li>
                 ))}
               </ul>
               <p className="text-xs text-muted">{t.activities.note}</p>

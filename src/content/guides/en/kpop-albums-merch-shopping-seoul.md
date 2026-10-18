@@ -1,4 +1,5 @@
 ---
+draft: true
 title: Where to Buy K-pop Albums and Merch in Seoul
 description: Album stores, official merch booths, pop-ups and online shops — what each is good for, and tips on photocards, store benefits and getting it all home.
 updated: 2026-10-05

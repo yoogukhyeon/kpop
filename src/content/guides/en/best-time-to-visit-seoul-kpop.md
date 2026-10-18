@@ -1,4 +1,5 @@
 ---
+draft: true
 title: Best Time to Visit Seoul for K-pop — A Season-by-Season Guide
 description: When concerts, award shows, festivals and birthdays happen through the year, and how to pick dates for your K-pop trip to Seoul.
 updated: 2026-10-05

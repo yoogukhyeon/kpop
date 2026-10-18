@@ -7,10 +7,15 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "audit:links": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/audit-links.ts",
     "db:seed": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/seed.ts",
     "db:migrate": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/migrate.ts",
+    "db:migrate:metrics": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/migrate.ts supabase/migrations/20261018_metrics.sql",
     "indexnow": "tsx scripts/indexnow.ts",
-    "refresh": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/refresh.ts"
+    "refresh": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/refresh.ts",
+    "audit:catalog": "tsx scripts/audit-catalog.ts",
+    "db:publish:research": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local scripts/publish-research.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.117.2",

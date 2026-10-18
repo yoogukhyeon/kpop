@@ -50,7 +50,10 @@ export function middleware(req: NextRequest) {
   const locale = pickLocale(req.headers.get("accept-language"));
   url.pathname = `/${locale}${pathname === "/" ? "" : pathname}`;
   // 302 (not 308): the target depends on the visitor's language.
-  return NextResponse.redirect(url, 302);
+  const response = NextResponse.redirect(url, 302);
+  response.headers.set("Vary", "Accept-Language");
+  response.headers.set("Cache-Control", "private, no-store");
+  return response;
 }
 
 export const config = {

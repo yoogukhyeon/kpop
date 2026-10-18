@@ -119,7 +119,7 @@ export const vi: Dictionary = {
     faq: [
       { q: "Có vào được bên trong tòa nhà công ty không?", a: "Hầu hết là văn phòng, không mở cho khách. Hãy chụp ảnh bên ngoài; một số công ty có cửa hàng hoặc triển lãm riêng — xem trang chính thức." },
       { q: "Cà phê sinh nhật mở khi nào?", a: "Thường vài ngày trước và sau sinh nhật. Ngày chính xác do fan tổ chức thông báo trên X hoặc Instagram, thường chỉ trước 1–2 tuần." },
-      { q: "Có xem nhóm ở chương trình âm nhạc được không?", a: "Có thể. M Countdown bán vé cho người nước ngoài, còn phần lớn chương trình khác ưu tiên thành viên fan club. Xem cẩm nang chương trình âm nhạc." },
+      { q: "Có xem nhóm ở chương trình âm nhạc được không?", a: "Kiểm tra thông báo chính thức của nghệ sĩ và gói cho ngày cụ thể tại nhà bán. Gói du khách không bảo đảm nhóm bạn thích xuất hiện, loại ghế hoặc quyền ghi hình trước dành cho fan club." },
     ],
     related: "Nhóm khác",
   },
@@ -224,6 +224,7 @@ export const vi: Dictionary = {
   },
   footer: "Cẩm nang do fan làm. Không liên kết với nghệ sĩ hay công ty nào. Thông tin sự kiện có thể thay đổi — hãy luôn xem thông báo chính thức.",
   area: {
+    jongno: "Jongno",
     yongsan: "Yongsan", seongsu: "Seongsu", gangnam: "Gangnam / Apgujeong", mapo: "Mapo / Hongdae / Sangam",
     songpa: "Songpa / Công viên Olympic", jung: "Jung-gu / Tòa thị chính", gangdong: "Gangdong", yeouido: "Yeouido", guro: "Guro",
   },
@@ -231,7 +232,7 @@ export const vi: Dictionary = {
     concert: "Concert", fanmeeting: "Fanmeeting", "music-show": "Chương trình âm nhạc", "birthday-cafe": "Cà phê sinh nhật", "birthday-event": "Sự kiện sinh nhật", popup: "Pop-up",
   },
   access: {
-    open: "Người nước ngoài đặt trực tiếp được", verification: "Cần xác minh hộ chiếu trước",
+    open: "Người nước ngoài đặt trực tiếp được", verification: "Có điều kiện xác minh tài khoản hoặc danh tính",
     fanclub: "Cần là thành viên fan club", "korean-id-only": "Chỉ dành cho ID Hàn Quốc", unknown: "Chưa kiểm tra",
   },
 };

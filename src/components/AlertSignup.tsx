@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useActionState } from "react";
 import { subscribe, type SubscribeState } from "@/app/actions/subscribe";
+import { commerceCopy } from "@/lib/commerce-copy";
+import { isLocale } from "@/lib/i18n";
 
 /** Bias alert sign-up box (email per group, optional member). */
 export function AlertSignup({
@@ -19,15 +21,16 @@ export function AlertSignup({
   failedLabel: string;
 }) {
   const [state, action, pending] = useActionState<SubscribeState, FormData>(subscribe, { ok: false });
+  const c = commerceCopy(isLocale(locale) ? locale : "en");
 
   return (
     <section className="grid gap-3 rounded-3xl bg-gradient-to-br from-pink-soft to-brand-soft p-6" aria-label={labels.title}>
       <p className="text-lg font-extrabold">🔔 {labels.title}</p>
       {state.ok ? (
-        <p className="font-semibold text-brand">{labels.thanks}</p>
+        <p className="font-semibold text-brand">{c.waitlistThanks}</p>
       ) : (
         <>
-          <p className="text-sm text-muted">{labels.desc}</p>
+          <p className="text-sm text-muted">{c.waitlist}</p>
           <form action={action} className="grid gap-2">
             <input type="hidden" name="group" value={group} />
             <input type="hidden" name="locale" value={locale} />

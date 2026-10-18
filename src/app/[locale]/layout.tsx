@@ -5,6 +5,8 @@ import { Suspense } from "react";
 import { JsonLd } from "@/components/JsonLd";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { PlannerButton } from "@/components/PlannerButton";
+import { SiteMetrics } from "@/components/SiteMetrics";
+import { commerceCopy } from "@/lib/commerce-copy";
 import { getDictionary, isLocale, locales, ogBase } from "@/lib/i18n";
 import { site } from "@/lib/site";
 import "../globals.css";
@@ -64,6 +66,7 @@ export default async function LocaleLayout({
         />
       </head>
       <body className="antialiased">
+        <SiteMetrics />
         <JsonLd
           data={{
             "@context": "https://schema.org",
@@ -133,6 +136,7 @@ export default async function LocaleLayout({
               <p className="max-w-xl text-xs leading-relaxed">{t.footer}</p>
               <p className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
                 <Link href={`/${locale}/about`} className="hover:text-text">{t.legal.about}</Link>
+                <Link href={`/${locale}/editorial`} className="hover:text-text">{commerceCopy(locale).editorial}</Link>
                 <Link href={`/${locale}/privacy`} className="font-bold hover:text-text">{t.legal.privacy}</Link>
                 <Link href={`/${locale}/terms`} className="hover:text-text">{t.legal.terms}</Link>
                 <Link href={`/${locale}/disclosure`} className="hover:text-text">{t.legal.disclosure}</Link>

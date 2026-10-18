@@ -119,7 +119,7 @@ export const zhTW: Dictionary = {
     faq: [
       { q: "可以進入經紀公司大樓嗎？", a: "大部分經紀公司是辦公室，不對外開放。請在外面拍照；有些公司另外經營商店或展覽，請查看官方頁面。" },
       { q: "生日咖啡廳什麼時候開？", a: "通常在生日前後幾天。確切日期由主辦粉絲在 X 或 Instagram 公告，常常只提前 1～2 週。" },
-      { q: "可以在打歌節目看到團體嗎？", a: "有機會。M COUNTDOWN 有販售外國人通行證，其他節目大多以粉絲俱樂部會員優先。請參考打歌節目攻略。" },
+      { q: "可以在打歌節目看到團體嗎？", a: "請查看藝人官方公告與銷售方該日期的方案。旅客套裝不保證指定團體出場、座位類型或粉絲俱樂部事前錄影資格。" },
     ],
     related: "其他團體",
   },
@@ -224,6 +224,7 @@ export const zhTW: Dictionary = {
   },
   footer: "粉絲製作的攻略。與任何藝人或經紀公司無關。活動資訊可能變動，請務必確認官方公告。",
   area: {
+    jongno: "鐘路",
     yongsan: "龍山", seongsu: "聖水", gangnam: "江南・狎鷗亭", mapo: "麻浦・弘大・上岩",
     songpa: "松坡・奧林匹克公園", jung: "中區・市廳", gangdong: "江東", yeouido: "汝矣島", guro: "九老",
   },
@@ -231,7 +232,7 @@ export const zhTW: Dictionary = {
     concert: "演唱會", fanmeeting: "粉絲見面會", "music-show": "打歌節目", "birthday-cafe": "生日咖啡廳", "birthday-event": "生日應援活動", popup: "快閃店",
   },
   access: {
-    open: "外國人可直接購買", verification: "需事先完成護照認證",
+    open: "外國人可直接購買", verification: "須確認帳號及身分驗證條件",
     fanclub: "需粉絲俱樂部會員", "korean-id-only": "僅限韓國身分認證", unknown: "尚未確認",
   },
 };

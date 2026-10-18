@@ -119,7 +119,7 @@ export const zhCN: Dictionary = {
     faq: [
       { q: "可以进入经纪公司大楼吗？", a: "大部分经纪公司是办公室，不对外开放。请在外面拍照；有些公司另外经营商店或展览，请查看官方页面。" },
       { q: "生日咖啡馆什么时候开？", a: "通常在生日前后几天。确切日期由主办粉丝在 X 或 Instagram 公告，常常只提前 1～2 周。" },
-      { q: "可以在打歌节目看到团体吗？", a: "有机会。M COUNTDOWN 有销售外国人通行证，其他节目大多以粉丝俱乐部会员优先。请参考打歌节目攻略。" },
+      { q: "可以在打歌节目看到团体吗？", a: "请查看艺人官方公告与销售方该日期的方案。游客套餐不保证指定团体出场、座位类型或粉丝俱乐部事前录制资格。" },
     ],
     related: "其他团体",
   },
@@ -224,6 +224,7 @@ export const zhCN: Dictionary = {
   },
   footer: "粉丝制作的攻略。与任何艺人或经纪公司无关。活动信息可能变动，请务必确认官方公告。",
   area: {
+    jongno: "钟路",
     yongsan: "龙山", seongsu: "圣水", gangnam: "江南・狎鸥亭", mapo: "麻浦・弘大・上岩",
     songpa: "松坡・奥林匹克公园", jung: "中区・市厅", gangdong: "江东", yeouido: "汝矣岛", guro: "九老",
   },
@@ -231,7 +232,7 @@ export const zhCN: Dictionary = {
     concert: "演唱会", fanmeeting: "粉丝见面会", "music-show": "打歌节目", "birthday-cafe": "生日咖啡馆", "birthday-event": "生日应援活动", popup: "快闪店",
   },
   access: {
-    open: "外国人可直接购买", verification: "需提前完成护照认证",
+    open: "外国人可直接购买", verification: "须确认账号及身份验证条件",
     fanclub: "需粉丝俱乐部会员", "korean-id-only": "仅限韩国身份认证", unknown: "尚未确认",
   },
 };

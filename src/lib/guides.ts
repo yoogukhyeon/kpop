@@ -12,6 +12,7 @@ import { locales, type Locale } from "@/lib/i18n";
 const ROOT = path.join(process.cwd(), "src/content/guides");
 
 export interface GuideMeta {
+  draft: boolean;
   slug: string;
   title: string;
   description: string;
@@ -28,6 +29,7 @@ export interface GuideMeta {
 
 function toMeta(slug: string, data: Record<string, unknown>): GuideMeta {
   return {
+    draft: data.draft === true,
     slug,
     title: String(data.title),
     description: String(data.description),
@@ -54,7 +56,7 @@ export async function listGuides(locale: Locale): Promise<GuideMeta[]> {
   const metas = await Promise.all(
     (await slugs(locale)).map(async (slug) => toMeta(slug, matter(await readFile(path.join(ROOT, locale, `${slug}.md`), "utf8")).data)),
   );
-  return metas.sort((a, b) => a.order - b.order);
+  return metas.filter((guide) => !guide.draft).sort((a, b) => a.order - b.order);
 }
 
 export type Guide = GuideMeta & { html: string; headings: { id: string; text: string }[]; readMinutes: number };
@@ -78,7 +80,7 @@ export async function getGuide(locale: Locale, slug: string): Promise<Guide | nu
 
 /** Locales in which a guide exists, for hreflang. */
 export async function guideLocales(slug: string): Promise<Locale[]> {
-  const found = await Promise.all(locales.map(async (l) => ((await slugs(l)).includes(slug) ? l : null)));
+  const found = await Promise.all(locales.map(async (l) => ((await listGuides(l)).some((guide) => guide.slug === slug) ? l : null)));
   return found.filter((l): l is Locale => l !== null);
 }
 

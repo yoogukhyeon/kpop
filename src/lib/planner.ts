@@ -37,6 +37,7 @@ export function tripDates(from: string, to: string): string[] {
   const start = toUtc(from);
   const end = toUtc(to);
   if (Number.isNaN(start) || Number.isNaN(end) || end < start) return [];
+  if (fromUtc(start) !== from || fromUtc(end) !== to) return [];
   const out: string[] = [];
   for (let t = start; t <= end && out.length < MAX_TRIP_DAYS; t += DAY_MS) out.push(fromUtc(t));
   return out;
@@ -53,9 +54,15 @@ export function buildPlan(input: PlanInput): Plan {
     ? input.group.members.filter((m) => input.memberSlugs.includes(m.slug))
     : input.group.members;
 
+  // A multi-day listing is an opportunity to visit once, not an appointment every day.
+  const assigned = new Set<string>();
   const days: PlanDay[] = dates.map((date) => ({
     date,
-    events: input.events.filter((e) => e.startDate <= date && e.endDate >= date),
+    events: input.events.filter((e) => {
+      if (assigned.has(e.id) || e.startDate > date || e.endDate < date) return false;
+      assigned.add(e.id);
+      return true;
+    }),
     birthdays: focus.filter((m) => birthdayInYearOf(m, date) === date),
     areas: [],
   }));
@@ -88,11 +95,20 @@ export function buildPlan(input: PlanInput): Plan {
   // otherwise the least busy day. Events weigh more than a sightseeing area.
   const load = days.map((d) => d.events.length * 2);
   for (const [area, ps] of areas) {
-    if (!days.length) break;
-    let idx = days.findIndex((d) => d.events.some((e) => e.area === area));
-    if (idx === -1) idx = load.indexOf(Math.min(...load));
-    days[idx].areas.push({ area, places: ps });
-    load[idx] += 1;
+    const pending = new Set(ps.map((p) => p.id));
+    while (pending.size) {
+      const choices = days.map((day, idx) => ({
+        idx,
+        sameArea: day.events.some((event) => event.area === area),
+        places: ps.filter((place) => pending.has(place.id) && !place.visit?.closedWeekdays?.includes(new Date(`${day.date}T00:00:00Z`).getUTCDay())),
+      })).filter((choice) => choice.places.length)
+        .sort((a, b) => b.places.length - a.places.length || Number(b.sameArea) - Number(a.sameArea) || load[a.idx] - load[b.idx]);
+      const best = choices[0];
+      if (!best) break; // No open day in this trip: omit, rather than suggest a closed attraction.
+      days[best.idx].areas.push({ area, places: best.places });
+      load[best.idx] += 1;
+      for (const place of best.places) pending.delete(place.id);
+    }
   }
 
   return {
@@ -102,7 +118,7 @@ export function buildPlan(input: PlanInput): Plan {
     stats: {
       events: new Set(days.flatMap((d) => d.events.map((e) => e.id))).size,
       birthdays: days.reduce((n, d) => n + d.birthdays.length, 0) + nearbyBirthdays.length,
-      spots: areas.reduce((n, [, ps]) => n + ps.length, 0),
+      spots: days.reduce((n, day) => n + day.areas.reduce((sum, area) => sum + area.places.length, 0), 0),
     },
   };
 }

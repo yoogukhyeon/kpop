@@ -121,7 +121,7 @@ export const es: Dictionary = {
     faq: [
       { q: "¿Puedo entrar al edificio de la agencia?", a: "La mayoría son oficinas cerradas al público. Toma fotos desde fuera; algunas agencias tienen tiendas o exposiciones aparte: revisa sus páginas oficiales." },
       { q: "¿Cuándo abren los cafés de cumpleaños?", a: "Normalmente unos días antes y después del cumpleaños. Las fechas exactas las anuncian los organizadores en X o Instagram, a menudo solo 1–2 semanas antes." },
-      { q: "¿Puedo ver al grupo en un programa musical?", a: "Es posible. M Countdown vende pases para extranjeros, mientras que la mayoría de los demás programas dan prioridad al fan club. Mira nuestra guía de programas musicales." },
+      { q: "¿Puedo ver al grupo en un programa musical?", a: "Consulta el aviso oficial del artista y el paquete del vendedor para tu fecha. Un paquete para visitantes no garantiza la aparición de tu grupo, el tipo de asiento ni acceso a pregrabaciones del fan club." },
     ],
     related: "Más grupos",
   },
@@ -226,6 +226,7 @@ export const es: Dictionary = {
   },
   footer: "Guía hecha por fans. Sin relación con artistas ni agencias. Los datos de eventos pueden cambiar: revisa siempre el anuncio oficial.",
   area: {
+    jongno: "Jongno",
     yongsan: "Yongsan", seongsu: "Seongsu", gangnam: "Gangnam / Apgujeong", mapo: "Mapo / Hongdae / Sangam",
     songpa: "Songpa / Parque Olímpico", jung: "Jung-gu / Ayuntamiento", gangdong: "Gangdong", yeouido: "Yeouido", guro: "Guro",
   },
@@ -233,7 +234,7 @@ export const es: Dictionary = {
     concert: "Concierto", fanmeeting: "Fanmeeting", "music-show": "Programa musical", "birthday-cafe": "Café de cumpleaños", "birthday-event": "Evento de cumpleaños", popup: "Pop-up",
   },
   access: {
-    open: "Los extranjeros pueden comprar directamente", verification: "Requiere verificar el pasaporte antes",
+    open: "Los extranjeros pueden comprar directamente", verification: "Se aplican requisitos de cuenta o identidad",
     fanclub: "Requiere membresía del fan club", "korean-id-only": "Solo con identificación coreana", unknown: "Sin revisar",
   },
 };

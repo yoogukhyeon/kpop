@@ -46,7 +46,7 @@ export function pickLocale(acceptLanguage: string | null): Locale {
       const [tag, q] = part.trim().split(";q=");
       return { tag, q: q ? Number(q) : 1 };
     })
-    .filter((w) => w.tag)
+    .filter((w) => w.tag && Number.isFinite(w.q) && w.q > 0 && w.q <= 1)
     .sort((a, b) => b.q - a.q);
   for (const w of wanted) {
     const match = matchTag(w.tag);
