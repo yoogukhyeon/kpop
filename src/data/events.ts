@@ -160,6 +160,19 @@ const originalEvents: KEvent[] = [
     sourceUrl: "https://en.fannstar.tf.co.kr/fnnews/read/355579",
     verifiedAt: null,
   },
+  {
+    id: "twice-the-thrill-popup-2026",
+    type: "popup",
+    title: "TWICE 'TWICE THE THRILL' 11th Anniversary Pop-up",
+    groups: ["twice"],
+    startDate: "2026-10-17",
+    endDate: "2026-10-25",
+    venue: "Platz 2, Seongdong-gu",
+    area: "seongsu",
+    ticketing: { platform: "TWICE FANS SHOP (check official notice)", foreignerAccess: "unknown" },
+    sourceUrl: "https://en.travie.com/news/articleView.html?idxno=746",
+    verifiedAt: null,
+  },
 ];
 
 export const events: KEvent[] = [
