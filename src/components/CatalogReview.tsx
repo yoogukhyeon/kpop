@@ -1,4 +1,5 @@
 import { reviewCatalogEvent } from "@/app/admin/actions";
+import { SubmitButton } from "@/components/admin/SubmitButton";
 import { groupResearch } from "@/data/group-research";
 import { eventReviewReason, isReviewedPlace } from "@/lib/catalog-quality";
 import { listAllEvents, listGroups, listPlaces } from "@/lib/data";
@@ -39,7 +40,7 @@ export async function CatalogReview() {
           <label className="grid gap-1">{locale.toUpperCase()} · 입장·예약 조건<textarea className="input min-h-24" name={`entry_${locale}`} minLength={20} required defaultValue={event.editorial?.entry[locale]} /></label>
         </div>)}
         <label className="flex items-start gap-2"><input className="mt-1" type="checkbox" name="sourceChecked" required /><span>원문에서 날짜·장소·입장 조건과 변경·취소 여부를 확인했습니다. 저장하면 오늘을 출처 확인일로 기록합니다.</span></label>
-        <button className="btn w-fit">검토 결과 저장·공개 상태 갱신</button>
+        <SubmitButton className="btn w-fit" pendingLabel="저장 중…">검토 결과 저장·공개 상태 갱신</SubmitButton>
       </form>
     </details>)}</div>
     <details className="card p-4"><summary className="cursor-pointer font-semibold">그룹별 검색 공개 보류 사유</summary><ul className="mt-3 grid gap-2 text-sm">{groups.map((group) => {

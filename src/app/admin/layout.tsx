@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
-      <body className="antialiased">
-        <main className="mx-auto max-w-4xl px-4 py-8">{children}</main>
+      <body className="min-h-screen bg-bg antialiased">
+        <main className="mx-auto max-w-5xl px-4 pb-16">{children}</main>
       </body>
     </html>
   );

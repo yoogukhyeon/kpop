@@ -80,7 +80,7 @@ export async function rejectSubmission(form: FormData) {
     .eq("id", id)
     .eq("status", "pending");
   if (error) throw new Error(`Reject failed: ${error.message}`);
-  revalidatePath("/admin");
+  revalidatePath("/admin", "layout");
 }
 
 /** Drops cached DB reads and regenerates pages — use after editing data or running db:seed. */
@@ -100,7 +100,7 @@ export async function moderateMessage(form: FormData) {
   const { error } =
     op === "delete" ? await db.delete().eq("id", id) : await db.update(op === "hide" ? { hidden: true } : { hidden: false, reports: 0 }).eq("id", id);
   if (error) throw new Error(error.message);
-  revalidatePath("/admin");
+  revalidatePath("/admin", "layout");
 }
 
 const reviewEventInput = z.object({
