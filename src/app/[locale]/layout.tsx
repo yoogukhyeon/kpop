@@ -95,23 +95,32 @@ export default async function LocaleLayout({
           }}
         />
         <header className="sticky top-0 z-50 border-b border-line bg-surface/95 backdrop-blur">
-          <div className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-4">
+          <div className="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 xl:gap-6">
             <Link href={`/${locale}`} className="whitespace-nowrap text-xl font-black tracking-tight">
               SideQuest<span className="text-brand"> Day</span>
             </Link>
-            <nav className="hidden items-center gap-5 text-[15px] font-semibold text-muted md:flex">
+            <nav className="hidden items-center gap-4 whitespace-nowrap text-[15px] font-semibold text-muted lg:flex xl:gap-5">
               <Link href={`/${locale}/groups`} className="hover:text-text">{t.nav.groups}</Link>
               <Link href={`/${locale}/birthdays`} className="hover:text-text">{t.birthdays.nav}</Link>
               <Link href={`/${locale}/activities`} className="hover:text-text">{t.activities.nav}</Link>
               <Link href={`/${locale}/events`} className="hover:text-text">{t.nav.events}</Link>
               <Link href={`/${locale}/guides`} className="hover:text-text">{t.nav.guides}</Link>
             </nav>
-            <div className="ml-auto flex items-center gap-2">
+            <div className="ml-auto flex shrink-0 items-center gap-2">
+              {/* Full label only where it fits; a cake icon button below xl. */}
               <Link
                 href={`/${locale}/submit`}
-                className="hidden h-9 items-center gap-1 rounded-full bg-pink-soft px-4 text-sm font-bold text-pink transition hover:-translate-y-0.5 hover:brightness-95 sm:inline-flex"
+                className="hidden h-9 items-center gap-1 whitespace-nowrap rounded-full bg-pink-soft px-4 text-sm font-bold text-pink transition hover:-translate-y-0.5 hover:brightness-95 xl:inline-flex"
               >
                 🎂 {t.nav.submit}
+              </Link>
+              <Link
+                href={`/${locale}/submit`}
+                aria-label={t.nav.submit}
+                title={t.nav.submit}
+                className="hidden h-9 w-9 items-center justify-center rounded-full bg-pink-soft text-base transition hover:-translate-y-0.5 sm:inline-flex xl:hidden"
+              >
+                🎂
               </Link>
               <Suspense>
                 <LanguageSwitcher current={locale} options={languageOptions} />
@@ -119,7 +128,7 @@ export default async function LocaleLayout({
               <PlannerButton locale={locale} label={t.nav.planner} />
             </div>
           </div>
-          <nav className="flex gap-5 overflow-x-auto px-4 pb-2.5 text-sm font-semibold text-muted md:hidden">
+          <nav className="flex gap-5 overflow-x-auto whitespace-nowrap px-4 pb-2.5 text-sm font-semibold text-muted lg:hidden">
             <Link href={`/${locale}/groups`} className="shrink-0">{t.nav.groups}</Link>
             <Link href={`/${locale}/birthdays`} className="shrink-0">{t.birthdays.nav}</Link>
             <Link href={`/${locale}/activities`} className="shrink-0">{t.activities.nav}</Link>

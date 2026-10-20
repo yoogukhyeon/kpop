@@ -1,16 +1,17 @@
 "use server";
 
 import { revalidatePath, revalidateTag } from "next/cache";
-import { headers } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { z } from "zod";
-import { isAdminAuthorized } from "@/lib/admin-auth";
+import { ADMIN_COOKIE, isAdminRequest } from "@/lib/admin-auth";
 import { seoulToday } from "@/lib/site";
 import { adminDb, DB_CACHE_TAG } from "@/lib/supabase";
 
 const AREAS = ["yongsan", "seongsu", "gangnam", "mapo", "songpa", "jung", "jongno", "gangdong", "yeouido", "guro"] as const;
 
 async function requireAdmin() {
-  if (!isAdminAuthorized((await headers()).get("authorization"))) throw new Error("Unauthorized");
+  const ok = await isAdminRequest((await headers()).get("authorization"), (await cookies()).get(ADMIN_COOKIE)?.value);
+  if (!ok) throw new Error("Unauthorized");
 }
 
 const approveInput = z.object({

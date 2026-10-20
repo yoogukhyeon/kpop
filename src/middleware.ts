@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { isAdminAuthorized } from "@/lib/admin-auth";
+import { ADMIN_COOKIE, isAdminRequest } from "@/lib/admin-auth";
 import { isLocale, pickLocale } from "@/lib/i18n";
 
 // The domain previously hosted an unrelated WordPress site (2021–2022). Its old
@@ -9,7 +9,7 @@ const LEGACY_PATH = /^\/(\d{4}\/\d{2}\/\d{2}\/|wp-(content|admin|includes|json)\
 /** Production host every other host (www, *.vercel.app) is redirected to. */
 const CANONICAL_HOST = process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL).host : null;
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (LEGACY_PATH.test(pathname) || req.nextUrl.searchParams.has("p")) {
@@ -34,11 +34,14 @@ export function middleware(req: NextRequest) {
   }
 
   if (pathname === "/admin" || pathname.startsWith("/admin/")) {
-    if (isAdminAuthorized(req.headers.get("authorization"))) return;
-    return new NextResponse("Authentication required", {
-      status: 401,
-      headers: { "WWW-Authenticate": 'Basic realm="SideQuest Day admin"' },
-    });
+    if (pathname === "/admin/login") return;
+    if (await isAdminRequest(req.headers.get("authorization"), req.cookies.get(ADMIN_COOKIE)?.value)) return;
+    // Scripts (POST /admin/revalidate) get a plain 401; people go to the login form.
+    if (pathname === "/admin/revalidate") return new NextResponse("Unauthorized", { status: 401 });
+    const url = req.nextUrl.clone();
+    url.pathname = "/admin/login";
+    url.search = `?next=${encodeURIComponent(pathname)}`;
+    return NextResponse.redirect(url, 303);
   }
 
   // Files and APIs below only needed the checks above.

@@ -13,7 +13,7 @@ export function PlannerButton({ locale, label }: { locale: string; label: string
   return (
     <Link
       href={`/${locale}#planner`}
-      className="btn hidden h-9 px-4 text-sm sm:inline-flex"
+      className="btn hidden h-9 whitespace-nowrap px-4 text-sm sm:inline-flex"
       onClick={(e) => {
         if (pathname !== `/${locale}`) return;
         e.preventDefault();

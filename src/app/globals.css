@@ -60,11 +60,6 @@ h1, h2, h3 {
 p, li, dd, summary {
   text-wrap: pretty;
 }
-/* Korean: break between words, not inside them. */
-:lang(ko) {
-  word-break: keep-all;
-  overflow-wrap: anywhere;
-}
 /* Vietnamese: Pretendard lacks many Vietnamese glyphs, so stacked diacritics
    came from a fallback font and rendered misaligned. System UI fonts (SF Pro,
    Segoe UI, Roboto) cover Vietnamese fully. */
@@ -80,9 +75,18 @@ p, li, dd, summary {
   word-break: keep-all;
   overflow-wrap: break-word;
 }
-/* Long URLs and unbroken strings never push the layout wider. */
-a, td, th {
+/* Links break only between words (a too-long single word still wraps instead
+   of overflowing); table cells may break anywhere so long URLs never widen them. */
+a {
+  overflow-wrap: break-word;
+}
+td, th {
   overflow-wrap: anywhere;
+}
+/* Short UI labels never split mid-word. */
+.btn, .btn-ghost, .chip, .chip-pink {
+  overflow-wrap: normal;
+  word-break: keep-all;
 }
 
 /* Touch devices: text links in menus, breadcrumbs, footers and link lists get a

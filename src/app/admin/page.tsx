@@ -1,4 +1,5 @@
 import { approveSubmission, moderateMessage, refreshSiteData, rejectSubmission } from "@/app/admin/actions";
+import { logout } from "@/app/admin/login/actions";
 import { listGroups } from "@/lib/data";
 import { getDictionary } from "@/lib/i18n";
 import { adminDb } from "@/lib/supabase";
@@ -51,9 +52,14 @@ export default async function AdminPage() {
       <CatalogReview />
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-extrabold">생일카페 등록 검토</h1>
-        <form action={refreshSiteData}>
-          <button className="btn-ghost">🔄 사이트 데이터 새로고침</button>
-        </form>
+        <div className="flex gap-2">
+          <form action={refreshSiteData}>
+            <button className="btn-ghost">🔄 사이트 데이터 새로고침</button>
+          </form>
+          <form action={logout}>
+            <button className="btn-ghost">로그아웃</button>
+          </form>
+        </div>
       </div>
       <p className="-mt-6 text-xs text-muted">DB를 직접 고치거나 시드를 다시 넣은 뒤 누르면 모든 페이지에 바로 반영됩니다.</p>
 
